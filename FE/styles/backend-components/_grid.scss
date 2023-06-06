@@ -1,0 +1,41 @@
+.image-fit {
+  position: relative;
+}
+
+.image-fit > img {
+  position: absolute;
+  -o-object-fit: cover;
+  object-fit: cover;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 200px;
+  min-height: 200px;
+}
+.iframe-data {
+  position: absolute;
+  -o-object-fit: cover;
+  object-fit: cover;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 200px;
+  min-height: 200px;
+  border-radius: 4px;
+}
+
+
+.box {
+  box-shadow: 0 3px 20px #0000000b;
+  background-color: #fff;
+  border-color: transparent;
+  border-radius: .375rem;
+  position: relative;
+}
+
+.zoom-in {
+  transition-property: transform,box-shadow;
+  transition-duration: .3s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  cursor: pointer;
+}

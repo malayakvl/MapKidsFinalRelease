@@ -1,0 +1,109 @@
+.sortable-block {
+  @apply float-right ml-8 min-w-[15px] min-h-[15px];
+  position: relative;
+  margin-top: 03px;
+}
+
+.btn_sort {
+  //@apply bg-gray-100 w-[24px] h-[24px] inline-block cursor-pointer border;
+  display: inline;
+  content: "";
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  //border: 6px solid transparent;
+  cursor: pointer;
+}
+.btn_sort.top.active, .btn_sort.top:hover {
+  background: url("../../public/images/sort-up-active.svg");
+  //border-bottom-color: #343a40;
+}
+.btn_sort.down.active, .btn_sort.down:hover {
+  background: url("../../public/images/sort-down-active.svg");
+  //border-top-color: #343a40;
+}
+.btn_sort.top {
+  background: url("../../public/images/sort-up.svg");
+  background-repeat: no-repeat;
+  height: 5px;
+  width: 8px;
+  background-position: center;
+  //border-bottom: 10px solid #999;
+  top: calc(50% - 6px);
+  right: 10px;
+}
+.btn_sort.down {
+  //border-top: 10px solid #999;
+  height: 5px;
+  width: 8px;
+  background-position: center;
+  background: url("../../public/images/sort-down.svg");
+  background-repeat: no-repeat;
+  bottom: calc(50% - 6px);
+  right: 10px;
+}
+
+.float-table {
+  thead tr {
+    @apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400;
+
+    th {
+      @apply py-3 px-6;
+    }
+  }
+
+  tbody tr{
+    @apply bg-white border-b dark:bg-gray-900 dark:border-gray-700;
+
+    td {
+      @apply py-2 px-6;
+    }
+  }
+}
+
+.button_table_action {
+  text-indent: -99999px;
+  white-space: nowrap;
+  background-repeat: no-repeat;
+  @apply mr-1 w-[24px] h-[24px] border-0 bg-transparent inline-block cursor-pointer rounded-lg float-right;
+}
+.btn-edit {
+  background-image: url("../../public/images/btn-edit.svg");
+}
+.btn-view {
+  background-image: url("../../public/images/btn-view.svg");
+}
+.btn-delete {
+  background-image: url("../../public/images/btn-delete.svg");
+}
+
+.page-link {
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+.page-item.active {
+  .page-link {
+    background-color: #8d8f92;
+    border-color:#8d8f92;
+  }
+}
+.page-link {
+  color: #8d8f92;
+  text-decoration: none;
+}
+.actions {
+  text-align: right !important;
+}
+
+.list-data-table th {
+    text-transform: uppercase;
+    padding-left: 15px;
+}
+.list-data-table th.actions {
+    text-align: center !important;
+}
+.list-data-table th.active {
+    text-align: center !important;
+}

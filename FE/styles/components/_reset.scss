@@ -1,0 +1,164 @@
+*:focus {
+    outline: none;
+}
+
+a {
+  //color: #428DFC;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  //color: #428DFC;
+}
+
+
+.hide {
+  display: none !important;
+}
+
+.data-group {
+  color: #7182ad;
+  margin-left: 5px;
+  margin-top: 15px;
+}
+
+.full-content {
+    width: 100%;
+}
+
+body.modal-open {
+  overflow: visible;
+}
+
+.modal-open {
+  overflow: hidden;
+  padding-right: 0px !important;
+}
+
+.modal-content {
+  border-radius: 0px !important;
+  padding: 0.5rem;
+}
+
+.modal-header {
+  border-bottom: none;
+  padding: 0px;
+}
+
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #ad5284;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 5px;
+}
+
+#leather-menu, #color-menu  {
+  height: 245px;
+  position: relative;
+}
+
+#shadow-site {
+  opacity: 0.7;
+}
+
+.clearfix {
+  clear: both;
+}
+
+clearfix::after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+.m-bottom-90 {
+    margin-bottom: 90px;
+}
+
+.m-bottom-50 {
+    margin-bottom: 50px;
+}
+
+.m-bottom-105 {
+    margin-bottom: 105px;
+}
+
+.ptop-90 {
+    padding-top: 90px !important;
+}
+
+.row-reverce {
+    display: table;
+}
+
+.row-reverce-full {
+    display: table;
+    width: 100%;
+}
+
+.m-xl-bottom-30 {
+
+    @include more($large) {
+        margin-bottom: 30px !important;
+    }
+}
+
+
+.m-sm-bottom-50 {
+
+    @include less($extra-large) {
+        margin-bottom: 50px !important;
+    }
+}
+
+.sm-ptop-50 {
+    @include less($large) {
+        padding-top: 50px !important;
+    }
+}
+
+.top-sm-50 {
+    @include less($large) {
+        margin-top: 50px !important;
+    }
+}
+
+.no-scroll {
+    overflow-y: hidden;
+    background: #ebebeb;
+    height: 100%;
+}
+
+.no-gutter {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+@include less($large) {
+  .scrolled-content {
+      overflow-x: hidden;
+      overflow-y: scroll;
+  }
+}
+
+
+.unvisible {
+  visibility: hidden;
+}
