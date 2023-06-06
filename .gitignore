@@ -122,3 +122,4 @@ FE/.env
 /DataMapKids/
 /BE/src/api/html/
 /FE/package-lock.json
+/BE/templates/
