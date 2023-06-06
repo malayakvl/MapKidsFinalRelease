@@ -103,11 +103,11 @@ dist
 # TernJS port file
 .tern-port
 
-dev.back/node_modules
-dev.back/.env
+BE/node_modules
+BE/.env
 
-dev.front/node_modules
-dev.front/.env
+FE/node_modules
+FE/.env
 .idea
 /.idea/workspace.xml
 /.idea/eslint.xml
@@ -115,9 +115,9 @@ dev.front/.env
 
 /.vscode/
 .DS_Store
-/dev.back/public/uploads/htmlTemp/
-/dev.back/public/uploads/logos/
-/dev.back/public/uploads/pdfTemp/
-/dev.back/public/uploads/pptTemp/
+/BE/uploads/photos/
+/BE/public/uploads/tmp/
 /DELETE/
-/dev.back/package-lock.json
+/BE/package-lock.json
+/DataMapKids/
+/BE/src/api/html/
