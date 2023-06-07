@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState, Fragment } from "react";
+import React, { useCallback, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useTranslations } from "next-intl";
-import { DataTable, ButtonTableAction } from "../../components/_common";
+// import { useTranslations } from "next-intl";
+import { DataTable } from "../../components/_common";
 import { PaginationType } from "../../constants";
-import {
-  checkedIdsSelector,
-  paginationSelectorFactory,
-} from "../../redux/layouts/selectors";
+// import {
+//   checkedIdsSelector,
+//   paginationSelectorFactory,
+// } from "../../redux/layouts/selectors";
 // import { checkIdsAction, initIdsAction } from '../../redux/layouts';
 import {
   itemCountSelector,
@@ -17,22 +17,22 @@ import {
   bulkDeleteAction,
   deleteItemAction,
 } from "../../redux/articles/actions";
-import { setModalConfirmationMetaAction } from "../../redux/layouts";
+// import { setModalConfirmationMetaAction } from "../../redux/layouts";
 // import { setActivePageAction } from '../../redux/layouts/actions';
 import Image from "next/image";
 
 const ListDatas: React.FC<any> = () => {
-  const t = useTranslations();
+  // const t = useTranslations();
   const dispatch = useDispatch();
   const count = useSelector(itemCountSelector);
 
   const items = useSelector(paginatedItemsSelector);
-  const checkedIds = useSelector(checkedIdsSelector);
+  // const checkedIds = useSelector(checkedIdsSelector);
 
-  const [filterOpen, setFilterOpen] = useState(false);
-  const { filters }: Layouts.Pagination = useSelector(
-    paginationSelectorFactory(PaginationType.ARTICLES)
-  );
+  // const [filterOpen, setFilterOpen] = useState(false);
+  // const { filters }: Layouts.Pagination = useSelector(
+  //   paginationSelectorFactory(PaginationType.ARTICLES)
+  // );
 
   const sendRequest = useCallback(() => {
     return dispatch(fetchItemsAction());

@@ -1,11 +1,10 @@
-import { Button, Card, Input, Row } from "antd";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 
-const MySunEditor = ({ initialTemplateName = "", initialTempVar = [] }) => {
-  const [templateName, setTemplateName] = useState(initialTemplateName);
-  const [tempVar, setTempVar] = useState(initialTempVar);
+const MySunEditor = () => {
+  // const [templateName, setTemplateName] = useState(initialTemplateName);
+  // const [tempVar, setTempVar] = useState(initialTempVar);
 
   /**
    * @type {React.MutableRefObject<SunEditor>} get type definitions for editor
@@ -19,41 +18,32 @@ const MySunEditor = ({ initialTemplateName = "", initialTempVar = [] }) => {
 
   return (
     <div className="mt-10">
-      <Row>
-        <SunEditor
-          setOptions={{
-            buttonList: [
-              ["font", "fontSize", "formatBlock"],
-              [
-                "bold",
-                "underline",
-                "italic",
-                "strike",
-                "subscript",
-                "superscript",
-              ],
-              ["align", "horizontalRule", "list", "table"],
-              ["fontColor", "hiliteColor"],
-              ["outdent", "indent"],
-              ["undo", "redo"],
-              ["removeFormat"],
-              ["outdent", "indent"],
-              ["link", "image"],
-              ["preview", "print"],
-              ["fullScreen", "showBlocks", "codeView"],
+      <SunEditor
+        setOptions={{
+          buttonList: [
+            ["font", "fontSize", "formatBlock"],
+            [
+              "bold",
+              "underline",
+              "italic",
+              "strike",
+              "subscript",
+              "superscript",
             ],
-          }}
-          getSunEditorInstance={getSunEditorInstance}
-          height="60vh"
-        />
-      </Row>
-      <Row>
-        {tempVar?.map((variable, index) => (
-          <span className="m-10" key={index}>
-            {variable}
-          </span>
-        ))}
-      </Row>
+            ["align", "horizontalRule", "list", "table"],
+            ["fontColor", "hiliteColor"],
+            ["outdent", "indent"],
+            ["undo", "redo"],
+            ["removeFormat"],
+            ["outdent", "indent"],
+            ["link", "image"],
+            ["preview", "print"],
+            ["fullScreen", "showBlocks", "codeView"],
+          ],
+        }}
+        getSunEditorInstance={getSunEditorInstance}
+        height="60vh"
+      />
     </div>
   );
 };
