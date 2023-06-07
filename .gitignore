@@ -122,3 +122,4 @@ FE/.env
 /DataMapKids/
 /BE/src/api/html/
 /FE/.vscode/
+/FE/package-lock.json

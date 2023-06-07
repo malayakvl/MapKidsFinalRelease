@@ -42,9 +42,8 @@ const ListDatas: React.FC<any> = () => {
     return dispatch(bulkDeleteAction());
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("items updated", items);
-  }, [items]);
+  // useEffect(() => {
+  // }, [items]);
 
   return (
     <>

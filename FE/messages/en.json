@@ -8,5 +8,9 @@
   "Table is empty": "No record found",
   "Showing": "Showing",
   "to": "to",
-  "entries": "entries"
+  "entries": "entries",
+  "count_characters": "{charNumber} Characters",
+  "Must be less characters": "Must be less characters",
+  "Required field": "Required field",
+  "Add Article": "Add Article"
 }

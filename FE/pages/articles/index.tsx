@@ -2,7 +2,7 @@ import Head from "next/head";
 import { getSession } from "next-auth/react";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ListItems } from "../../components/Articles";
+import { ListItems, ArticleForm } from "../../components/Articles";
 import { activeTabSelectorFactory } from "../../redux/layouts/selectors";
 import { setActivePageAction } from "../../redux/layouts";
 import BackendLayout from "../../components/Layout/BackendLayout";
@@ -26,6 +26,16 @@ export default function Index({
         modifier: type,
       })
     );
+  };
+
+  const formData = {
+    id: null,
+    title: "",
+    title_image: "",
+    article_text: "",
+    status: true,
+    created_at: null,
+    updated_at: null,
   };
 
   return (
@@ -66,6 +76,9 @@ export default function Index({
           </div>
           <ListItems locale={locale} />
         </>
+      )}
+      {activeLayout.tab === "form" && (
+        <ArticleForm locale={locale} articleData={formData} photos={[]} />
       )}
     </>
   );

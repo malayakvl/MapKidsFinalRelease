@@ -8,7 +8,7 @@ export default NextAuth({
   pages: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",
-    error: "/auth/signin?authError=Auth Failed", // Error code passed in query string as ?error=
+    error: "/auth/signin?authError=Something went wrong", // Error code passed in query string as ?error=
   },
   providers: [
     CredentialsProvider({
@@ -23,7 +23,6 @@ export default NextAuth({
         if (res.ok && resp.user) {
           return resp.user;
         }
-        // return null;
         throw `/auth/signin`;
       },
     }),
