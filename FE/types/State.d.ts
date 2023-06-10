@@ -5,6 +5,8 @@ declare namespace State {
     profile: Profile;
     stepData: StepData;
     settings: Settings;
+    locations: Locations;
+    countries: Countries;
     user: User;
     images: Images;
     videos: Videos;
@@ -19,4 +21,5 @@ declare namespace State {
   type Articles = Articles.Root;
   type User = User.Root;
   type Settings = Settings.Root;
+  type Countries = Countries.Root;
 }

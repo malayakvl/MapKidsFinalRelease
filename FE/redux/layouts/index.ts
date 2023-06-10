@@ -18,7 +18,8 @@ import {
   setModalConfirmationMetaAction,
   toggleMenuAction,
   toggleSubmenuAction,
-  setActivePageAction
+  setActivePageAction,
+  setEditorContentAction,
 } from "./actions";
 import { PaginationType } from "../../constants";
 
@@ -37,24 +38,40 @@ const initialState: State.Layouts = {
       sort: "DESC",
       column: "created_at",
       filters: {
-        created_at: []
-      }
+        created_at: [],
+      },
     },
     [PaginationType.VIDEOS]: {
       ...initPagination,
       sort: "DESC",
       column: "created_at",
       filters: {
-        created_at: []
-      }
+        created_at: [],
+      },
+    },
+    [PaginationType.LOCATIONS]: {
+      ...initPagination,
+      sort: "DESC",
+      column: "created_at",
+      filters: {
+        created_at: [],
+      },
     },
     [PaginationType.ARTICLES]: {
       ...initPagination,
       sort: "DESC",
       column: "created_at",
       filters: {
-        created_at: []
-      }
+        created_at: [],
+      },
+    },
+    [PaginationType.COUNTRIES]: {
+      ...initPagination,
+      sort: "DESC",
+      column: "created_at",
+      filters: {
+        created_at: [],
+      },
     },
   },
   toggleMenu: false,
@@ -70,10 +87,11 @@ const initialState: State.Layouts = {
   modalConfirmationMeta: null,
   submenuDisplayStatus: [],
   activeTab: {
-    images: { tab: 'list' },
-    articles: { tab: 'list' },
-    videos: { tab: 'list' }
-  }
+    images: { tab: "list" },
+    articles: { tab: "list" },
+    videos: { tab: "list" },
+  },
+  editorContent: "",
 };
 
 // ------------------------------------
@@ -229,21 +247,26 @@ const ACTION_HANDLERS: any = {
     },
   }),
   [setActivePageAction]: (
-      state: State.Layouts,
-      action: Type.ReduxAction<{
-        type: string;
-        modifier: string;
-      }>
+    state: State.Layouts,
+    action: Type.ReduxAction<{
+      type: string;
+      modifier: string;
+    }>
   ): State.Layouts => ({
     ...state,
     activeTab: {
       ...state.activeTab,
       [action.payload.type]: {
-        tab: action.payload.modifier
-      }
-    }
+        tab: action.payload.modifier,
+      },
+    },
   }),
-
+  [setEditorContentAction]: {
+    next: (state: State.Layouts, action: Action<boolean>): State.Layouts => ({
+      ...state,
+      isReload: false,
+    }),
+  },
 };
 
 export {

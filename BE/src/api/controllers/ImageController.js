@@ -1,6 +1,7 @@
 import pool from '../models/connect.js';
 import imagesModel from '../models/Image.js';
 import multer from 'multer';
+import fs from "fs";
 // import SharpMulter from 'sharp-multer';
 
 class ImageController {
@@ -50,7 +51,18 @@ class ImageController {
 
             return res.status(200).json({ success: true });
         });
-
+    }
+    async deletePhoto (req, res) {
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        }
+        await productModel.deletePhoto(req.params.id, req.user.id, req.body.data);
+        // delete photo
+        fs.unlink(`${process.env.DOWNLOAD_FOLDER}/${req.body.data.replace('/uploads', '')}`,function(err){
+            if(err) return console.log(err);
+        });
+        // fs.unlinkSync(`public/${req.body.data}`);
+        return res.status(200).json({ success: true });
     }
 }
 

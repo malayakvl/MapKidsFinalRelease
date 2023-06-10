@@ -6,6 +6,7 @@ import ArticleController from '../controllers/ArticleController.js';
 import VideoController from '../controllers/ArticleController.js';
 import UserController from '../controllers/UserController.js';
 import SettingsController from '../controllers/SettingsController.js';
+import LocationController from "../controllers/LocationController.js";
 import userModel from '../models/User.js';
 
 const apiRoutes = express.Router();
@@ -35,6 +36,11 @@ apiRoutes.use(async (req, res, next) => {
 });
 apiRoutes.get('/settings/fetch-item', SettingsController.getSettingsData);
 apiRoutes.post('/settings', SettingsController.submitSettingsData);
+/** ===================================================================== */
+/** ================== VIDEOS ROUTES ===  =============================== */
+/** ===================================================================== */
+apiRoutes.get('/countries/fetch-items', LocationController.fetchItems);
+
 /** ===================================================================== */
 /** ================== IMAGES ROUTES ==================================== */
 /** ===================================================================== */

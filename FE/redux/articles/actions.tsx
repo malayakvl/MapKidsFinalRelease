@@ -6,7 +6,7 @@ import {
   setErrorToastAction,
   setInfoToastAction,
 } from "../layouts";
-import { setUserAction } from "../user/";
+// import { setUserAction } from "../user/";
 import { showLoaderAction } from "../../redux/layouts/actions";
 import { baseApiUrl } from "../../constants";
 const baseUrl = `${baseApiUrl}/api`;
@@ -97,6 +97,33 @@ export const bulkDeleteAction: any = createAction(
         });
     }
 );
+export const crudAction: any = createAction(
+  "articles/CRUD_ACTION",
+  async (formData: any) =>
+    async (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<void> => {
+      const state = getState();
+      dispatch(showLoaderAction(true));
+      return axios
+        .post(
+          `${baseUrl}/articles/crud`,
+          { data: JSON.stringify(state.layouts.checkedIds) },
+          {
+            headers: {
+              ...authHeader(state.user.user.email),
+            },
+          }
+        )
+        .then(async () => {
+          dispatch(showLoaderAction(false));
+          dispatch(setSuccessToastAction("Items has been updated"));
+          await dispatch(fetchItemsAction());
+        });
+    }
+);
+
 // export const uploadDoneAction: any = createAction('images/UPLOAD_DONE');
 // export const addUploadedFile: any = createAction('images/ADD_UPLOADED_FILE');
 // export const removeUploadedFile: any = createAction('images/REMOVE_UPLOADED_FILE');

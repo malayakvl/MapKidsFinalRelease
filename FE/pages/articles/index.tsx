@@ -78,7 +78,7 @@ export default function Index({
         </>
       )}
       {activeLayout.tab === "form" && (
-        <ArticleForm locale={locale} articleData={formData} photos={[]} />
+        <ArticleForm articleData={formData} photos={[]} />
       )}
     </>
   );

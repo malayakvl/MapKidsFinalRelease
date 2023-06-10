@@ -1,7 +1,5 @@
 import { Action, handleActions } from "redux-actions";
-import {
-  fetchItemsAction,
-} from "./actions";
+import { fetchItemsAction, crudAction } from "./actions";
 
 const initialState: {
   uploadedFiles: any[];
@@ -20,7 +18,7 @@ const initialState: {
   checkedIds: [],
   count: 0,
   image: null,
-  uploadDone:null
+  uploadDone: null,
 };
 
 const ACTION_HANDLERS: any = {
@@ -38,7 +36,7 @@ const ACTION_HANDLERS: any = {
   },
 };
 
-export { fetchItemsAction };
+export { fetchItemsAction, crudAction };
 
 // ------------------------------------
 // Reducer

@@ -4,6 +4,8 @@ declare namespace Layouts {
       images: Pagination;
       videos: Pagination;
       articles: Pagination;
+      locations: Pagination;
+      countries: Pagination;
     };
     toggleMenu: boolean;
     checkedIds: CheckedIds[];
@@ -22,6 +24,7 @@ declare namespace Layouts {
       articles: TabTypes;
       videos: TabTypes;
     };
+    editorContent: string;
   }
 
   interface TabTypes {

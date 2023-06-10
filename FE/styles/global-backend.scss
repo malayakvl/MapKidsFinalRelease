@@ -244,6 +244,50 @@ body, html {
   margin: 0px !important;
 }
 
+.unactive-left-menu {
+  @apply h-[50px] flex items-center pl-5 text-white
+    mb-1 relative rounded-full z-10
+    before:content-[''] before:w-[30px] before:h-[30px] before:-mt-[30px]
+   before:rotate-90 before:scale-[1.04] before:bg-[length:100%] before:absolute
+   before:top-0 before:right-0 before:-mr-5
+   after:content-[''] after:w-[30px] after:h-[30px] after:mt-[50px] after:scale-[1.04]
+   after:bg-[length:100%] after:absolute after:top-0 after:right-0 after:-mr-5 md:flex
+}
+.text-menu {
+  @apply hidden xl:flex items-center w-full ml-3 text-slate-800 font-medium dark:text-slate-300;
+}
+.left-icons {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-size: cover;
+}
+.dash-purple {
+  background-image: url("../public/images/backend/icons/dashboard-p.svg");
+}
+.dash-white {
+  background-image: url("../public/images/backend/icons/dashboard-w.svg");
+}
+.gallery-purple {
+  background-image: url("../public/images/backend/icons/dashboard-p.svg");
+}
+.gallery-purple {
+  background-image: url("../public/images/backend/icons/gallery-p.svg");
+}
+.location-purple {
+  background-image: url("../public/images/backend/icons/locations-p.svg");
+}
+.location-white {
+  background-image: url("../public/images/backend/icons/locations-w.svg");
+}
+
+.unactive-left-menu {
+  .icon-dashboard {
+    background-image: url("../public/images/backend/icons/dashboard-w.svg");
+  }
+}
+
+
 
 @import "components/variables";
 @import 'components/mixins';

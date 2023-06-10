@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
+import { setEditorContentAction } from "../../redux/layouts/actions";
 
 const MySunEditor = () => {
   // const [templateName, setTemplateName] = useState(initialTemplateName);
@@ -14,7 +15,9 @@ const MySunEditor = () => {
   const getSunEditorInstance = (sunEditor: any) => {
     editor.current = sunEditor;
   };
-  // const handleCreate = () => {};
+  const handleChange = (content: any) => {
+    setEditorContentAction(content);
+  };
 
   return (
     <div className="mt-10">
@@ -41,6 +44,10 @@ const MySunEditor = () => {
             ["fullScreen", "showBlocks", "codeView"],
           ],
         }}
+        lang="en"
+        name={`article_description`}
+        defaultValue={`hello world`}
+        onChange={handleChange}
         getSunEditorInstance={getSunEditorInstance}
         height="60vh"
       />

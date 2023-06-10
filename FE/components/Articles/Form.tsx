@@ -3,25 +3,25 @@ import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { Formik } from "formik";
-import { InputText } from "../_form";
+import { InputText, InputSwitcher } from "../_form";
 import dynamic from "next/dynamic";
+import { useDispatch } from "react-redux";
+import { crudAction } from "../../redux/articles/actions";
 
 const MySunEditor = dynamic(() => import("./Editor"), {
   ssr: false,
 });
 
 function ArticleForm({
-  locale,
   articleData,
   photos,
 }: {
-  locale: string;
   articleData: Articles.ItemData;
   photos: string[];
 }) {
   const t = useTranslations();
-  // const dispatch = useDispatch();
-  // const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     // if (editorRef?.current) {
@@ -46,7 +46,8 @@ function ArticleForm({
       onSubmit={(values) => {
         // dispatch(setIdentAction(false));
         const formData = new FormData();
-        // dispatch(updateProductAction(formData, values.id));
+        console.log(values);
+        dispatch(crudAction(formData, values.id));
       }}
     >
       {(props) => {
@@ -55,6 +56,15 @@ function ArticleForm({
         return (
           <form onSubmit={props.handleSubmit} className="mt-5">
             <div className="w-full">
+              <div className="mb-4 md:w-full">
+                <InputSwitcher
+                  label={"status"}
+                  name={"status"}
+                  style={null}
+                  props={props}
+                  // onChange={onChangeConfigured}
+                />
+              </div>
               <div className="mb-4 md:w-full">
                 <InputText
                   icon={null}
@@ -74,7 +84,10 @@ function ArticleForm({
                 <MySunEditor />
               </div>
             </div>
-            <button type="submit" className="gradient-btn">
+            <button
+              type="submit"
+              className="btn bg-purple-800 inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer text-white shadow-md mr-[10px]"
+            >
               {props.values.id ? t("Update Article") : t("Add Article")}
             </button>
           </form>

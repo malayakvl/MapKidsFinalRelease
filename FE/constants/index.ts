@@ -8,6 +8,8 @@ export enum PaginationType {
   IMAGES = "images",
   ARTICLES = "articles",
   VIDEOS = "videos",
+  COUNTRIES = "countries",
+  LOCATIONS = "locations",
 }
 
 export const TableHeaders: { [key in PaginationType]: Type.DataTableHeader[] } =
@@ -22,6 +24,18 @@ export const TableHeaders: { [key in PaginationType]: Type.DataTableHeader[] } =
     ],
     [PaginationType.ARTICLES]: [
       { titleKey: "title" },
+      { titleKey: "created_at" },
+      { titleKey: "active", className: "text-center uppercase" },
+      { titleKey: "Actions", className: "actions" },
+    ],
+    [PaginationType.LOCATIONS]: [
+      { titleKey: "name" },
+      { titleKey: "created_at" },
+      { titleKey: "active", className: "text-center uppercase" },
+      { titleKey: "Actions", className: "actions" },
+    ],
+    [PaginationType.COUNTRIES]: [
+      { titleKey: "name" },
       { titleKey: "created_at" },
       { titleKey: "active", className: "text-center uppercase" },
       { titleKey: "Actions", className: "actions" },

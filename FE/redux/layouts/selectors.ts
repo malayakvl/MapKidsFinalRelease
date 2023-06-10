@@ -8,8 +8,16 @@ const rootSelector = createSelector(
   (state: State.Root) => state.layouts,
   (layouts: State.Layouts): State.Layouts => layouts
 );
+export const editorContentSelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): string => layouts.editorContent
+);
+
 export const activeTabSelectorFactory = (type: string) =>
-    createSelector(rootSelector, (formula: State.Layouts): any => (formula.activeTab as any)[type]);
+  createSelector(
+    rootSelector,
+    (formula: State.Layouts): any => (formula.activeTab as any)[type]
+  );
 export const toggleMenuSelector = createSelector(
   rootSelector,
   (layouts: State.Layouts): boolean => layouts.toggleMenu

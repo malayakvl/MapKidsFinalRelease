@@ -23,7 +23,6 @@ class SettingsController {
             }
         }
     }
-
 }
 
 export default new SettingsController();
