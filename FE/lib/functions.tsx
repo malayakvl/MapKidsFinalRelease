@@ -23,7 +23,6 @@ export function authHeader(email: string) {
 }
 
 export const toggleModalPopup = (element: any) => {
-  // const body = document.querySelector('body');
   const modal = document.querySelector(element);
   (modal as any).classList.toggle("opacity-0");
   (modal as any).classList.toggle("pointer-events-none");
@@ -31,7 +30,6 @@ export const toggleModalPopup = (element: any) => {
 };
 
 export const toggleModalConfirmation = () => {
-  // const body = document.querySelector('body');
   const modal = document.querySelector(".modal-confirmation");
   (modal as any).classList.toggle("opacity-0");
   (modal as any).classList.toggle("pointer-events-none");
@@ -40,11 +38,5 @@ export const toggleModalConfirmation = () => {
 
 export const getWindowDimensions = () => {
   if (typeof window !== "undefined") {
-    console.log(window);
-    // const { innerWidth: width, innerHeight: height } = window;
-    // return {
-    //   width,
-    //   height,
-    // };
   }
 };

@@ -100,19 +100,15 @@ class AuthController {
     async getInvitation(req, res) {
         if (!req.params) {
             return res.status(404).json({})
-
         }
 
         if (!req.params.hash) {
             return res.status(404).json({})
-
         }
 
         let hash = await invitationModel.findByHash(req.params.hash)
-
         if (hash && hash.active) {
             return res.status(200).json(hash);
-
         }
 
         return res.status(404).json({})

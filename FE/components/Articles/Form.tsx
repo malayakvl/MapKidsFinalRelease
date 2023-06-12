@@ -6,7 +6,7 @@ import { Formik } from "formik";
 import { InputText, InputSwitcher } from "../_form";
 import dynamic from "next/dynamic";
 import { useDispatch } from "react-redux";
-import { crudAction } from "../../redux/articles/actions";
+import { crudAction } from "../../redux/articles";
 
 const MySunEditor = dynamic(() => import("./Editor"), {
   ssr: false,
@@ -23,20 +23,14 @@ function ArticleForm({
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
 
-  useEffect(() => {
-    // if (editorRef?.current) {
-    //   console.log(editorRef?.current?.editor);
-    // }
-  }, []);
-
   const SubmitSchema = Yup.object().shape({
     title: Yup.string()
       .max(140, t("Must be less characters", { charNumber: 140 }))
       .required(t("Required field")),
   });
-  useEffect(() => {
-    console.log("here we are");
-  }, []);
+  // useEffect(() => {
+  //   console.log("here we are");
+  // }, []);
 
   return (
     <Formik

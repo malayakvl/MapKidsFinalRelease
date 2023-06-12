@@ -21,6 +21,32 @@
   }
 }
 
+.icon-block {
+  //border:solid 1px red;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+}
+.icon-block.dashboard {
+  background-image: url("../../public/images/backend/icons/dashboard-p.svg");
+}
+.unactive-left-menu .icon-block.dashboard {
+  background-image: url("../../public/images/backend/icons/dashboard-w.svg");
+}
+.icon-block.locations {
+  background-image: url("../../public/images/backend/icons/locations-p.svg");
+}
+.unactive-left-menu .icon-block.locations {
+  background-image: url("../../public/images/backend/icons/locations-w.svg");
+}
+.icon-block.videos {
+  background-image: url("../../public/images/backend/icons/youtube-p.svg");
+}
+.unactive-left-menu .icon-block.videos {
+  background-image: url("../../public/images/backend/icons/youtube-w.svg");
+}
+
 
 ///* Sidebar */
 //

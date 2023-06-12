@@ -1,7 +1,7 @@
 import { createAction } from "redux-actions";
 import axios from "axios";
-import { authHeader } from "../../lib/functions";
-import { showLoaderAction } from "../layouts/actions";
+import { authHeader, toggleModalConfirmation } from "../../lib/functions";
+import { setSuccessToastAction, showLoaderAction } from "../layouts/actions";
 import { baseApiUrl } from "../../constants";
 const baseUrl = `${baseApiUrl}/api`;
 import { paginationSelectorFactory } from "../layouts/selectors";
@@ -45,79 +45,66 @@ export const fetchItemsAction: any = createAction(
         });
     }
 );
-// export const deleteItemAction: any = createAction(
-//   "countries/DELETE_ITEM",
-//   async (id: number) =>
-//     (dispatch: Type.Dispatch, getState: () => State.Root): Promise<void> => {
-//       const state = getState();
-//       dispatch(showLoaderAction(true));
-//       return axios
-//         .delete(`${baseUrl}/countries/delete/${id}`, {
-//           headers: {
-//             ...authHeader(state.user.user.email),
-//           },
-//         })
-//         .then(async () => {
-//           dispatch(showLoaderAction(false));
-//           await dispatch(fetchItemsAction());
-//           dispatch(setSuccessToastAction("Items has been deleted"));
-//           toggleModalConfirmation();
-//         });
-//     }
-// );
-// export const bulkDeleteAction: any = createAction(
-//   "countries/BULK_DELETE",
-//   async () =>
-//     async (
-//       dispatch: Type.Dispatch,
-//       getState: () => State.Root
-//     ): Promise<void> => {
-//       const state = getState();
-//       dispatch(showLoaderAction(true));
-//       return axios
-//         .post(
-//           `${baseUrl}/countries/bulk-delete`,
-//           { data: JSON.stringify(state.layouts.checkedIds) },
-//           {
-//             headers: {
-//               ...authHeader(state.user.user.email),
-//             },
-//           }
-//         )
-//         .then(async () => {
-//           dispatch(showLoaderAction(false));
-//           dispatch(setSuccessToastAction("Items has been deleted"));
-//           await dispatch(fetchItemsAction());
-//         });
-//     }
-// );
-// export const crudAction: any = createAction(
-//   "countries/CRUD_ACTION",
-//   async (formData: any) =>
-//     async (
-//       dispatch: Type.Dispatch,
-//       getState: () => State.Root
-//     ): Promise<void> => {
-//       const state = getState();
-//       dispatch(showLoaderAction(true));
-//       return axios
-//         .post(
-//           `${baseUrl}/countries/crud`,
-//           { data: JSON.stringify(state.layouts.checkedIds) },
-//           {
-//             headers: {
-//               ...authHeader(state.user.user.email),
-//             },
-//           }
-//         )
-//         .then(async () => {
-//           dispatch(showLoaderAction(false));
-//           dispatch(setSuccessToastAction("Items has been updated"));
-//           await dispatch(fetchItemsAction());
-//         });
-//     }
-// );
+export const fetchItemAction: any = createAction(
+  "orders/FETCH_ITEM",
+  async (id: number) =>
+    async (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<{ item: Countries.Item }> => {
+      const state = getState();
+      dispatch(showLoaderAction(true));
+      const res = await axios.get(`${baseUrl}/countries/`, {
+        headers: {
+          ...authHeader(state.user.user.email),
+        },
+      });
+      if (res.status) {
+        dispatch(showLoaderAction(false));
+      }
+      return {
+        item: res.data.item,
+      };
+    }
+);
 
-// export const uploadDoneAction: any = createAction('images/UPLOAD_DONE');
-// export const addUploadedFile: any = createAction('images/ADD_UPLOADED_FILE');
-// export const removeUploadedFile: any = createAction('images/REMOVE_UPLOADED_FILE');
+export const unactiveItemAction: any = createAction(
+  "countries/UNACTIVE_ITEM",
+  async (id: number) =>
+    (dispatch: Type.Dispatch, getState: () => State.Root): Promise<void> => {
+      const state = getState();
+      dispatch(showLoaderAction(true));
+      return axios
+        .delete(`${baseUrl}/countries/unactive/${id}`, {
+          headers: {
+            ...authHeader(state.user.user.email),
+          },
+        })
+        .then(async () => {
+          dispatch(showLoaderAction(false));
+          await dispatch(fetchItemsAction());
+          dispatch(setSuccessToastAction("Items has been deleted"));
+          toggleModalConfirmation();
+        });
+    }
+);
+export const activeItemAction: any = createAction(
+  "countries/CTIVE_ITEM",
+  async (id: number) =>
+    (dispatch: Type.Dispatch, getState: () => State.Root): Promise<void> => {
+      const state = getState();
+      dispatch(showLoaderAction(true));
+      return axios
+        .delete(`${baseUrl}/countries/active/${id}`, {
+          headers: {
+            ...authHeader(state.user.user.email),
+          },
+        })
+        .then(async () => {
+          dispatch(showLoaderAction(false));
+          await dispatch(fetchItemsAction());
+          dispatch(setSuccessToastAction("Items has been deleted"));
+          toggleModalConfirmation();
+        });
+    }
+);

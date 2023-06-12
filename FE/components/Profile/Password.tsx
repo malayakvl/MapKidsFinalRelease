@@ -19,6 +19,7 @@ export default function Password() {
   const user = useSelector(userSelector);
   const profileData = useSelector(profileSelector);
   const emailError = useSelector(existEmailSelector);
+
   const filePickerRef = useRef<HTMLInputElement>(null);
   const [imagePost, setImagePost] = useState<File>();
   const [isNewPhoto, setIsNewPhoto] = useState(false);
@@ -31,16 +32,16 @@ export default function Password() {
 
   useEffect(() => {
     if (emailError) {
-      console.log("Email Error Comes Here");
+      console.log("Email Error Comes here");
     }
   }, [emailError]);
 
-  const addImageToPost = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    if (!filePickerRef.current?.files?.length) return;
-    setImagePost(filePickerRef.current.files[0]);
-    setIsNewPhoto(true);
-  };
+  // const addImageToPost = (e: React.SyntheticEvent) => {
+  //   e.preventDefault();
+  //   if (!filePickerRef.current?.files?.length) return;
+  //   setImagePost(filePickerRef.current.files[0]);
+  //   setIsNewPhoto(true);
+  // };
 
   const SubmitSchema = Yup.object().shape({
     email: Yup.string()
@@ -122,10 +123,4 @@ export async function getServerSideProps(context: any) {
       },
     };
   }
-
-  // @ts-ignore
-  // return {
-  //   props: {},
-  //   },
-  // };
 }

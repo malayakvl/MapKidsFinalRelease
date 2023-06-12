@@ -45,6 +45,45 @@ class Location {
             client.release();
         }
     }
+
+    async activeAction (id, type) {
+        const client = await pool.connect();
+        try {
+            await client.query(`UPDATE data.countries SET active=${type == 1 ?  false : true};`);
+            const size = _total.rows[0].total;
+            let offset;
+            if (reqOffset) {
+                offset = reqOffset;
+            } else {
+                offset = (Number(page) - 1) * Number(perPage);
+            }
+            const error = null;
+            return {
+                items,
+                size,
+                error
+            };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Location Active/Unactive Action):',
+                    { message: e.message }
+                );
+            }
+            const error = {
+                code: 500,
+                message: 'Error active/unactive country',
+                error: e.message
+            };
+            return {
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+
 }
 
 export default new Location();

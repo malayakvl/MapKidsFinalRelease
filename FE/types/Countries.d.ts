@@ -5,8 +5,8 @@ declare namespace Countries {
     uploadedFiles: File[];
     checkedIds: number[];
     count: number;
-    // image: ImageItem;
     items: any[];
+    item: any;
     uploadDone: boolean | null;
   }
 

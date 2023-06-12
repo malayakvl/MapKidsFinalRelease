@@ -6,8 +6,9 @@ import {
   itemCountSelector,
   paginatedItemsSelector,
 } from "../../redux/countries/selectors";
-import { fetchItemsAction } from "../../redux/countries/actions";
+import { fetchItemsAction } from "../../redux/countries";
 import Image from "next/image";
+import Link from "next/link";
 
 const ListDatas: React.FC<any> = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const ListDatas: React.FC<any> = () => {
     return dispatch(fetchItemsAction());
   }, [dispatch]);
 
+  const inactivateItem = (item: any) => {
+    // dispatch(unactiveItemAction(item.id));
+  };
   return (
     <>
       <div className="mt-7">
@@ -42,7 +46,11 @@ const ListDatas: React.FC<any> = () => {
                 </td>
                 <td className="px-5 py-3 dark:border-darkmode-300 first:rounded-l-md last:rounded-r-md bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
                   {item.active ? (
-                    <div className="flex items-center justify-center text-success">
+                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+                    <div
+                      onClick={() => inactivateItem(item)}
+                      className="flex items-center justify-center text-success"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -61,7 +69,11 @@ const ListDatas: React.FC<any> = () => {
                       Active
                     </div>
                   ) : (
-                    <div className="flex items-center justify-center text-danger">
+                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+                    <div
+                      onClick={() => inactivateItem(item)}
+                      className="cursor-pointer flex items-center justify-center text-danger"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"

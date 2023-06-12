@@ -17,22 +17,13 @@ import {
   bulkDeleteAction,
   deleteItemAction,
 } from "../../redux/articles/actions";
-// import { setModalConfirmationMetaAction } from "../../redux/layouts";
-// import { setActivePageAction } from '../../redux/layouts/actions';
 import Image from "next/image";
 
 const ListDatas: React.FC<any> = () => {
-  // const t = useTranslations();
   const dispatch = useDispatch();
   const count = useSelector(itemCountSelector);
 
   const items = useSelector(paginatedItemsSelector);
-  // const checkedIds = useSelector(checkedIdsSelector);
-
-  // const [filterOpen, setFilterOpen] = useState(false);
-  // const { filters }: Layouts.Pagination = useSelector(
-  //   paginationSelectorFactory(PaginationType.ARTICLES)
-  // );
 
   const sendRequest = useCallback(() => {
     return dispatch(fetchItemsAction());
@@ -69,7 +60,7 @@ const ListDatas: React.FC<any> = () => {
                 </td>
                 <td className="px-5 py-3 dark:border-darkmode-300 first:rounded-l-md last:rounded-r-md bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
                   {item.active ? (
-                    <div className="flex items-center justify-center text-success">
+                    <div className="flex cursor-pointer items-center justify-center text-success">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"

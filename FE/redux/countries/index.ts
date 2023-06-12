@@ -34,7 +34,7 @@ const ACTION_HANDLERS: any = {
   },
 };
 
-// export { fetchItemsAction, crudAction };
+export { fetchItemsAction };
 
 // ------------------------------------
 // Reducer

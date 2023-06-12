@@ -30,7 +30,6 @@ function CountryForm({ countryData }: { countryData: any }) {
       initialValues={countryData}
       validationSchema={SubmitSchema}
       onSubmit={(values) => {
-        // dispatch(setIdentAction(false));
         const formData = new FormData();
         dispatch(crudAction(formData, values.id));
       }}

@@ -40,6 +40,10 @@ apiRoutes.post('/settings', SettingsController.submitSettingsData);
 /** ================== VIDEOS ROUTES ===  =============================== */
 /** ===================================================================== */
 apiRoutes.get('/countries/fetch-items', LocationController.fetchItems);
+apiRoutes.get('/countries/active-item', LocationController.activeItem);
+apiRoutes.get('/countries/unactive-item', LocationController.unactiveItem);
+
+apiRoutes.post('/countries/edit', LocationController.editItem);
 
 /** ===================================================================== */
 /** ================== IMAGES ROUTES ==================================== */
