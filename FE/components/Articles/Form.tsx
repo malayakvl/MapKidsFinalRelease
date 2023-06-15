@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Formik } from "formik";
 import { InputText, InputSwitcher } from "../_form";
 import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 import { crudAction } from "../../redux/articles";
 import { toastsSelector } from "../../redux/layouts/selectors";
-import Select, { StylesConfig } from "react-select";
+import Select from "react-select";
 
 // import {articleItemSelector} from "../../redux/articles/selectors";
 // import { setEmptyFormAction } from "../../redux/articles/actions";
@@ -90,18 +90,18 @@ function ArticleForm({
                   // onChange={onChangeConfigured}
                 />
               </div>
-              <div className="mb-4">
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label className="control-label">Country</label>
-                <div className="relative">
-                  <em className="input-tips">Select one</em>
-                  <Select
-                    value={null}
-                    onChange={() => console.log(123)}
-                    options={options}
-                  />
-                </div>
-              </div>
+              {/*<div className="mb-4">*/}
+              {/*  /!* eslint-disable-next-line jsx-a11y/label-has-associated-control *!/*/}
+              {/*  <label className="control-label">Country</label>*/}
+              {/*  <div className="relative">*/}
+              {/*    <em className="input-tips">Select one</em>*/}
+              {/*    <Select*/}
+              {/*      value={null}*/}
+              {/*      onChange={() => console.log(123)}*/}
+              {/*      options={options}*/}
+              {/*    />*/}
+              {/*  </div>*/}
+              {/*</div>*/}
               <div className="mb-4 md:w-full">
                 <InputText
                   icon={null}

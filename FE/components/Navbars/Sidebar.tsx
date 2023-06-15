@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { signOut } from "next-auth/react";
-import { setActivePageAction } from "../../redux/layouts";
+// import { signOut } from "next-auth/react";
+// import { setActivePageAction } from "../../redux/layouts";
 import { useDispatch } from "react-redux";
 
 // import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setPaletteAction } from "../../redux/countries";
 
 interface Props {

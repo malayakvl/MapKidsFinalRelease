@@ -1,6 +1,6 @@
 import pool from './connect.js';
 import { logger } from '../../common/logger.js';
-import fs from "fs";
+// import fs from "fs";
 
 class Article {
     async getAll (page, perPage = 20, reqOffset = null) {

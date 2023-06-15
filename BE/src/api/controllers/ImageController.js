@@ -7,7 +7,7 @@ import fs from "fs";
 class ImageController {
     // async fetchItems (page, perPage = 25, user, isRead = false, reqOffset = null, filters, column, sort) {
     async fetchItems (req, res) {
-        const client = await pool.connect();
+        // const client = await pool.connect();
         const { limit, offset, queryFilter, column, sort } = req.query;
         if (!req.user) {
             return res.status(401).json('Access deny');

@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {modalConfirmationMetaSelector, modalMarkerConfirmationMetaSelector} from "../../redux/layouts/selectors";
+import { modalMarkerConfirmationMetaSelector } from "../../redux/layouts/selectors";
 import { setModalConfirmationMetaAction } from "../../redux/layouts";
 import { Modal } from "../_common";
 import { toggleModalConfirmation } from "../../lib/functions";

@@ -75,7 +75,7 @@ export const modalConfirmationMetaSelector = createSelector(
     layouts.modalConfirmationMeta
 );
 export const modalMarkerConfirmationMetaSelector = createSelector(
-    rootSelector,
-    (layouts: State.Layouts): Layouts.ModalConfirmationMeta | null =>
-        layouts.modalConfirmationMeta
+  rootSelector,
+  (layouts: State.Layouts): Layouts.ModalConfirmationMeta | null =>
+    layouts.modalConfirmationMeta
 );

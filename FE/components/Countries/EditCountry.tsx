@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Formik } from "formik";
 import Range from "rc-slider";
 import "rc-slider/assets/index.css";

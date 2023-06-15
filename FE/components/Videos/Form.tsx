@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { InputText, InputTextarea } from "../_form";
+import { InputTextarea } from "../_form";
 import { Formik } from "formik";
 import { submitFormAction } from "../../redux/videos";
 

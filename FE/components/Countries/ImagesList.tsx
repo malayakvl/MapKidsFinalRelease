@@ -14,7 +14,7 @@ import { fetchAllItemsAction } from "../../redux/images";
 
 const ImageList: React.FC<any> = () => {
   const dispatch = useDispatch();
-  const count = useSelector(itemCountSelector);
+  // const count = useSelector(itemCountSelector);
   const items = useSelector(nonpaginatedItemsSelector);
   const checkedIds = useSelector(checkedImageIdsSelector);
   const countrySelectorData = useSelector(countryItemSelector);

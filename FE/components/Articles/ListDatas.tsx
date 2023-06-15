@@ -17,7 +17,7 @@ import {
   bulkDeleteAction,
   deleteItemAction,
 } from "../../redux/articles/actions";
-import Image from "next/image";
+// import Image from "next/image";
 import {
   setActivePageAction,
   setModalConfirmationMetaAction,

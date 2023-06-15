@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,12 +9,12 @@ import {
   layerOpacitySelector,
   mapLoadedSelector,
 } from "../../redux/countries/selectors";
-import { loadMapAction, initMapAction, addMarkerAction } from "../../redux/countries";
 import {
-  setModalConfirmationMetaAction,
-  setModalMarkerConfirmationMetaAction,
-} from "../../redux/layouts";
-import { deleteItemAction } from "../../redux/articles/actions";
+  loadMapAction,
+  initMapAction,
+  addMarkerAction,
+} from "../../redux/countries";
+import { setModalConfirmationMetaAction } from "../../redux/layouts";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
@@ -89,7 +89,9 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
           // })
           setModalConfirmationMetaAction({
             onConfirm: async () =>
-              dispatch(addMarkerAction(coordinates, 123)).then(console.log("hahah")),
+              dispatch(addMarkerAction(coordinates, 123)).then(
+                console.log("hahah")
+              ),
           })
         );
       });

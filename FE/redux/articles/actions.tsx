@@ -1,12 +1,7 @@
 import { createAction } from "redux-actions";
 import axios from "axios";
 import { authHeader, toggleModalConfirmation } from "../../lib/functions";
-import {
-  setSuccessToastAction,
-  setActivePageAction,
-  setErrorToastAction,
-  setInfoToastAction,
-} from "../layouts";
+import { setSuccessToastAction, setActivePageAction } from "../layouts";
 import { showLoaderAction } from "../layouts/actions";
 import { baseApiUrl } from "../../constants";
 const baseUrl = `${baseApiUrl}/api`;
