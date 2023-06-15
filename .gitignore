@@ -119,7 +119,7 @@ FE/.env
 /BE/public/uploads/tmp/
 /DELETE/
 /BE/package-lock.json
-/DataMapKids/
+/_DataMapKids/
 /BE/src/api/html/
 /FE/.vscode/
 /FE/package-lock.json

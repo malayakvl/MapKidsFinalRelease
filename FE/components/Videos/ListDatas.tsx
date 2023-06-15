@@ -11,7 +11,7 @@ import { checkIdsAction, initIdsAction } from "../../redux/layouts";
 import {
   itemCountSelector,
   paginatedItemsSelector,
-} from "../../redux/articles/selectors";
+} from "../../redux/videos/selectors";
 import {
   fetchItemsAction,
   bulkDeleteAction,
@@ -32,7 +32,7 @@ const ListDatas: React.FC<any> = () => {
 
   const [filterOpen, setFilterOpen] = useState(false);
   const { filters }: Layouts.Pagination = useSelector(
-    paginationSelectorFactory(PaginationType.IMAGES)
+    paginationSelectorFactory(PaginationType.VIDEOS)
   );
 
   const sendRequest = useCallback(() => {
@@ -99,15 +99,12 @@ const ListDatas: React.FC<any> = () => {
                       className={"btn-delete"}
                     />
                     <div className="iframe-data">
-                      <iframe
-                        width="100%"
-                        height="209"
-                        src="https://www.youtube.com/embed/DFejhPTdfS4"
-                        title="IBIZA SUMMER MIX 2022🍓Best Of Tropical Deep House Music Chill Out Mix 2022🍓Ambient Chillout Lounge"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: item.code,
+                        }}
                       />
+                      {/*<div dangerouslySetInnerHTML={item.code} />*/}
                     </div>
                   </div>
                 </div>

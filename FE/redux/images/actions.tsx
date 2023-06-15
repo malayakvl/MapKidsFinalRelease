@@ -51,6 +51,34 @@ export const fetchItemsAction: any = createAction(
         });
     }
 );
+export const fetchAllItemsAction: any = createAction(
+  "images/FETCH_ALL_ITEMS",
+  async () =>
+    (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<{ count: any; allItems: any }> => {
+      const state = getState();
+      // const { limit, offset, sort, column, query, filters } =
+      //   paginationSelectorFactory(PaginationType.IMAGES)(state);
+      // const queryFilter = JSON.stringify(filters);
+      dispatch(showLoaderAction(true));
+      return axios
+        .get(`${baseUrl}/images/fetch-all-items?${queryString.stringify({})}`, {
+          headers: {
+            ...authHeader(state.user.user.email),
+          },
+        })
+        .then((res: any) => {
+          dispatch(showLoaderAction(false));
+          return {
+            count: res.data.count,
+            allItems: res.data.items,
+          };
+        });
+    }
+);
+
 export const deleteItemAction: any = createAction(
   "images/DELETE_ITEM",
   async (id: number) =>

@@ -25,7 +25,6 @@ export const TableHeaders: { [key in PaginationType]: Type.DataTableHeader[] } =
     [PaginationType.ARTICLES]: [
       { titleKey: "title" },
       { titleKey: "created_at" },
-      { titleKey: "active", className: "text-center uppercase" },
       { titleKey: "Actions", className: "actions" },
     ],
     [PaginationType.LOCATIONS]: [

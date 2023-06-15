@@ -9,6 +9,8 @@ declare namespace Layouts {
     };
     toggleMenu: boolean;
     checkedIds: CheckedIds[];
+    checkedImageIds: CheckedIds[];
+    checkedVideoIds: CheckedIds[];
     toasts: Toast[];
     isDataLoading: boolean;
     isReload: boolean;
@@ -18,11 +20,13 @@ declare namespace Layouts {
     dbRowId: number | null;
     switchHeader: boolean;
     modalConfirmationMeta: ModalConfirmationMeta | null;
+    modalMarkerConfirmationMeta: ModalConfirmationMeta | null;
     submenuDisplayStatus: any;
     activeTab: {
       images: TabTypes;
       articles: TabTypes;
       videos: TabTypes;
+      countries: TabTypes;
     };
     editorContent: string;
   }

@@ -1,5 +1,9 @@
 import { Action, handleActions } from "redux-actions";
-import { fetchItemsAction, submitFormAction } from "./actions";
+import {
+  fetchItemsAction,
+  submitFormAction,
+  fetchAllItemsAction,
+} from "./actions";
 
 const initialState: {
   checkedIds: any[];
@@ -8,6 +12,7 @@ const initialState: {
   loading: boolean;
   items: any[];
   image: any;
+  allItems: any[];
 } = {
   items: [],
   loading: false,
@@ -15,6 +20,7 @@ const initialState: {
   checkedIds: [],
   count: 0,
   image: null,
+  allItems: [],
 };
 
 const ACTION_HANDLERS: any = {
@@ -26,7 +32,19 @@ const ACTION_HANDLERS: any = {
       ...state,
       ...action.payload,
     }),
-    throw: (state: State.Images): State.Videos => ({
+    throw: (state: State.Videos): State.Videos => ({
+      ...state,
+    }),
+  },
+  [fetchAllItemsAction]: {
+    next: (
+      state: State.Videos,
+      action: Type.ReduxAction<Pick<State.Videos, "allItems">>
+    ): State.Videos => ({
+      ...state,
+      ...action.payload,
+    }),
+    throw: (state: State.Videos): State.Videos => ({
       ...state,
     }),
   },
@@ -40,7 +58,7 @@ const ACTION_HANDLERS: any = {
   },
 };
 
-export { fetchItemsAction, submitFormAction };
+export { fetchItemsAction, submitFormAction, fetchAllItemsAction };
 
 // ------------------------------------
 // Reducer

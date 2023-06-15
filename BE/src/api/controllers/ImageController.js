@@ -17,6 +17,17 @@ class ImageController {
         }
     }
 
+    async fetchAllItems (req, res) {
+        const client = await pool.connect();
+        // const { limit, offset, queryFilter, column, sort } = req.query;
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            const data = await imagesModel.getAll(1, 1000000, 0, null, null, null);
+            return res.status(200).json({ count: data.size, items: data.items});
+        }
+    }
+
     async uploadImages(req, res) {
         if (!req.user) {
             return res.status(401).json('Access deny');

@@ -1,37 +1,33 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
 // ------------------------------------
 // Selectors
 // ------------------------------------
 const rootSelector = createSelector(
-    (state: State.Root) => state.images,
-    (images: State.Images): State.Images => images
-);
-export const uploadFinish = createSelector(
-    rootSelector,
-    (images: State.Images): boolean | null => images.uploadDone
+  (state: State.Root) => state.videos,
+  (videos: State.Videos): State.Videos => videos
 );
 export const isFetchedSelector = createSelector(
-    rootSelector,
-    (images: State.Images): boolean => images.isFetched
-);
-export const uploadedFilesSelector = createSelector(
-    rootSelector,
-    (images: State.Images): File[] => images.uploadedFiles
+  rootSelector,
+  (videos: State.Videos): boolean => videos.isFetched
 );
 export const paginatedItemsSelector = createSelector(
-    rootSelector,
-    (images: State.Images): any => images.items
+  rootSelector,
+  (videos: State.Videos): any => videos.items
 );
 export const itemCountSelector = createSelector(
-    rootSelector,
-    (images: State.Images): number => images.count
+  rootSelector,
+  (videos: State.Videos): number => videos.count
+);
+export const nonpaginatedItemsSelector = createSelector(
+  rootSelector,
+  (videos: State.Videos): any => videos.allItems
 );
 // export const productItemSelector = createSelector(
 //     rootSelector,
 //     (products: State.Products): Products.Product => products.product
 // );
 export const isFetchSelector = createSelector(
-    rootSelector,
-    (images: State.Images): boolean => images.isFetched
+  rootSelector,
+  (videos: State.Videos): boolean => videos.isFetched
 );

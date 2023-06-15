@@ -46,4 +46,20 @@
   }
 }
 
+.btn-edit {
+  background-image: url("../../public/images/btn-edit.svg");
+}
+.btn-delete {
+  background-image: url("../../public/images/btn-delete.svg");
+}
+
+.button_table_action {
+  text-indent: -99999px;
+  white-space: nowrap;
+  background-repeat: no-repeat;
+  background-size: contain;
+  @apply mr-1 w-[12px] h-[12px] border-0 bg-transparent inline-block cursor-pointer float-right;
+}
+
+
 

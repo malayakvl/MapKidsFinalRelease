@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "rc-slider": "^10.2.1",
+    "react-color": "^2.19.3",
+    "react-select": "^5.7.3"
+  }
+}

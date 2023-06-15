@@ -10,6 +10,8 @@ import type { ReactElement, ReactNode } from "react";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { Provider as ReduxProvider } from "react-redux";
+// import { Toasts, ConfirmationModal } from '../components/_common';
+
 // import { Toasts } from '../components/_common';
 import "react-toastify/dist/ReactToastify.css";
 import store from "../app/store";
@@ -62,6 +64,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             />
             <title>Mapkids Application</title>
             <link rel="icon" href="globe.png" />
+            <link
+              href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css"
+              rel="stylesheet"
+            />
             {/*<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />*/}
             {/*<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js" />*/}
             {/*<link*/}

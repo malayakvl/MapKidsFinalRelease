@@ -21,14 +21,24 @@ const ButtonGridAction: React.FC<Props> = memo(
   }) => {
     // const t = useTranslations();
     return (
-      <input
-        disabled={disabled}
-        data-id={dataId}
-        className={`button_table_action ${className}`}
-        onClick={onClick}
-        type="button"
-        value={locale || (localeKey && localeKey)}
-      />
+      <div className="inline-block cursor-pointer">
+        <input
+          disabled={disabled}
+          data-id={dataId}
+          className={`float-left button_table_action ${className}`}
+          onClick={onClick}
+          type="button"
+          value={locale || (localeKey && localeKey)}
+        />
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+        <span
+          onClick={onClick}
+          data-id={dataId}
+          className={`float-right ${className}-text`}
+        >
+          {localeKey}
+        </span>
+      </div>
     );
   }
 );

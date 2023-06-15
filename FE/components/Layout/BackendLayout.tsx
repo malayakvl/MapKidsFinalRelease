@@ -10,7 +10,7 @@ import {
 import { fetchUserAction, setUserAction } from "../../redux/user";
 import { userSelector } from "../../redux/user/selectors";
 import Sidebar from "../Navbars/Sidebar";
-import AdminNavbar from "../Navbars/TopNavbar";
+// import AdminNavbar from "../Navbars/TopNavbar";
 import { ToastContainer, toast } from "react-toastify";
 import { deleteToastAction } from "../../redux/layouts";
 import { ConfirmationModal } from "../_common";
@@ -89,7 +89,7 @@ export default function BackendLayout({ children }: { children: any }) {
             <Sidebar />
             <div className="rounded-[30px] min-w-0 min-h-screen flex-1 pb-10 bg-slate-100 dark:bg-darkmode-700 px-4 md:px-[22px] max-w-full md:max-w-auto before:content-[''] before:w-full before:h-px before:block">
               <div className="h-[67px] z-[51] flex items-center relative border-b border-slate-200">
-                <nav className="flex hidden mr-auto -intro-x sm:flex">
+                <nav className="hidden mr-auto -intro-x sm:flex">
                   <ol className="flex items-center text-primary dark:text-slate-300">
                     <li className="">Application</li>
                   </ol>
@@ -117,7 +117,7 @@ export default function BackendLayout({ children }: { children: any }) {
                     </svg>
                   </div>
                 </div>
-                <div className="relative">
+                <div className="relative z-50">
                   <div
                     className="cursor-pointer block w-8 h-8 overflow-hidden rounded-full shadow-lg image-fit zoom-in intro-x"
                     aria-haspopup="menu"
@@ -133,7 +133,9 @@ export default function BackendLayout({ children }: { children: any }) {
 
               <div>{children}</div>
             </div>
-            <ConfirmationModal />
+
+            {/*РАЗОБРАТЬСЯ С ОТОБРАЖЕНИЕ МОДАЛКИ КОНФИРМАЦИИ БЛОКИРУЕТ КОНТЕНТ*/}
+            {/*<ConfirmationModal />*/}
           </div>
         </div>
       ) : (

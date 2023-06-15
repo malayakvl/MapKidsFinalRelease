@@ -1,7 +1,6 @@
 import React, { useCallback, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useTranslations } from "next-intl";
-import { DataTable } from "../../components/_common";
+import { DataTable, ButtonTableAction } from "../../components/_common";
 import { PaginationType } from "../../constants";
 // import {
 //   checkedIdsSelector,
@@ -14,10 +13,15 @@ import {
 } from "../../redux/articles/selectors";
 import {
   fetchItemsAction,
+  fetchItemAction,
   bulkDeleteAction,
   deleteItemAction,
 } from "../../redux/articles/actions";
 import Image from "next/image";
+import {
+  setActivePageAction,
+  setModalConfirmationMetaAction,
+} from "../../redux/layouts";
 
 const ListDatas: React.FC<any> = () => {
   const dispatch = useDispatch();
@@ -32,6 +36,27 @@ const ListDatas: React.FC<any> = () => {
   const sendDeleteRequest = useCallback(() => {
     return dispatch(bulkDeleteAction());
   }, [dispatch]);
+
+  const handleDeleteBtnClick = useCallback(
+    (event: React.SyntheticEvent): void => {
+      const id = Number(event.currentTarget.getAttribute("data-id"));
+      dispatch(
+        setModalConfirmationMetaAction({
+          onConfirm: async () =>
+            dispatch(deleteItemAction(id)).then(sendRequest),
+        })
+      );
+    },
+    [dispatch, sendRequest]
+  );
+
+  const handleEditBtnClick = useCallback(
+    (event: React.SyntheticEvent): void => {
+      const id = Number(event.currentTarget.getAttribute("data-id"));
+      dispatch(fetchItemAction(id));
+    },
+    [items, dispatch]
+  );
 
   // useEffect(() => {
   // }, [items]);
@@ -58,73 +83,48 @@ const ListDatas: React.FC<any> = () => {
                 >
                   {item.created_at}
                 </td>
-                <td className="px-5 py-3 dark:border-darkmode-300 first:rounded-l-md last:rounded-r-md bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b]">
-                  {item.active ? (
-                    <div className="flex cursor-pointer items-center justify-center text-success">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="stroke-1.5 w-4 h-4 mr-2"
-                      >
-                        <polyline points="9 11 12 14 22 4"></polyline>
-                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                      </svg>
-                      Active
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center text-danger">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="stroke-1.5 w-4 h-4 mr-2"
-                      >
-                        <polyline points="9 11 12 14 22 4"></polyline>
-                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                      </svg>
-                      Inactive
-                    </div>
-                  )}
-                </td>
                 <td
                   className="px-5 dark:border-darkmode-300 first:rounded-l-md last:rounded-r-md w-56 bg-white border-b-0 dark:bg-darkmode-600 shadow-[20px_3px_20px_#0000000b] py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400"
                   style={{ minWidth: "150px" }}
                 >
-                  <div className="flex items-center justify-center">
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a className="flex items-center mr-3" href="">
-                      <Image
-                        src="/images/btn-edit.svg"
-                        width={16}
-                        height={20}
-                        alt=""
-                      />
-                      &nbsp;Edit
-                    </a>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a className="flex items-center text-danger" href="#">
-                      <Image
-                        src="/images/btn-delete.svg"
-                        width={16}
-                        height={20}
-                        alt=""
-                      />
-                      &nbsp;Delete
-                    </a>
-                  </div>
+                  <ButtonTableAction
+                    dataId={String(item.id)}
+                    localeKey="Edit"
+                    className={"btn-edit"}
+                    onClick={handleEditBtnClick}
+                  />
+                  &nbsp;&nbsp;
+                  <ButtonTableAction
+                    dataId={String(item.id)}
+                    localeKey="Delete"
+                    className={"btn-delete"}
+                    onClick={handleDeleteBtnClick}
+                  />
+                  {/*<div className="flex items-center justify-center">*/}
+                  {/*  /!* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions *!/*/}
+                  {/*  <span*/}
+                  {/*    onClick={() => handleEditBtnClick(item.id)}*/}
+                  {/*    className="flex items-center mr-3 cursor-pointer"*/}
+                  {/*  >*/}
+                  {/*    <Image*/}
+                  {/*      src="/images/btn-edit.svg"*/}
+                  {/*      width={16}*/}
+                  {/*      height={20}*/}
+                  {/*      alt=""*/}
+                  {/*    />*/}
+                  {/*    &nbsp;Edit*/}
+                  {/*  </span>*/}
+                  {/*  /!* eslint-disable-next-line jsx-a11y/anchor-is-valid *!/*/}
+                  {/*  <a className="flex items-center text-danger" href="#">*/}
+                  {/*    <Image*/}
+                  {/*      src="/images/btn-delete.svg"*/}
+                  {/*      width={16}*/}
+                  {/*      height={20}*/}
+                  {/*      alt=""*/}
+                  {/*    />*/}
+                  {/*    &nbsp;Delete*/}
+                  {/*  </a>*/}
+                  {/*</div>*/}
                 </td>
               </tr>
             </Fragment>

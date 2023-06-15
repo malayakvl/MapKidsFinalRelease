@@ -3,7 +3,7 @@ import * as express from 'express';
 // import DashboardController from '../controllers/DashboardController.js';
 import ImageController from '../controllers/ImageController.js';
 import ArticleController from '../controllers/ArticleController.js';
-import VideoController from '../controllers/ArticleController.js';
+import VideoController from '../controllers/VideoController.js';
 import UserController from '../controllers/UserController.js';
 import SettingsController from '../controllers/SettingsController.js';
 import LocationController from "../controllers/LocationController.js";
@@ -42,13 +42,14 @@ apiRoutes.post('/settings', SettingsController.submitSettingsData);
 apiRoutes.get('/countries/fetch-items', LocationController.fetchItems);
 apiRoutes.get('/countries/active-item', LocationController.activeItem);
 apiRoutes.get('/countries/unactive-item', LocationController.unactiveItem);
-
-apiRoutes.post('/countries/edit', LocationController.editItem);
+apiRoutes.get('/countries/fetch-item/:id', LocationController.fetchItem);
+apiRoutes.post('/countries/update-item', LocationController.updateItem);
 
 /** ===================================================================== */
 /** ================== IMAGES ROUTES ==================================== */
 /** ===================================================================== */
 apiRoutes.get('/images/fetch-items', ImageController.fetchItems);
+apiRoutes.get('/images/fetch-all-items', ImageController.fetchAllItems);
 // apiRoutes.post('/images/bulk-delete', ImageController.bulkDelete);
 apiRoutes.post('/images/upload-photos', ImageController.uploadImages);
 
@@ -56,14 +57,17 @@ apiRoutes.post('/images/upload-photos', ImageController.uploadImages);
 /** ================== ARTICLES ROUTES ================================== */
 /** ===================================================================== */
 apiRoutes.get('/articles/fetch-items', ArticleController.fetchItems);
-// apiRoutes.get('/articles/fetch-item', ArticleController.fetchItem);
-// apiRoutes.post('/articles/edit-item', ArticleController.editItem);
+apiRoutes.get('/articles/fetch-item/:id', ArticleController.fetchItem);
+apiRoutes.post('/articles/edit-item', ArticleController.editItem);
+apiRoutes.route('/articles/delete/:id').delete(ArticleController.deleteRow);
 // apiRoutes.post('/articles/bulk-delete', ArticleController.bulkDelete);
 
 /** ===================================================================== */
 /** ================== VIDEOS ROUTES ==================================== */
 /** ===================================================================== */
 apiRoutes.get('/videos/fetch-items', VideoController.fetchItems);
+apiRoutes.post('/videos/save-item', VideoController.addVideo);
+apiRoutes.get('/videos/fetch-all-items', VideoController.fetchAllItems);
 
 
 apiRoutes.route('/profile')

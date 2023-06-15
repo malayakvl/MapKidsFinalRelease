@@ -8,11 +8,11 @@ import { submitFormAction } from "../../redux/videos";
 const VideoForm: React.FC<any> = () => {
   const dispatch = useDispatch();
   const SubmitSchema = Yup.object().shape({
-    imageUrl: Yup.string()
-      .trim("Cannot include leading and trailing spaces")
-      .min(3, "Must be at least 3 characters")
-      .strict(true)
-      .required("You must enter image url"),
+    // imageUrl: Yup.string()
+    //   .trim("Cannot include leading and trailing spaces")
+    //   .min(3, "Must be at least 3 characters")
+    //   .strict(true)
+    //   .required("You must enter image url"),
   });
 
   return (
@@ -27,17 +27,17 @@ const VideoForm: React.FC<any> = () => {
       >
         {(props) => (
           <form onSubmit={props.handleSubmit} className="mt-5 w-full">
-            <div className="mb-3">
-              <InputText
-                icon={null}
-                label={"Video Url"}
-                name={"url"}
-                placeholder={"Video URL"}
-                style=""
-                props={props}
-                tips={null}
-              />
-            </div>
+            {/*<div className="mb-3">*/}
+            {/*  <InputText*/}
+            {/*    icon={null}*/}
+            {/*    label={"Video Url"}*/}
+            {/*    name={"url"}*/}
+            {/*    placeholder={"Video Name"}*/}
+            {/*    style=""*/}
+            {/*    props={props}*/}
+            {/*    tips={null}*/}
+            {/*  />*/}
+            {/*</div>*/}
             <div className="mb-3">
               <InputTextarea
                 icon={null}

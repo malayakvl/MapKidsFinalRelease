@@ -42,4 +42,13 @@ export const setSwitchToggleAction: any = createAction(
 export const setModalConfirmationMetaAction: any = createAction(
   "layouts/SET_MODAL_DELETE_CONFIRMATION"
 );
+export const setModalMarkerConfirmationMetaAction: any = createAction(
+  "layouts/SET_MODAL_MARKER_ADD"
+);
 export const toggleSubmenuAction: any = createAction("layouts/TOGGLE_SUBMENU");
+export const initImageIdsAction: any = createAction(
+  "layouts/INIT_ALL_IMAGE_IDS"
+);
+export const checkImageIdsAction: any = createAction(
+  "layouts/CHECK_ALL_IMAGE_IDS"
+);

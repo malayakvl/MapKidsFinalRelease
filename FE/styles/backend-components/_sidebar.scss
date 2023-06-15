@@ -7,10 +7,10 @@
         before:-mt-[30px] before:rotate-90 before:scale-[1.04]
         before:bg-[length:100%]  before:absolute
         before:top-0 before:right-0 before:-mr-5
-        after:content-['']
-        after:w-[30px] after:h-[30px] after:mt-[50px] after:scale-[1.04]
+        after:content-[''] after:bg-whiteGray-50
+        after:w-[44px] after:h-[48px] after:mt-[50px] after:scale-[1.04]
         after:bg-[length:100%] after:absolute
-        after:top-0 after:right-0 after:-mr-5 md:flex;
+        after:top-[-49px] after:right-0 after:-mr-5 md:flex;
     }
     .icon-block {
       @apply text-sm

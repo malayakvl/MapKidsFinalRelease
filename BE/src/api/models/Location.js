@@ -84,6 +84,82 @@ class Location {
         }
     }
 
+    async fetchOne(id) {
+        const client = await pool.connect();
+        try {
+            const rowsQuery = `SELECT * FROM data.countries WHERE id='${id}';`;
+            const res = await client.query(rowsQuery);
+            const item = res.rows.length > 0 ? res.rows[0] : {};
+            const error = null;
+            return {
+                item,
+                error
+            };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Article getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+
+    async updateRecord(data, id) {
+        const client = await pool.connect();
+        try {
+            const rowsQuery = `UPDATE data.countries SET 
+                images='${JSON.stringify(data.images)}',
+                videos='${JSON.stringify(data.videos)}',
+                fill_color='${data.fillColor ? data.fillColor : ''}',
+                fill_opacity='${data.fillOpacity ? data.fillOpacity : ''}',
+                description=$$${data.description}$$
+                WHERE id='${id}'`;
+            console.log(rowsQuery);
+            await client.query(rowsQuery);
+
+            const res = await client.query(`SELECT * FROM data.countries WHERE id='${id}'`);
+            const item = res.rows.length > 0 ? res.rows[0] : {};
+            const error = null;
+            return {
+                item,
+                error
+            };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Article getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
 }
 
 export default new Location();

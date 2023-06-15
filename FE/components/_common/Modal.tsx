@@ -42,10 +42,10 @@ const Modal: React.FC<Props> = ({
   const dispatch = useDispatch();
   return (
     <div
-      className="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center modal-confirmation"
+      className="modal opacity-0 pointer-events-none fixed w-full h-full flex items-center justify-center modal-confirmation"
       {...props}
     >
-      <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" />
+      <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50 top-0 left-0" />
 
       <div className="modal-container w-11/12 md:max-w-md mx-auto rounded shadow-lg overflow-y-auto">
         {/*Add margin if you want to see some of the overlay behind the modal*/}

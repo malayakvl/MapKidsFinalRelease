@@ -1,6 +1,7 @@
 import { Action, handleActions } from "redux-actions";
 import {
   fetchItemsAction,
+  fetchAllItemsAction,
   addUploadedFile,
   removeUploadedFile,
   uploadDoneAction,
@@ -13,10 +14,12 @@ const initialState: {
   count: number;
   loading: boolean;
   items: any[];
+  allItems: any[];
   image: any;
   uploadDone: any;
 } = {
   items: [],
+  allItems: [],
   loading: false,
   isFetched: false,
   uploadedFiles: [],
@@ -28,6 +31,18 @@ const initialState: {
 
 const ACTION_HANDLERS: any = {
   [fetchItemsAction]: {
+    next: (
+      state: State.Images,
+      action: Type.ReduxAction<Pick<State.Images, "items">>
+    ): State.Images => ({
+      ...state,
+      ...action.payload,
+    }),
+    throw: (state: State.Images): State.Images => ({
+      ...state,
+    }),
+  },
+  [fetchAllItemsAction]: {
     next: (
       state: State.Images,
       action: Type.ReduxAction<Pick<State.Images, "items">>
@@ -72,6 +87,7 @@ export {
   addUploadedFile,
   removeUploadedFile,
   uploadDoneAction,
+  fetchAllItemsAction,
 };
 
 // ------------------------------------

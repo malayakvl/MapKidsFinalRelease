@@ -19,6 +19,9 @@ module.exports = {
   },
   theme: {
     colors: {
+      whiteGray: {
+        50: "#f1f5f9",
+      },
       blueGray: {
         50: "#f8fafc",
         100: "#f1f5f9",

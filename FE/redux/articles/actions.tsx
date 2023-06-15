@@ -3,11 +3,11 @@ import axios from "axios";
 import { authHeader, toggleModalConfirmation } from "../../lib/functions";
 import {
   setSuccessToastAction,
+  setActivePageAction,
   setErrorToastAction,
   setInfoToastAction,
 } from "../layouts";
-// import { setUserAction } from "../user/";
-import { showLoaderAction } from "../../redux/layouts/actions";
+import { showLoaderAction } from "../layouts/actions";
 import { baseApiUrl } from "../../constants";
 const baseUrl = `${baseApiUrl}/api`;
 import { paginationSelectorFactory } from "../layouts/selectors";
@@ -97,9 +97,38 @@ export const bulkDeleteAction: any = createAction(
         });
     }
 );
+export const fetchItemAction: any = createAction(
+  "orders/FETCH_ITEM",
+  async (id: number) =>
+    async (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<{ item: Articles.ItemData }> => {
+      const state = getState();
+      dispatch(showLoaderAction(true));
+      const res = await axios.get(`${baseUrl}/articles/fetch-item/${id}`, {
+        headers: {
+          ...authHeader(state.user.user.email),
+        },
+      });
+      if (res.status) {
+        dispatch(showLoaderAction(false));
+        // dispatch(setArticleData(data.item));
+        dispatch(
+          setActivePageAction({
+            type: "articles",
+            modifier: "edit",
+          })
+        );
+      }
+      return {
+        item: res.data.item,
+      };
+    }
+);
 export const crudAction: any = createAction(
   "articles/CRUD_ACTION",
-  async (formData: any) =>
+  async (formData: any, id: number | null) =>
     async (
       dispatch: Type.Dispatch,
       getState: () => State.Root
@@ -107,15 +136,11 @@ export const crudAction: any = createAction(
       const state = getState();
       dispatch(showLoaderAction(true));
       return axios
-        .post(
-          `${baseUrl}/articles/crud`,
-          { data: JSON.stringify(state.layouts.checkedIds) },
-          {
-            headers: {
-              ...authHeader(state.user.user.email),
-            },
-          }
-        )
+        .post(`${baseUrl}/articles/edit-item`, formData, {
+          headers: {
+            ...authHeader(state.user.user.email),
+          },
+        })
         .then(async () => {
           dispatch(showLoaderAction(false));
           dispatch(setSuccessToastAction("Items has been updated"));
@@ -123,6 +148,7 @@ export const crudAction: any = createAction(
         });
     }
 );
+export const setEmptyFormAction: any = createAction("articles/EMPTY_FORM");
 
 // export const uploadDoneAction: any = createAction('images/UPLOAD_DONE');
 // export const addUploadedFile: any = createAction('images/ADD_UPLOADED_FILE');

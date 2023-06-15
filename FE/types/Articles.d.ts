@@ -6,14 +6,15 @@ declare namespace Articles {
     checkedIds: number[];
     count: number;
     image: ImageItem;
-    items: ImageItem[];
+    items: ItemData[];
+    item: ItemData;
     uploadDone: boolean | null;
   }
 
-  interface ImageItem {
+  interface ArticleItem {
     id: number;
-    name: string;
-    type: string;
+    title: string;
+    active: string;
     created_at: any;
     updated_at: any;
   }

@@ -40,7 +40,6 @@ class Image {
                 offset = (Number(page) - 1) * Number(perPage);
             }
             const rowsQuery = `SELECT * FROM data.get_images_list(${perPage}, ${offset}, '', 'created_at DESC');`;
-console.log(rowsQuery);
             const res = await client.query(rowsQuery);
             const items = res.rows.length > 0 ? res.rows : [];
             const error = null;

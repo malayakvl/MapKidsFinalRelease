@@ -14,5 +14,9 @@
   "Required field": "Required field",
   "Add Article": "Add Article",
   "status": "Active",
-  "name": "Name"
+  "name": "Name",
+  "Update Article": "Update Article",
+  "Active": "Active",
+  "Update Country": "Update Country",
+  "Add Description Here": "Add Description Here"
 }

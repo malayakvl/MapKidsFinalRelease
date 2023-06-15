@@ -2,11 +2,10 @@ import React, { useRef } from "react";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 import { setEditorContentAction } from "../../redux/layouts/actions";
+import { useSelector } from "react-redux";
+import { articleItemSelector } from "../../redux/articles/selectors";
 
-const MySunEditor = () => {
-  // const [templateName, setTemplateName] = useState(initialTemplateName);
-  // const [tempVar, setTempVar] = useState(initialTempVar);
-
+const MySunEditor = (textContent: any) => {
   /**
    * @type {React.MutableRefObject<SunEditor>} get type definitions for editor
    */
@@ -15,6 +14,8 @@ const MySunEditor = () => {
   const getSunEditorInstance = (sunEditor: any) => {
     editor.current = sunEditor;
   };
+  const articleData = useSelector(articleItemSelector);
+
   const handleChange = (content: any) => {
     setEditorContentAction(content);
   };
@@ -46,10 +47,10 @@ const MySunEditor = () => {
         }}
         lang="en"
         name={`article_description`}
-        defaultValue={`hello world`}
+        defaultValue={textContent}
         onChange={handleChange}
         getSunEditorInstance={getSunEditorInstance}
-        height="60vh"
+        height="30vh"
       />
     </div>
   );

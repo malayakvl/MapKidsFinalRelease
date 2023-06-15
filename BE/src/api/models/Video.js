@@ -5,7 +5,7 @@ class Video {
     async getAll (page, perPage = 20, reqOffset = null) {
         const client = await pool.connect();
         try {
-            const _total = await client.query(`SELECT * FROM common__tools._select_total_from_table_by_where('data', 'articles', 'id', null);`);
+            const _total = await client.query(`SELECT * FROM common__tools._select_total_from_table_by_where('data', 'videos', 'id', null);`);
             const size = _total.rows[0].total;
             let offset;
             if (reqOffset) {
@@ -13,7 +13,7 @@ class Video {
             } else {
                 offset = (Number(page) - 1) * Number(perPage);
             }
-            const rowsQuery = `SELECT * FROM data.get_articles_list(${perPage}, ${offset}, '', 'created_at DESC');`;
+            const rowsQuery = `SELECT * FROM data.get_videos_list(${perPage}, ${offset}, '', 'created_at DESC');`;
             const res = await client.query(rowsQuery);
             const items = res.rows.length > 0 ? res.rows : [];
             const error = null;
@@ -45,17 +45,26 @@ class Video {
         }
     }
 
-    async create(req, res) {
+    async create(data) {
         const client = await pool.connect();
         try {
+            // const _resProd = await client.query(`SELECT * FROM data.products WHERE id=${dataProduct.id} AND user_id=${userId}`);
+            const queryUpdate = `
+                INSERT INTO data.videos (code) 
+                VALUES (
+                    $$${data.code}$$
+                 );`;
+            await client.query(queryUpdate);
+            return { success: true };
         } catch (e) {
             if (process.env.NODE_ENV === 'development') {
                 logger.log(
                     'error',
-                    'Model error (Video greate):',
+                    'Model error:',
                     { message: e.message }
                 );
             }
+            return { success: false, error: { code: 404, message: 'Addresses Not found' } };
         } finally {
             client.release();
         }

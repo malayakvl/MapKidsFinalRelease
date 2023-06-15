@@ -16,10 +16,13 @@ import {
   checkAllIdsAction,
   uncheckAllIdsAction,
   setModalConfirmationMetaAction,
+  setModalMarkerConfirmationMetaAction,
   toggleMenuAction,
   toggleSubmenuAction,
   setActivePageAction,
   setEditorContentAction,
+  initImageIdsAction,
+  checkImageIdsAction,
 } from "./actions";
 import { PaginationType } from "../../constants";
 
@@ -76,6 +79,8 @@ const initialState: State.Layouts = {
   },
   toggleMenu: false,
   checkedIds: [],
+  checkedImageIds: [],
+  checkedVideoIds: [],
   toasts: [],
   isDataLoading: false,
   isReload: true,
@@ -85,11 +90,13 @@ const initialState: State.Layouts = {
   dbRowId: null,
   switchHeader: false,
   modalConfirmationMeta: null,
+  modalMarkerConfirmationMeta: null,
   submenuDisplayStatus: [],
   activeTab: {
     images: { tab: "list" },
     articles: { tab: "list" },
     videos: { tab: "list" },
+    countries: { tab: "list" },
   },
   editorContent: "",
 };
@@ -149,6 +156,28 @@ const ACTION_HANDLERS: any = {
       ...state,
       checkedIds: state.checkedIds.map((data) =>
         (data as any).id ? { ...data, checked: false } : data
+      ),
+    };
+  },
+  [initImageIdsAction]: (
+    state: State.Layouts,
+    action: Type.ReduxAction<State.Layouts>
+  ): State.Layouts => {
+    return <Layouts.Root>(<unknown>{
+      ...state,
+      checkedImageIds: action.payload,
+    });
+  },
+  [checkImageIdsAction]: (
+    state: State.Layouts,
+    action: Type.ReduxAction<State.Layouts>
+  ): State.Layouts => {
+    return <Layouts.Root>{
+      ...state,
+      checkedImageIds: state.checkedImageIds.map((data) =>
+        (data as any).id === action.payload
+          ? { ...data, checked: !data.checked }
+          : data
       ),
     };
   },
@@ -246,6 +275,15 @@ const ACTION_HANDLERS: any = {
       ...action.payload,
     },
   }),
+  [setModalMarkerConfirmationMetaAction]: (
+    state: State.Layouts,
+    action: Type.ReduxAction<Layouts.ModalConfirmationMeta>
+  ): State.Layouts => ({
+    ...state,
+    modalMarkerConfirmationMeta: action.payload && {
+      ...action.payload,
+    },
+  }),
   [setActivePageAction]: (
     state: State.Layouts,
     action: Type.ReduxAction<{
@@ -285,9 +323,12 @@ export {
   checkAllIdsAction,
   uncheckAllIdsAction,
   setModalConfirmationMetaAction,
+  setModalMarkerConfirmationMetaAction,
   toggleMenuAction,
   toggleSubmenuAction,
   setActivePageAction,
+  initImageIdsAction,
+  checkImageIdsAction,
 };
 
 // ------------------------------------

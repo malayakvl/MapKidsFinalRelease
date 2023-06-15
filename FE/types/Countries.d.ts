@@ -6,8 +6,17 @@ declare namespace Countries {
     checkedIds: number[];
     count: number;
     items: any[];
-    item: any;
+    item: Item;
+    mapLoaded: boolean;
+    checkedImageIds: CheckedIds[];
+    checkedVideoIds: CheckedIds[];
     uploadDone: boolean | null;
+    fillColor: any;
+    fillOpacity: any;
+    fill_color: any;
+    fill_opacity: any;
+    countryMap: any;
+    iso3: any;
   }
 
   interface Item {
@@ -17,17 +26,39 @@ declare namespace Countries {
     iso: any;
     iso3: any;
     currency: any;
+    flag: any;
     currency_name: any;
     created_at: any;
+    updated_at: any;
+    images: any;
+    description: any;
+    videos: any;
+    fillColor: any;
+    fillOpacity: any;
+    fill_color: any;
+    fill_opacity: any;
+    countryCenter: any;
   }
 
   interface ItemData {
     id: number | null;
-    title: string;
-    title_image: string;
-    article_text: string;
-    status: boolean;
+    name: string;
+    flag: any;
+    countryCenter: any;
+    fillColor: any;
+    fillOpacity: any;
+    iso: any;
+    iso3: any;
+    active: boolean;
+    description: any;
     created_at: any;
     updated_at: any;
+    fill_color: any;
+    fill_opacity: any;
+  }
+
+  interface CheckedIds {
+    id: number;
+    checked: boolean;
   }
 }
