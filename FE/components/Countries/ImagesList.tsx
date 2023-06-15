@@ -1,10 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { baseApiUrl } from "../../constants";
-import {
-  itemCountSelector,
-  nonpaginatedItemsSelector,
-} from "../../redux/images/selectors";
+import { nonpaginatedItemsSelector } from "../../redux/images/selectors";
 import { checkImageIdsAction, initImageIdsAction } from "../../redux/countries";
 import {
   checkedImageIdsSelector,

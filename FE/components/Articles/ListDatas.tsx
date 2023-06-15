@@ -18,10 +18,7 @@ import {
   deleteItemAction,
 } from "../../redux/articles/actions";
 // import Image from "next/image";
-import {
-  setActivePageAction,
-  setModalConfirmationMetaAction,
-} from "../../redux/layouts";
+import { setModalConfirmationMetaAction } from "../../redux/layouts";
 
 const ListDatas: React.FC<any> = () => {
   const dispatch = useDispatch();

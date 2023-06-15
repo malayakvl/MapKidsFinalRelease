@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { baseApiUrl } from "../../constants";
-import {
-  itemCountSelector,
-  paginatedItemsSelector,
-} from "../../redux/images/selectors";
+// // import { baseApiUrl } from "../../constants";
+// import {
+//   itemCountSelector,
+//   paginatedItemsSelector,
+// } from "../../redux/images/selectors";
 import { fetchAllItemsAction } from "../../redux/videos";
 import {
   checkedVideoIdsSelector,

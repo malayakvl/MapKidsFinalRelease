@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 import { DataGrid, ButtonTableAction } from "../../components/_common";
 import { PaginationType } from "../../constants";
 import {
@@ -23,7 +23,7 @@ import { setModalConfirmationMetaAction } from "../../redux/layouts";
 // import Image from 'next/image';
 
 const ListDatas: React.FC<any> = () => {
-  const t = useTranslations();
+  // const t = useTranslations();
   const dispatch = useDispatch();
   const count = useSelector(itemCountSelector);
 

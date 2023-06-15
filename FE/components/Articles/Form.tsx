@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 import { crudAction } from "../../redux/articles";
 import { toastsSelector } from "../../redux/layouts/selectors";
-import Select from "react-select";
+// import Select from "react-select";
 
 // import {articleItemSelector} from "../../redux/articles/selectors";
 // import { setEmptyFormAction } from "../../redux/articles/actions";

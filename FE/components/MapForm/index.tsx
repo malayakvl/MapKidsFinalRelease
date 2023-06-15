@@ -7,7 +7,6 @@ import {
   isFetchSelector,
   layerFillSelector,
   layerOpacitySelector,
-  mapLoadedSelector,
 } from "../../redux/countries/selectors";
 import {
   loadMapAction,
