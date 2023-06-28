@@ -68,6 +68,19 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
               href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css"
               rel="stylesheet"
             />
+            <link
+              rel="preconnect"
+              href="https://fonts.gstatic.com"
+              crossOrigin="anonymous"
+            />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+              rel="stylesheet"
+            />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
+              rel="stylesheet"
+            />
             {/*<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />*/}
             {/*<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js" />*/}
             {/*<link*/}

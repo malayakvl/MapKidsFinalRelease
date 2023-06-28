@@ -29,14 +29,17 @@ class LocationController {
         }
     }
 
-    async activeItem (req, res) {
-        const { id } = req.query;
-        if (!req.user) {
-            return res.status(401).json('Access deny');
-        } else {
-            const data = await locationModel.activeAction(id, 2);
-            return res.status(200).json({ count: data.size, items: data.items});
-        }
+    async activeItems (req, res) {
+        const data = await locationModel.activeItems();
+        return res.status(200).json({ count: data.size, items: data.items});
+
+        // if (!req.user) {
+        //     return res.status(401).json('Access deny');
+        // } else {
+        //     const data = await locationModel.activeItems();
+        //     console.log(data);
+        //     return res.status(200).json({ count: data.size, items: data.items});
+        // }
     }
 
     async unactiveItem (req, res) {
@@ -68,6 +71,24 @@ class LocationController {
         }
     }
 
+    async addMarker (req, res) {
+        const { data, countryId } = req.body;
+        console.log(req);
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            const data = await locationModel.fetchOne(id);
+            if (!data.images) {
+                data.images = [];
+            }
+            if (!data.videos) {
+                data.videos = [];
+            }
+            data.fillColor = data.fill_color;
+            data.fillOpacity = data.fill_opacity;
+            return res.status(200).json({ item: data});
+        }
+    }
 
     async updateItem (req, res) {
         const dataCountry = req.body;

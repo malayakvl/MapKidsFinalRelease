@@ -11,6 +11,10 @@ export const paginatedItemsSelector = createSelector(
   rootSelector,
   (countries: State.Countries): any => countries.items
 );
+export const activeCountriesSelector = createSelector(
+  rootSelector,
+  (countries: State.Countries): any => countries.items
+);
 export const itemCountSelector = createSelector(
   rootSelector,
   (countries: State.Countries): number => countries.count

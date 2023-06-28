@@ -26,7 +26,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
   const mapCountry = useSelector(countryMapSelector);
   const countryData = useSelector(countryItemSelector);
 
-  console.log("MAP CONTAINER", countryData);
+  // console.log("MAP CONTAINER", countryData);
 
   useEffect(() => {
     if (isFetched) {
@@ -81,14 +81,9 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
       mapCountry.on("click", function (e: any) {
         const coordinates = e.lngLat;
         dispatch(
-          // setModalMarkerConfirmationMetaAction({
-          //   onConfirm: async () => {
-          //     console.log("123333");
-          //   },
-          // })
           setModalConfirmationMetaAction({
             onConfirm: async () =>
-              dispatch(addMarkerAction(coordinates, 123)).then(
+              dispatch(addMarkerAction(coordinates, countryData.id)).then(
                 console.log("hahah")
               ),
           })

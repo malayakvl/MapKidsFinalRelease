@@ -75,10 +75,10 @@ function CountryForm({ countryData }: { countryData: any }) {
             // @ts-ignore
             return (
               <div className="flex mt-[30px] relative z-50">
-                <div className="w-1/3">
+                <div className="w-1/2">
                   <MapForm isLoad={false} />
                 </div>
-                <div className="w-2/3 ml-[30px]">
+                <div className="w-1/2 ml-[30px]">
                   <h1 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-2xl lg:text-2xl">
                     {countrySelectorData?.flag}
                     <span className="ml-[10px] text-transparent bg-clip-text bg-gradient-to-r to-purple-600 from-sky-400">

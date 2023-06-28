@@ -2,9 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @import "components/variables";
 @import 'components/mixins';
 @import 'components/reset';
+@import 'components/phone';
 //@import "components/header";
 //@import "components/home";
 //@import "components/buttons";

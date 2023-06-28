@@ -16,6 +16,7 @@ apiRoutes.use(express.json({
     limit: '512kb',
     strict: true
 }));
+apiRoutes.get('/countries/fetch-active', LocationController.activeItems);
 
 
 /** ===================================================================== */
@@ -40,10 +41,10 @@ apiRoutes.post('/settings', SettingsController.submitSettingsData);
 /** ================== VIDEOS ROUTES ===  =============================== */
 /** ===================================================================== */
 apiRoutes.get('/countries/fetch-items', LocationController.fetchItems);
-apiRoutes.get('/countries/active-item', LocationController.activeItem);
 apiRoutes.get('/countries/unactive-item', LocationController.unactiveItem);
 apiRoutes.get('/countries/fetch-item/:id', LocationController.fetchItem);
 apiRoutes.post('/countries/update-item', LocationController.updateItem);
+apiRoutes.post('/countries/add-marker', LocationController.addMarker);
 
 /** ===================================================================== */
 /** ================== IMAGES ROUTES ==================================== */

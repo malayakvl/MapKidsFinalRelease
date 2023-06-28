@@ -99,26 +99,56 @@ export const unactiveItemAction: any = createAction(
         });
     }
 );
+
 export const activeItemAction: any = createAction(
-  "countries/CTIVE_ITEM",
-  async (id: number) =>
-    (dispatch: Type.Dispatch, getState: () => State.Root): Promise<void> => {
+  "countries/FETCH_ACTIVE_ITEMS",
+  async () =>
+    (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<{ count: any; items: any }> => {
       const state = getState();
       dispatch(showLoaderAction(true));
       return axios
-        .delete(`${baseUrl}/countries/active/${id}`, {
+        .get(`${baseUrl}/countries/fetch-active`, {
           headers: {
             ...authHeader(state.user.user.email),
           },
         })
-        .then(async () => {
+        .then((res: any) => {
           dispatch(showLoaderAction(false));
-          await dispatch(fetchItemsAction());
-          dispatch(setSuccessToastAction("Items has been deleted"));
-          toggleModalConfirmation();
+          return {
+            count: 0,
+            items: res.data.items,
+          };
         });
     }
 );
+// export const activeItemAction1: any = createAction(
+//   "countries/ACTIVE_ITEM",
+//   async () =>
+//     (dispatch: Type.Dispatch, getState: () => State.Root): Promise<void> => {
+//       const state = getState();
+//       dispatch(showLoaderAction(true));
+//       return axios
+//         .get(`${baseUrl}/countries/fetch-active`, {
+//           headers: {
+//             ...authHeader(state.user.user.email),
+//           },
+//         })
+//         .then(async (res) => {
+//             dispatch(showLoaderAction(false));
+//             return {
+//                 count: res.data.count,
+//                 items: res.data.items,
+//             };
+//           // dispatch(showLoaderAction(false));
+//           // // await dispatch(fetchItemsAction());
+//           // // dispatch(setSuccessToastAction("Items has been deleted"));
+//           // // toggleModalConfirmation();
+//         });
+//     }
+// );
 export const crudAction: any = createAction(
   "countries/CRUD_ACTION",
   async (formData: any, id: number | null) =>

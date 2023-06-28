@@ -12,6 +12,7 @@ import {
   initMapAction,
   setOpacityAction,
   addMarkerAction,
+  activeItemAction,
 } from "./actions";
 
 const initialState: {
@@ -54,6 +55,18 @@ const initialState: {
 
 const ACTION_HANDLERS: any = {
   [fetchItemsAction]: {
+    next: (
+      state: State.Countries,
+      action: Type.ReduxAction<Pick<State.Countries, "items">>
+    ): State.Countries => ({
+      ...state,
+      ...action.payload,
+    }),
+    throw: (state: State.Countries): State.Countries => ({
+      ...state,
+    }),
+  },
+  [activeItemAction]: {
     next: (
       state: State.Countries,
       action: Type.ReduxAction<Pick<State.Countries, "items">>
@@ -173,6 +186,7 @@ export {
   initMapAction,
   setOpacityAction,
   addMarkerAction,
+  activeItemAction,
 };
 
 // ------------------------------------
