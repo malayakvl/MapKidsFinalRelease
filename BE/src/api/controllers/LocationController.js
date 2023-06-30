@@ -29,6 +29,23 @@ class LocationController {
         }
     }
 
+    async addMarker (req, res) {
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            const { coordinates } = req.query;
+            console.log(coordinates);
+            const data = await locationModel.fetchOne(req.params.id);
+            if (!data.item.images) {
+                data.item.images = [];
+            }
+            if (!data.item.videos) {
+                data.item.videos = [];
+            }
+            return res.status(200).json({ item: data.item});
+        }
+    }
+
     async activeItems (req, res) {
         const data = await locationModel.activeItems();
         return res.status(200).json({ count: data.size, items: data.items});
@@ -72,6 +89,7 @@ class LocationController {
     }
 
     async addMarker (req, res) {
+        console.log("here");
         const { data, countryId } = req.body;
         console.log(req);
         if (!req.user) {

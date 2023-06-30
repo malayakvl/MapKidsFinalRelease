@@ -36,8 +36,10 @@ const Map = () => {
       bearing: 130,
       pitch: 75,
     };
+    map.on("click", function(e){
+      alert(1);
+    });
     map.on("style.load", () => {
-      console.log("style load");
       // map.addLayer(
       //   {
       //     id: "country-boundaries-it",

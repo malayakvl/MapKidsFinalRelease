@@ -1,10 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { baseApiUrl } from "../../constants";
-import {
-  itemCountSelector,
-  nonpaginatedItemsSelector,
-} from "../../redux/images/selectors";
+import { nonpaginatedItemsSelector } from "../../redux/images/selectors";
 import { checkImageIdsAction, initImageIdsAction } from "../../redux/countries";
 import {
   checkedImageIdsSelector,
@@ -14,7 +11,7 @@ import { fetchAllItemsAction } from "../../redux/images";
 
 const ImageList: React.FC<any> = () => {
   const dispatch = useDispatch();
-  const count = useSelector(itemCountSelector);
+  // const count = useSelector(itemCountSelector);
   const items = useSelector(nonpaginatedItemsSelector);
   const checkedIds = useSelector(checkedImageIdsSelector);
   const countrySelectorData = useSelector(countryItemSelector);

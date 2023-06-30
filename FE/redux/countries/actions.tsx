@@ -124,6 +124,33 @@ export const activeItemAction: any = createAction(
         });
     }
 );
+
+export const addMarkerActionNew: any = createAction(
+  "countries/STORE_MARKERS",
+  async () =>
+    (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<{ coordinates: any }> => {
+      const state = getState();
+      dispatch(showLoaderAction(true));
+      return axios
+        .get(`${baseUrl}/countries/add-marker?coordinates=${coordinates}`, {
+          headers: {
+            ...authHeader(state.user.user.email),
+          },
+        })
+        .then((res: any) => {
+          dispatch(showLoaderAction(false));
+          return {
+            count: 0,
+            items: res.data.items,
+          };
+        });
+    }
+);
+
+
 // export const activeItemAction1: any = createAction(
 //   "countries/ACTIVE_ITEM",
 //   async () =>
@@ -191,7 +218,7 @@ export const addMarkerAction: any = createAction(
       return axios
         .post(
           `${baseUrl}/countries/add-marker`,
-          { data: coordinates, countryId: countryId },
+          { data: coordinates, countryId: 123 },
           {
             headers: {
               ...authHeader(state.user.user.email),

@@ -26,9 +26,6 @@ const ListDatas: React.FC<any> = () => {
     [items, dispatch]
   );
 
-  const inactivateItem = (item: any) => {
-    // dispatch(unactiveItemAction(item.id));
-  };
   return (
     <>
       <div className="mt-7">

@@ -1,15 +1,19 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import { useDispatch, useSelector } from "react-redux";
 import {
   countryItemSelector,
-  countryMapSelector,
+  // countryMapSelector,
   isFetchSelector,
   layerFillSelector,
   layerOpacitySelector,
-  mapLoadedSelector,
 } from "../../redux/countries/selectors";
-import { loadMapAction, initMapAction, addMarkerAction } from "../../redux/countries";
+import {
+  loadMapAction,
+  initMapAction,
+  addMarkerAction,
+} from "../../redux/countries";
+import { setModalConfirmationMetaAction } from "../../redux/layouts";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
@@ -19,8 +23,11 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
   const dispatch = useDispatch();
   const layerColor = useSelector(layerFillSelector);
   const layerOpacity = useSelector(layerOpacitySelector);
-  const mapCountry = useSelector(countryMapSelector);
+  // const mapCountry = useSelector(countryMapSelector);
+
   const countryData = useSelector(countryItemSelector);
+
+  // console.log("MAP CONTAINER", countryData);
 
   useEffect(() => {
     if (isFetched) {
@@ -29,29 +36,23 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
         document.getElementById("map-container-form").innerHTML = "";
       }
       dispatch(loadMapAction(true));
-      const map = new mapboxgl.Map({
+      console.log('here');
+      const mapCountry = new mapboxgl.Map({
         container: "map-container-form",
         style: "mapbox://styles/mapbox/streets-v11",
         center: [110.20101884845053, 36.001941656383096],
         zoom: 2,
       });
-      dispatch(initMapAction(map));
-      map.on("style.load", () => {
-        map.on("click", function (e) {
-          const coordinates = e.lngLat;
-          console.log(coordinates);
-
-          var marker = new mapboxgl.Marker();
-          console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
-
-          marker.setLngLat(coordinates).addTo(map);
-          // store marker to db
-          dispatch(addMarkerAction(coordinates));
-
-        });
+      dispatch(initMapAction(mapCountry));
+      mapCountry.on("style.load", () => {
+        // map.on("click", function (e) {
+        //   const coordinates = e.lngLat;
+        //   console.log(coordinates);
+        // });
       });
-      // map.on("load", function () {
-      // });
+      mapCountry.on("click", () => {
+       console.log('try to add marker');
+      });
     }
   }, [isFetched, mapContainer.current]);
 
@@ -66,6 +67,10 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
     }
   }, [layerColor]);
 
+  const addRequest = () => {
+    console.log("adding marker");
+  };
+
   useEffect(() => {
     if (layerColor && mapCountry) {
       mapCountry.setPaintProperty(
@@ -78,11 +83,29 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
 
   useEffect(() => {
     if (countryData && mapCountry) {
+      mapCountry.on("click", function (e: any) {
+        const coordinates = e.lngLat;
+        dispatch(
+          setModalConfirmationMetaAction({
+            onConfirm: async () =>
+              dispatch(addMarkerAction(coordinates, countryData.id)).then(
+                console.log("hahah")
+              ),
+          })
+        );
+      });
+
       mapCountry.on("load", function () {
-        mapCountry.flyTo({
-          center: [countryData.countryCenter[0], countryData.countryCenter[1]],
-          speed: 0.5,
-        });
+        if (countryData.countryCenter) {
+          mapCountry.flyTo({
+            center: [
+              countryData.countryCenter[0],
+              countryData.countryCenter[1],
+            ],
+            speed: 0.5,
+          });
+        }
+
         // if (!mapCountry.getLayer("country-current-layer")) {
         mapCountry.addLayer(
           {
@@ -106,27 +129,35 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
         );
         // }
         // ADD MARKER
-        mapCountry.setFilter("country-current-layer", [
-          "in",
-          "iso_3166_1_alpha_3",
-          countryData.iso3,
-        ]);
-        const el = document.createElement("div");
-        const width = 30;
-        const height = 30;
-        el.className = "marker";
-        el.innerHTML = `<span>${countryData.flag}</span>`;
-        el.style.width = `${width}px`;
-        el.style.height = `${height}px`;
-        new mapboxgl.Marker(el)
-          .setLngLat([
-            countryData.countryCenter[0],
-            countryData.countryCenter[1],
-          ])
-          .addTo(mapCountry);
+        if (countryData.countryCenter) {
+          mapCountry.setFilter("country-current-layer", [
+            "in",
+            "iso_3166_1_alpha_3",
+            countryData.iso3,
+          ]);
+          const el = document.createElement("div");
+          const width = 30;
+          const height = 30;
+          el.className = "marker";
+          el.innerHTML = `<span>${countryData.flag}</span>`;
+          el.style.width = `${width}px`;
+          el.style.height = `${height}px`;
+          new mapboxgl.Marker(el)
+            .setLngLat([
+              countryData.countryCenter[0],
+              countryData.countryCenter[1],
+            ])
+            .addTo(mapCountry);
+        }
       });
     }
-  }, [countryData, mapCountry]);
+  }, [countryData]);
+
+  useEffect(() => {
+    console.log('map is inot');
+  }, [mapCountry]);
+
+
 
   return (
     <div className="relative">

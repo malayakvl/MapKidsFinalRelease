@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Formik } from "formik";
 import Range from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -19,7 +19,7 @@ import {
 } from "../../redux/countries/selectors";
 import MapForm from "../MapForm";
 import VideoList from "./VideosList";
-
+import ModalMarkerConfirmation from "../_common/ModalAddMarker";
 function CountryForm({ countryData }: { countryData: any }) {
   const t = useTranslations();
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ function CountryForm({ countryData }: { countryData: any }) {
     // console.log("opacityDone", opacityRange);
   };
 
-  console.log("Exist Data", countrySelectorData);
+  //console.log("Exist Data", countrySelectorData);
 
   const onSliderAfterChange = () => {
     changeOpacityDone();
@@ -61,8 +61,8 @@ function CountryForm({ countryData }: { countryData: any }) {
             const formData = {
               images: JSON.stringify(checkedImageIds),
               videos: JSON.stringify(checkedVideoIds),
-              fillColor: layerColor,
-              fillOpacity: layerOpacity,
+              fill_color: layerColor,
+              fill_opacity: layerOpacity,
               description: values["description"],
               id: countryData.id,
             };
@@ -74,10 +74,12 @@ function CountryForm({ countryData }: { countryData: any }) {
             // @ts-ignore
             return (
               <div className="flex mt-[30px] relative z-50">
-                <div className="w-1/3">
+                <div className="w-1/2">
+              
+
                   <MapForm isLoad={false} />
                 </div>
-                <div className="w-2/3 ml-[30px]">
+                <div className="w-1/2 ml-[30px]">
                   <h1 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-2xl lg:text-2xl">
                     {countrySelectorData?.flag}
                     <span className="ml-[10px] text-transparent bg-clip-text bg-gradient-to-r to-purple-600 from-sky-400">
@@ -194,6 +196,7 @@ function CountryForm({ countryData }: { countryData: any }) {
           }}
         </Formik>
       )}
+      <ModalMarkerConfirmation />
     </>
   );
 }

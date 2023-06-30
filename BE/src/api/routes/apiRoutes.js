@@ -18,6 +18,10 @@ apiRoutes.use(express.json({
 }));
 apiRoutes.get('/countries/fetch-active', LocationController.activeItems);
 
+apiRoutes.post('/countries/add-marker', LocationController.addMarker);
+apiRoutes.get('/countries/add-marker', LocationController.addMarker);
+
+
 
 /** ===================================================================== */
 /** ================== AUTHENTIFICATED ROUTES =========================== */
@@ -44,7 +48,8 @@ apiRoutes.get('/countries/fetch-items', LocationController.fetchItems);
 apiRoutes.get('/countries/unactive-item', LocationController.unactiveItem);
 apiRoutes.get('/countries/fetch-item/:id', LocationController.fetchItem);
 apiRoutes.post('/countries/update-item', LocationController.updateItem);
-apiRoutes.post('/countries/add-marker', LocationController.addMarker);
+// apiRoutes.post('/countries/add-marker', LocationController.addMarker);
+// apiRoutes.get('/countries/add-marker', LocationController.addMarker);
 
 /** ===================================================================== */
 /** ================== IMAGES ROUTES ==================================== */

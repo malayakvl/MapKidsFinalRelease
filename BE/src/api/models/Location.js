@@ -127,7 +127,7 @@ class Location {
     async fetchOne(id) {
         const client = await pool.connect();
         try {
-            const rowsQuery = `SELECT * FROM data.countries WHERE id='${id}';`;
+            const rowsQuery = `SELECT * FROM data.countries WHERE id='45';`;
             const res = await client.query(rowsQuery);
             const item = res.rows.length > 0 ? res.rows[0] : {};
             const error = null;
