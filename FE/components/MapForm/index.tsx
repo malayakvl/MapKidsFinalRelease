@@ -22,6 +22,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
   const mapCountry = useSelector(countryMapSelector);
   const countryData = useSelector(countryItemSelector);
 
+
   useEffect(() => {
     if (isFetched) {
       if (document.getElementById("map-container-form")) {
@@ -39,15 +40,11 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
       map.on("style.load", () => {
         map.on("click", function (e) {
           const coordinates = e.lngLat;
-          console.log(coordinates);
-
-          var marker = new mapboxgl.Marker();
-          console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+          const marker = new mapboxgl.Marker();
 
           marker.setLngLat(coordinates).addTo(map);
           // store marker to db
-          dispatch(addMarkerAction(coordinates));
-
+          dispatch(addMarkerAction(coordinates, countryData.id));
         });
       });
       // map.on("load", function () {
@@ -118,12 +115,12 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
         el.innerHTML = `<span>${countryData.flag}</span>`;
         el.style.width = `${width}px`;
         el.style.height = `${height}px`;
-        new mapboxgl.Marker(el)
-          .setLngLat([
-            countryData.countryCenter[0],
-            countryData.countryCenter[1],
-          ])
-          .addTo(mapCountry);
+        // new mapboxgl.Marker(el)
+        //   .setLngLat([
+        //     countryData.countryCenter[0],
+        //     countryData.countryCenter[1],
+        //   ])
+        //   .addTo(mapCountry);
       });
     }
   }, [countryData, mapCountry]);

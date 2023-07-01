@@ -1,7 +1,5 @@
-import multer from 'multer';
-import fs from "fs";
 import locationModel from '../models/Location.js';
-import articleModel from "../models/Article.js";
+import coordinatesModel from '../models/Coordinates.js';
 
 class LocationController {
     async fetchItems (req, res) {
@@ -33,18 +31,22 @@ class LocationController {
         if (!req.user) {
             return res.status(401).json('Access deny');
         } else {
-            const { coordinates } = req.query;
-            console.log(coordinates);
-            const data = await locationModel.fetchOne(req.params.id);
-            if (!data.item.images) {
-                data.item.images = [];
-            }
-            if (!data.item.videos) {
-                data.item.videos = [];
-            }
-            return res.status(200).json({ item: data.item});
+            const { lat, lng, countryId } = req.query;
+            await coordinatesModel.saveMarker(lat, lng, countryId);
+            return res.status(200).json({success: true});
         }
     }
+
+    async fetchItems1 (req, res) {
+        const { countryId } = req.query;
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            const data = await locationModel.getAll(1, limit, offset);
+            return res.status(200).json({ count: data.size, items: data.items});
+        }
+    }
+
 
     async activeItems (req, res) {
         const data = await locationModel.activeItems();
@@ -88,25 +90,6 @@ class LocationController {
         }
     }
 
-    async addMarker (req, res) {
-        console.log("here");
-        const { data, countryId } = req.body;
-        console.log(req);
-        if (!req.user) {
-            return res.status(401).json('Access deny');
-        } else {
-            const data = await locationModel.fetchOne(id);
-            if (!data.images) {
-                data.images = [];
-            }
-            if (!data.videos) {
-                data.videos = [];
-            }
-            data.fillColor = data.fill_color;
-            data.fillOpacity = data.fill_opacity;
-            return res.status(200).json({ item: data});
-        }
-    }
 
     async updateItem (req, res) {
         const dataCountry = req.body;

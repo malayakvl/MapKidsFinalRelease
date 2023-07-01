@@ -79,6 +79,33 @@ export const fetchItemAction: any = createAction(
     }
 );
 
+// export const fetchMarkersAction: any = createAction(
+//   "orders/FETCH_MARKERS",
+//   async (countryId: number) =>
+//     async (
+//       dispatch: Type.Dispatch,
+//       getState: () => State.Root
+//     ): Promise<{ item: null; markers: any }> => {
+//       const state = getState();
+//       dispatch(showLoaderAction(true));
+//       const res = await axios.get(
+//         `${baseUrl}/countries/fetch-markers/${countryId}`,
+//         {
+//           headers: {
+//             ...authHeader(state.user.user.email),
+//           },
+//         }
+//       );
+//       if (res.data.markers) {
+//         dispatch(showLoaderAction(false));
+//       }
+//       return {
+//         item: null,
+//         markers: res.data.markers,
+//       };
+//     }
+// );
+
 export const unactiveItemAction: any = createAction(
   "countries/UNACTIVE_ITEM",
   async (id: number) =>
@@ -125,57 +152,6 @@ export const activeItemAction: any = createAction(
     }
 );
 
-export const addMarkerActionNew: any = createAction(
-  "countries/STORE_MARKERS",
-  async () =>
-    (
-      dispatch: Type.Dispatch,
-      getState: () => State.Root
-    ): Promise<{ coordinates: any }> => {
-      const state = getState();
-      dispatch(showLoaderAction(true));
-      return axios
-        .get(`${baseUrl}/countries/add-marker?coordinates=${coordinates}`, {
-          headers: {
-            ...authHeader(state.user.user.email),
-          },
-        })
-        .then((res: any) => {
-          dispatch(showLoaderAction(false));
-          return {
-            count: 0,
-            items: res.data.items,
-          };
-        });
-    }
-);
-
-
-// export const activeItemAction1: any = createAction(
-//   "countries/ACTIVE_ITEM",
-//   async () =>
-//     (dispatch: Type.Dispatch, getState: () => State.Root): Promise<void> => {
-//       const state = getState();
-//       dispatch(showLoaderAction(true));
-//       return axios
-//         .get(`${baseUrl}/countries/fetch-active`, {
-//           headers: {
-//             ...authHeader(state.user.user.email),
-//           },
-//         })
-//         .then(async (res) => {
-//             dispatch(showLoaderAction(false));
-//             return {
-//                 count: res.data.count,
-//                 items: res.data.items,
-//             };
-//           // dispatch(showLoaderAction(false));
-//           // // await dispatch(fetchItemsAction());
-//           // // dispatch(setSuccessToastAction("Items has been deleted"));
-//           // // toggleModalConfirmation();
-//         });
-//     }
-// );
 export const crudAction: any = createAction(
   "countries/CRUD_ACTION",
   async (formData: any, id: number | null) =>
@@ -216,9 +192,8 @@ export const addMarkerAction: any = createAction(
       dispatch(showLoaderAction(true));
       // console.log(countrydata);
       return axios
-        .post(
-          `${baseUrl}/countries/add-marker`,
-          { data: coordinates, countryId: 123 },
+        .get(
+          `${baseUrl}/countries/add-pointer?lat=${coordinates.lat}&lng=${coordinates.lng}&countryId=${countryId}`,
           {
             headers: {
               ...authHeader(state.user.user.email),
@@ -227,12 +202,37 @@ export const addMarkerAction: any = createAction(
         )
         .then(async () => {
           dispatch(showLoaderAction(false));
-          dispatch(setSuccessToastAction("Item has been updated"));
-          // await dispatch(fetchItemsAction());
+          dispatch(setSuccessToastAction("Marker has been added"));
         });
     }
 );
-
+// export const addMarkerAction: any = createAction(
+//   "countries/FETCH_ITEMS",
+//   async (coordinates: any) =>
+//     (
+//       dispatch: Type.Dispatch,
+//       getState: () => State.Root
+//     ): Promise<{ count: any; items: any }> => {
+//       const state = getState();
+//       const { limit, offset, sort, column, query, filters } =
+//       dispatch(showLoaderAction(true));
+//       return axios
+//         .get(
+//           `${baseUrl}/countries/add-marker?lat=${coordinates.lat}&lng=${coordinates.lng}`,
+//           {
+//             headers: {
+//             ...authHeader(state.user.user.email),
+//           },
+//         })
+//         .then((res: any) => {
+//           dispatch(showLoaderAction(false));
+//           return {
+//             count: res.data.count,
+//             items: res.data.items,
+//           };
+//         });
+//     }
+// );
 export const loadMapAction: any = createAction("countries/MAPLOADED_ACTION");
 export const checkImageIdsAction: any = createAction(
   "countries/CHECK_IMAGE_IDS"

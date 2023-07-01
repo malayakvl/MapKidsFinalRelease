@@ -171,6 +171,18 @@ const ACTION_HANDLERS: any = {
       countryMap: action.payload,
     }),
   },
+  // [fetchMarkersAction]: {
+  //   next: (
+  //     state: State.Countries,
+  //     action: Type.ReduxAction<Pick<State.Countries, "items">>
+  //   ): State.Countries => ({
+  //     ...state,
+  //     ...action.payload,
+  //   }),
+  //   throw: (state: State.Countries): State.Countries => ({
+  //     ...state,
+  //   }),
+  // },
 };
 
 export {

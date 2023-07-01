@@ -48,8 +48,8 @@ apiRoutes.get('/countries/fetch-items', LocationController.fetchItems);
 apiRoutes.get('/countries/unactive-item', LocationController.unactiveItem);
 apiRoutes.get('/countries/fetch-item/:id', LocationController.fetchItem);
 apiRoutes.post('/countries/update-item', LocationController.updateItem);
-// apiRoutes.post('/countries/add-marker', LocationController.addMarker);
-// apiRoutes.get('/countries/add-marker', LocationController.addMarker);
+apiRoutes.get('/countries/add-pointer', LocationController.addMarker);
+apiRoutes.get('/countries/fetch-markers', LocationController.addMarker);
 
 /** ===================================================================== */
 /** ================== IMAGES ROUTES ==================================== */

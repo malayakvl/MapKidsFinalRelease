@@ -8,7 +8,11 @@ import "rc-slider/assets/index.css";
 import { InputSwitcher, InputColor, InputTextarea } from "../_form";
 // import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
-import { crudAction, setOpacityAction } from "../../redux/countries";
+import {
+  crudAction,
+  setOpacityAction,
+  fetchMarkersAction,
+} from "../../redux/countries";
 import ImageList from "./ImagesList";
 import {
   checkedImageIdsSelector,
@@ -43,8 +47,6 @@ function CountryForm({ countryData }: { countryData: any }) {
   const changeOpacityDone = () => {
     // console.log("opacityDone", opacityRange);
   };
-
-  console.log("Exist Data", countrySelectorData);
 
   const onSliderAfterChange = () => {
     changeOpacityDone();
