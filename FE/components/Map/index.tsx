@@ -2,10 +2,16 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import Phone from "../PhoneMap";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchItemMarkerAction, fetchItemsMarkersAction} from "../../redux/coordinates";
+import {
+  fetchItemMarkerAction,
+  fetchItemsMarkersAction,
+} from "../../redux/coordinates";
 import { activeCountriesSelector } from "../../redux/countries/selectors";
-import { markersSelector } from "../../redux/coordinates/selectors";
-import {showLoaderAction} from "../../redux/layouts/actions";
+import {
+  markersDataSelector,
+  markersSelector,
+} from "../../redux/coordinates/selectors";
+import { showLoaderAction } from "../../redux/layouts/actions";
 
 const Map = () => {
   const mapContainer = useRef<any>(null);
@@ -15,19 +21,19 @@ const Map = () => {
   // const markers = useSelector(markersSelector);
   const [showPhone, setShowPhone] = useState(false);
   const coordinates = useSelector(markersSelector);
-
-  console.log(coordinates);
-  // const markes = [
-  //   { lat: 32.81214034615138, lng: 100.88461259845167 },
-  //   { lat: 28.889822287201895, lng: 110.20101884845201 },
-  //   { lat: 37.89820044158398, lng: 86.99789384845178 },
-  //   { lat: 43.53183358525649, lng: -108.67027934765451 },
-  //   { lat: 36.26111708502141, lng: -89.1585605976545 },
-  // ];
+  const coordinatesInfo = useSelector(markersDataSelector);
 
   useEffect(() => {
     dispatch(fetchItemsMarkersAction());
   }, [countries]);
+
+  useEffect(() => {
+    // setShowPhone(true);
+    console.log("Marker Data", coordinatesInfo);
+    if (coordinatesInfo) {
+      setShowPhone(true);
+    }
+  }, [coordinatesInfo]);
 
   useEffect(() => {
     mapboxgl.accessToken =
@@ -50,9 +56,9 @@ const Map = () => {
       bearing: 130,
       pitch: 75,
     };
-    map.on("click", function (e) {
-      // alert(1);
-    });
+    // map.on("click", function (e) {
+    //   // alert(1);
+    // });
     map.on("style.load", () => {
       // console.log("coordinates", coordinates);
       countries.forEach((country: any) => {
@@ -84,10 +90,9 @@ const Map = () => {
         // @ts-ignore
         const pointer = new mapboxgl.Marker().setLngLat(geometry).addTo(map);
         pointer.getElement().addEventListener("click", () => {
-          alert(marker.id);
           dispatch(showLoaderAction(true));
-          dispatch(fetchItemMarkerAction());
-          setShowPhone(true);
+          dispatch(fetchItemMarkerAction(marker.id));
+          // setShowPhone(true);
         });
       }
 

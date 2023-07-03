@@ -1,6 +1,7 @@
 // import coordinatesModel from '../models/Coordinates.js';
 // import statisticModel from "../models/Statistics.js";
 import locationModel from "../models/Location.js";
+import coordinates from "../models/Coordinates.js";
 
 
 class CoordinatesController {
@@ -14,6 +15,12 @@ class CoordinatesController {
         if (error) res.status(error.code).json({error: 'Show error message'});
     }
 
+    async activeMarkers (req, res) {
+        const data = await locationModel.fetchMarkers();
+        return res.status(200).json({ count: data.size, items: data.items});
+    }
+
+
     async fetchMarkers (req, res) {
         if (!req.user) {
             return res.status(401).json('Access deny');
@@ -22,6 +29,18 @@ class CoordinatesController {
             return res.status(200).json({ items: data.items});
         }
     }
+
+    async fetchItem (req, res) {
+        const data = await coordinates.fetchOne(req.params.id);
+        if (!data.item.images) {
+            data.item.images = [];
+        }
+        if (!data.item.videos) {
+            data.item.videos = [];
+        }
+        return res.status(200).json({ item: data.item});
+    }
+
 }
 
 export default new CoordinatesController();

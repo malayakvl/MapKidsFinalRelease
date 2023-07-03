@@ -23,6 +23,8 @@ declare namespace Countries {
     id: number;
     lat: any;
     lng: any;
+    description: any;
+    title: any;
     images: any;
     videos: any;
   }

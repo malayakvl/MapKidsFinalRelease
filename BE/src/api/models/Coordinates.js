@@ -65,5 +65,39 @@ class Coordinates {
         }
     }
 
+    async fetchOne(id) {
+        const client = await pool.connect();
+        try {
+            const rowsQuery = `SELECT * FROM data.coordinates WHERE id='${id}';`;
+            const res = await client.query(rowsQuery);
+            const item = res.rows.length > 0 ? res.rows[0] : {};
+            const error = null;
+            return {
+                item,
+                error
+            };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Article getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+
 }
 export default new Coordinates();

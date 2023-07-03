@@ -1,12 +1,12 @@
 import React, { useCallback, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ButtonTableAction, DataTable } from "../../components/_common";
-import { PaginationType } from "../../constants";
+import { ButtonTableAction, DataTable } from "../components/_common";
+import { PaginationType } from "../constants";
 import {
   itemCountSelector,
   paginatedItemsSelector,
-} from "../../redux/countries/selectors";
-import { fetchItemsAction, fetchItemAction } from "../../redux/countries";
+} from "../redux/countries/selectors";
+import { fetchItemsAction, fetchItemAction } from "../redux/countries";
 
 const ListDatas: React.FC<any> = () => {
   const dispatch = useDispatch();

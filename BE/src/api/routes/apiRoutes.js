@@ -22,8 +22,8 @@ apiRoutes.get('/countries/fetch-active', LocationController.activeItems);
 
 apiRoutes.post('/countries/add-marker', LocationController.addMarker);
 apiRoutes.get('/countries/add-marker', LocationController.addMarker);
-apiRoutes.get('/markers/list', LocationController.activeMarkers);
-apiRoutes.get('/markers/fetch-item/:id', LocationController.markerData);
+apiRoutes.get('/markers/list', CoordinatesController.activeMarkers);
+apiRoutes.get('/markers/fetch-item/:id', CoordinatesController.fetchItem);
 
 
 

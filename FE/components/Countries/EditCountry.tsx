@@ -19,6 +19,7 @@ import {
 } from "../../redux/countries/selectors";
 import MapForm from "../MapForm";
 import VideoList from "./VideosList";
+import {fetchItemMarkerAction} from "../../redux/coordinates";
 
 function CountryForm({ countryData }: { countryData: any }) {
   const t = useTranslations();
@@ -53,8 +54,7 @@ function CountryForm({ countryData }: { countryData: any }) {
 
   const showTabs = () => {
     setDisplayTabs(true);
-  }
-
+  };
 
   return (
     <>
@@ -133,9 +133,10 @@ function CountryForm({ countryData }: { countryData: any }) {
                         <Fragment key={item.id}>
                           <tr>
                             <td className="w-1/2">{item.title}</td>
+                            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
                             <td
                               className="w-1/2 text-blue-400 cursor-pointer"
-                              onClick={() => showTabs()}
+                              onClick={() => dispatch(fetchItemMarkerAction())}
                             >
                               Edit
                             </td>
