@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Highlighted countries</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet'/>
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div id='map'></div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2VyaGlpLXNzIiwiYSI6ImNsamg2OHc0MzAxcmgzcW1sa21vcXNoejEifQ.yRT_TMOrZY_JC9f320xeng';
+
+    let countries = ['USA', 'CHN', 'VNM', 'THA', 'LAO'];
+    let countriesLatLng = [
+        [37.090240, -95.712891],
+        [35.861660, 104.195396],
+        [14.058324, 108.277199],
+        [15.870032, 100.992538],
+        [19.856270, 102.495499],
+    ];
+    let countriesColors = ['#00BE20', '#FF4133', '#CB31F5', '#003AD4', '#667799'];
+
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [5, 46],
+        maxZoom: 7,
+        minZoom: 2,
+        zoom: 2
+    });
+
+    map.on('load', function () {
+        let currentLayer, prevLayer;
+
+        countries.forEach(function (countryCode, idx) {
+            currentLayer =`${countryCode}-filled-layer`;
+
+            //Country color filler
+            map.addLayer(
+                {
+                    id: currentLayer,
+                    source: {
+                        type: 'vector',
+                        url: 'mapbox://mapbox.country-boundaries-v1',
+                    },
+                    'source-layer': 'country_boundaries',
+                    type: 'fill',
+                    paint: {
+                        'fill-color': countriesColors[idx],
+                        'fill-opacity': 1,
+                        'fill-outline-color': '#fff'
+                    },
+                }
+            );
+
+            map.setFilter(currentLayer, [
+                "in",
+                "iso_3166_1_alpha_3",
+                countryCode
+            ]);
+
+            //Auto arrange layers order rendering, each next layer (currentLayer) put on top of another (prevLayer)
+            if (idx > 0) {
+              prevLayer = `${countries[idx - 1]}-filled-layer`;
+              map.moveLayer(currentLayer, prevLayer);
+            }
+
+        });
+
+        //Filler for countries that not in list
+        map.addLayer(
+            {
+                id: 'countries-bg-layer',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://mapbox.country-boundaries-v1',
+                },
+                'source-layer': 'country_boundaries',
+                type: 'fill',
+                paint: {
+                    'fill-color': '#C9BCBC',
+                    'fill-opacity': 1,
+                    'fill-outline-color': '#fff'
+                },
+            }
+        );
+
+        //Background layer with light grey color
+        map.addLayer(
+            {
+                id: 'bg-layer',
+                source: {
+                    type: 'vector',
+                    url: 'mapbox://mapbox.country-boundaries-v1',
+                },
+                'source-layer': 'country_boundaries',
+                type: 'background',
+                paint: {
+                    'background-color': '#EFEBEB'
+                },
+            }
+        );
+
+        //Move countries bg under inactive countries fill
+        map.moveLayer('countries-bg-layer', currentLayer);
+
+        //Move bg layer down
+        map.moveLayer('bg-layer', 'countries-bg-layer');
+
+        //Hide all default captions
+        map.style.stylesheet.layers.forEach(function (layer) {
+            if (layer.type === 'symbol') {
+                map.setLayoutProperty(layer.id, "visibility", "none");
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
