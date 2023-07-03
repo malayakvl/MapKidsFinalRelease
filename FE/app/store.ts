@@ -12,6 +12,7 @@ import imagesReducer from "../redux/images/index";
 import articlesReducer from "../redux/articles/index";
 import videosReducer from "../redux/videos/index";
 import countriesReducer from "../redux/countries/index";
+import coordinatesReducer from "../redux/coordinates/index";
 
 import logger from "redux-logger";
 
@@ -24,6 +25,7 @@ const reducers = combineReducers({
   articles: articlesReducer,
   videos: videosReducer,
   countries: countriesReducer,
+  coordinates: coordinatesReducer
 });
 
 const initStore = (initialState = {}) => {

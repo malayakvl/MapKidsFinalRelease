@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {Fragment, useState} from "react";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
@@ -8,11 +8,7 @@ import "rc-slider/assets/index.css";
 import { InputSwitcher, InputColor, InputTextarea } from "../_form";
 // import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  crudAction,
-  setOpacityAction,
-  fetchMarkersAction,
-} from "../../redux/countries";
+import { crudAction, setOpacityAction } from "../../redux/countries";
 import ImageList from "./ImagesList";
 import {
   checkedImageIdsSelector,
@@ -33,9 +29,12 @@ function CountryForm({ countryData }: { countryData: any }) {
   const checkedImageIds = useSelector(checkedImageIdsSelector);
   const checkedVideoIds = useSelector(checkedVideoIdsSelector);
   const [opacityRange, setOpacityRange] = useState<any[]>([0, 100]);
+  const [displayTabs, setDisplayTabs] = useState(false);
 
   const layerColor = useSelector(layerFillSelector);
   const layerOpacity = useSelector(layerOpacitySelector);
+
+  // console.log(countrySelectorData);
   // const countryMap = useSelector(countryMapSelector);
 
   // console.log("Country Data:", countrySelectorData);
@@ -51,6 +50,11 @@ function CountryForm({ countryData }: { countryData: any }) {
   const onSliderAfterChange = () => {
     changeOpacityDone();
   };
+
+  const showTabs = () => {
+    setDisplayTabs(true);
+  }
+
 
   return (
     <>
@@ -122,8 +126,30 @@ function CountryForm({ countryData }: { countryData: any }) {
                         tips={null}
                       />
                     </div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                    <label className="control-label">Markers List</label>
+                    <table className="full-content">
+                      {countrySelectorData.markers?.map((item: any) => (
+                        <Fragment key={item.id}>
+                          <tr>
+                            <td className="w-1/2">{item.title}</td>
+                            <td
+                              className="w-1/2 text-blue-400 cursor-pointer"
+                              onClick={() => showTabs()}
+                            >
+                              Edit
+                            </td>
+                          </tr>
+                        </Fragment>
+                      ))}
+                    </table>
+                    <div></div>
                     <div className="clearfix" />
-                    <div className="w-full mt-10">
+                    <div
+                      className={`w-full mt-10 ${
+                        displayTabs ? "show" : "hide"
+                      }`}
+                    >
                       <nav aria-label="Tabs">
                         <ul className="flex border-b border-gray-200 text-center">
                           <li className="flex-1">

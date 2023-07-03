@@ -27,6 +27,16 @@ class LocationController {
         }
     }
 
+    async fetchMarkers (req, res) {
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            const data = await locationModel.fetchMarkers();
+            console.log(data);
+            return res.status(200).json({ items: data.items});
+        }
+    }
+
     async addMarker (req, res) {
         if (!req.user) {
             return res.status(401).json('Access deny');
@@ -118,7 +128,6 @@ class LocationController {
             fillOpacity: dataCountry.data.fillOpacity,
             description: dataCountry.data.description
         }
-        console.log("Updated Data", updatedData);
         await locationModel.updateRecord(updatedData, dataCountry.countryData.id);
         // await coun
         // console.log("query:", query);

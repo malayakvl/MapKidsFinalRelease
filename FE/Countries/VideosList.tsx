@@ -1,17 +1,17 @@
 import React, { useCallback, Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { baseApiUrl } from "../../constants";
+// import { baseApiUrl } from "../../constants";
 import {
   itemCountSelector,
   paginatedItemsSelector,
-} from "../../redux/images/selectors";
-import { fetchAllItemsAction } from "../../redux/videos";
+} from "../redux/images/selectors";
+import { fetchAllItemsAction } from "../redux/videos";
 import {
   checkedVideoIdsSelector,
   countryItemSelector,
-} from "../../redux/countries/selectors";
-import { nonpaginatedItemsSelector } from "../../redux/videos/selectors";
-import { checkVideoIdsAction, initVideoIdsAction } from "../../redux/countries";
+} from "../redux/countries/selectors";
+import { nonpaginatedItemsSelector } from "../redux/videos/selectors";
+import { checkVideoIdsAction, initVideoIdsAction } from "../redux/countries";
 
 const VideoList: React.FC<any> = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ const VideoList: React.FC<any> = () => {
 
   useEffect(() => {
     const setupChecked: any = [];
+    // @ts-ignore
     items.forEach((item: Videos.VideoItem) => {
       setupChecked.push({
         id: item.id,

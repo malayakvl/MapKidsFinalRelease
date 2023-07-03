@@ -45,9 +45,9 @@ export const layerFillSelector = createSelector(
   rootSelector,
   (countries: State.Countries): any => countries.fill_color
 );
-export const layerOpacitySelector = createSelector(
+export const markersSelector = createSelector(
   rootSelector,
-  (countries: State.Countries): any => countries.fill_opacity
+  (coordinates: State.Coordinates): any => coordinates.items
 );
 export const countryMapSelector = createSelector(
   rootSelector,

@@ -9,7 +9,11 @@ import {
   layerOpacitySelector,
   mapLoadedSelector,
 } from "../../redux/countries/selectors";
-import { loadMapAction, initMapAction, addMarkerAction } from "../../redux/countries";
+import {
+  loadMapAction,
+  initMapAction,
+  addMarkerAction,
+} from "../../redux/countries";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
@@ -21,7 +25,6 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
   const layerOpacity = useSelector(layerOpacitySelector);
   const mapCountry = useSelector(countryMapSelector);
   const countryData = useSelector(countryItemSelector);
-
 
   useEffect(() => {
     if (isFetched) {
@@ -40,6 +43,8 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
       map.on("style.load", () => {
         map.on("click", function (e) {
           const coordinates = e.lngLat;
+          console.log(coordinates, countryData);
+
           const marker = new mapboxgl.Marker();
 
           marker.setLngLat(coordinates).addTo(map);
@@ -109,18 +114,20 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
           countryData.iso3,
         ]);
         const el = document.createElement("div");
-        const width = 30;
-        const height = 30;
-        el.className = "marker";
-        el.innerHTML = `<span>${countryData.flag}</span>`;
-        el.style.width = `${width}px`;
-        el.style.height = `${height}px`;
-        // new mapboxgl.Marker(el)
-        //   .setLngLat([
-        //     countryData.countryCenter[0],
-        //     countryData.countryCenter[1],
-        //   ])
-        //   .addTo(mapCountry);
+        if (countryData.markers.length > 0) {
+          for (const marker of countryData.markers) {
+            // Create a DOM element for each marker.
+            // const el = document.createElement("div");
+            // el.className = "marker";
+            // el.innerHTML = `<span>${countryData.flag}</span>`;
+            // el.style.width = `30px`;
+            // el.style.height = `30px`;
+            // el.style.backgroundSize = "100%";
+            const geometry = [marker.lng, marker.lat];
+            // @ts-ignore
+            new mapboxgl.Marker().setLngLat(geometry).addTo(mapCountry);
+          }
+        }
       });
     }
   }, [countryData, mapCountry]);

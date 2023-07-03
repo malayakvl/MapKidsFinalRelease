@@ -4,8 +4,8 @@ function Phone() {
   return (
     <>
       <div className="phone-block">
-        <img src="/images/map/Laos_05.jpg" className="phone-head" alt="" />
-        <h1>China</h1>
+        <img src="https://www.interfax.ru/ftproot/textphotos/2014/09/25/ind700.jpg" className="phone-head" alt="" />
+        <h1>Some Title</h1>
         <div className="country-text">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -18,7 +18,7 @@ function Phone() {
           <iframe
             width="100%"
             height="200"
-            src="https://www.youtube.com/embed/6gn0XF2brv0"
+            src="https://www.youtube.com/embed/l4EF_YuX0qo"
             title="Beautiful cloudy sea with waves and sounds of marine nature to the music"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

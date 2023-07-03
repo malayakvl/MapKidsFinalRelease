@@ -127,9 +127,12 @@ class Location {
     async fetchOne(id) {
         const client = await pool.connect();
         try {
-            const rowsQuery = `SELECT * FROM data.countries WHERE id='45';`;
+            const rowsQuery = `SELECT * FROM data.countries WHERE id='${id}';`;
             const res = await client.query(rowsQuery);
             const item = res.rows.length > 0 ? res.rows[0] : {};
+            const rowsQueryMarkers = `SELECT * FROM data.coordinates WHERE country='${id}';`;
+            const resMarkers = await client.query(rowsQueryMarkers);
+            item.markers = resMarkers.rows.length > 0 ? resMarkers.rows : [];
             const error = null;
             return {
                 item,
@@ -190,6 +193,39 @@ class Location {
             const error = {
                 code: 500,
                 message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+    async fetchMarkers () {
+        const client = await pool.connect();
+        try {
+            const rowsQuery = `SELECT * FROM data.coordinates;`;
+            const res = await client.query(rowsQuery);
+            const items = res.rows.length > 0 ? res.rows : [];
+            const error = null;
+            return {
+                items,
+                error
+            };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Location getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of _countries',
                 error: e.message
             };
             return {

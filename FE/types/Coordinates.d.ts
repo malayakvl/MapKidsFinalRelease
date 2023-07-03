@@ -21,42 +21,18 @@ declare namespace Countries {
 
   interface Item {
     id: any;
-    name: any;
-    active: any;
-    iso: any;
-    iso3: any;
-    currency: any;
-    flag: any;
-    currency_name: any;
-    created_at: any;
-    updated_at: any;
+    lat: any;
+    lng: any;
     images: any;
-    description: any;
     videos: any;
-    fillColor: any;
-    fillOpacity: any;
-    fill_color: any;
-    fill_opacity: any;
-    countryCenter: any;
-    markers: any;
   }
 
   interface ItemData {
     id: number | null;
-    name: string;
-    flag: any;
-    countryCenter: any;
-    fillColor: any;
-    fillOpacity: any;
-    iso: any;
-    iso3: any;
-    active: boolean;
-    description: any;
-    created_at: any;
-    updated_at: any;
-    fill_color: any;
-    fill_opacity: any;
-    markers: any;
+    lat: any;
+    lng: any;
+    images: any;
+    videos: any;
   }
 
   interface CheckedIds {
