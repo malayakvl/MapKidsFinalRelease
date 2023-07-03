@@ -5,7 +5,7 @@ declare namespace Countries {
     uploadedFiles: File[];
     checkedIds: number[];
     count: number;
-    items: any[];
+    items: any;
     item: Item;
     mapLoaded: boolean;
     checkedImageIds: CheckedIds[];
@@ -20,7 +20,7 @@ declare namespace Countries {
   }
 
   interface Item {
-    id: any;
+    id: number;
     lat: any;
     lng: any;
     images: any;

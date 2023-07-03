@@ -25,7 +25,7 @@ const reducers = combineReducers({
   articles: articlesReducer,
   videos: videosReducer,
   countries: countriesReducer,
-  coordinates: coordinatesReducer
+  coordinates: coordinatesReducer,
 });
 
 const initStore = (initialState = {}) => {

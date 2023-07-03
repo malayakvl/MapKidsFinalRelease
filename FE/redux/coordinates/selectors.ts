@@ -1,59 +1,18 @@
 import { createSelector } from "reselect";
+// import coordinates from "./index";
 
 // ------------------------------------
 // Selectors
 // ------------------------------------
 const rootSelector = createSelector(
-  (state: State.Root) => state.countries,
-  (countries: State.Countries): State.Countries => countries
-);
-export const paginatedItemsSelector = createSelector(
-  rootSelector,
-  (countries: State.Countries): any => countries.items
-);
-export const activeCountriesSelector = createSelector(
-  rootSelector,
-  (countries: State.Countries): any => countries.items
-);
-export const itemCountSelector = createSelector(
-  rootSelector,
-  (countries: State.Countries): number => countries.count
-);
-export const isFetchSelector = createSelector(
-  rootSelector,
-  (countries: State.Countries): boolean => countries.isFetched
-);
-export const countryItemSelector = createSelector(
-  rootSelector,
-  (countries: State.Countries): Countries.ItemData => countries.item
-);
-export const mapLoadedSelector = createSelector(
-  rootSelector,
-  (countries: State.Countries): boolean => countries.mapLoaded
-);
-export const checkedImageIdsSelector = createSelector(
-  rootSelector,
-  (countries: State.Countries): Countries.CheckedIds[] =>
-    countries.checkedImageIds
-);
-export const checkedVideoIdsSelector = createSelector(
-  rootSelector,
-  (countries: State.Countries): Countries.CheckedIds[] =>
-    countries.checkedVideoIds
-);
-export const layerFillSelector = createSelector(
-  rootSelector,
-  (countries: State.Countries): any => countries.fill_color
+  (state: State.Root) => state.coordinates,
+  (coordinates: State.Coordinates): State.Coordinates => coordinates
 );
 export const markersSelector = createSelector(
   rootSelector,
   (coordinates: State.Coordinates): any => coordinates.items
 );
-export const countryMapSelector = createSelector(
+export const markersDataSelector = createSelector(
   rootSelector,
-  (countries: State.Countries): any => countries.countryMap
+  (coordinates: State.Coordinates): any => coordinates.item
 );
-// export const coordinatesSelector = createSelector(
-//   rootSelector,
-//   (coordinates: State.Coordinates): any => Coordinates.coordinates
-// );

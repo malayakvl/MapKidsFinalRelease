@@ -7,7 +7,9 @@ import VideoController from '../controllers/VideoController.js';
 import UserController from '../controllers/UserController.js';
 import SettingsController from '../controllers/SettingsController.js';
 import LocationController from "../controllers/LocationController.js";
+import CoordinatesController from "../controllers/CoordinatesController.js";
 import userModel from '../models/User.js';
+// import Coordinates from "../models/Coordinates.js";
 
 const apiRoutes = express.Router();
 
@@ -20,7 +22,8 @@ apiRoutes.get('/countries/fetch-active', LocationController.activeItems);
 
 apiRoutes.post('/countries/add-marker', LocationController.addMarker);
 apiRoutes.get('/countries/add-marker', LocationController.addMarker);
-apiRoutes.get('/fetch-markers', LocationController.fetchMarkers);
+apiRoutes.get('/markers/list', LocationController.activeMarkers);
+apiRoutes.get('/markers/fetch-item/:id', LocationController.markerData);
 
 
 
@@ -50,8 +53,7 @@ apiRoutes.get('/countries/unactive-item', LocationController.unactiveItem);
 apiRoutes.get('/countries/fetch-item/:id', LocationController.fetchItem);
 apiRoutes.post('/countries/update-item', LocationController.updateItem);
 apiRoutes.get('/countries/add-pointer', LocationController.addMarker);
-apiRoutes.get('/countries/fetch-markers', LocationController.addMarker);
-// apiRoutes.get('/countries/fetch-coordinates', LocationController.fetchMarkers);
+
 
 /** ===================================================================== */
 /** ================== IMAGES ROUTES ==================================== */

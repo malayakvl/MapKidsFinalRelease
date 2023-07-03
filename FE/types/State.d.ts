@@ -12,7 +12,7 @@ declare namespace State {
     videos: Videos;
     articles: Articles;
     userRequests: UserRequests;
-    coordiates: Coordinates;
+    coordinates: Coordinates;
   }
 
   type Layouts = Layouts.Root;
@@ -23,5 +23,5 @@ declare namespace State {
   type User = User.Root;
   type Settings = Settings.Root;
   type Countries = Countries.Root;
-  type Coordinates = Countries.Root;
+  type Coordinates = Coordinates.Root;
 }

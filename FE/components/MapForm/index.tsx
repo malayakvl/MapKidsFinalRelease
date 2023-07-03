@@ -14,6 +14,7 @@ import {
   initMapAction,
   addMarkerAction,
 } from "../../redux/countries";
+import {markersSelector} from "../../redux/coordinates/selectors";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
@@ -25,6 +26,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
   const layerOpacity = useSelector(layerOpacitySelector);
   const mapCountry = useSelector(countryMapSelector);
   const countryData = useSelector(countryItemSelector);
+  const coordinatesData = useSelector(markersSelector);
 
   useEffect(() => {
     if (isFetched) {
@@ -40,10 +42,11 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
         zoom: 2,
       });
       dispatch(initMapAction(map));
+      // dispatch(fetchItemsMarkersAction());
       map.on("style.load", () => {
         map.on("click", function (e) {
           const coordinates = e.lngLat;
-          console.log(coordinates, countryData);
+          console.log("Markers List", coordinatesData);
 
           const marker = new mapboxgl.Marker();
 

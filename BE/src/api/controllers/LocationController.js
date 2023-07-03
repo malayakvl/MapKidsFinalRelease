@@ -31,9 +31,9 @@ class LocationController {
         if (!req.user) {
             return res.status(401).json('Access deny');
         } else {
-            const data = await locationModel.fetchMarkers();
-            console.log(data);
-            return res.status(200).json({ items: data.items});
+            // const data = await locationModel.fetchMarkers();
+            // console.log(data);
+            return res.status(200).json({ items: []});
         }
     }
 
@@ -70,6 +70,12 @@ class LocationController {
         //     return res.status(200).json({ count: data.size, items: data.items});
         // }
     }
+
+    async activeMarkers (req, res) {
+        const data = await locationModel.fetchMarkers();
+        return res.status(200).json({ count: data.size, items: data.items});
+    }
+
 
     async unactiveItem (req, res) {
         const { id } = req.query;

@@ -1,7 +1,6 @@
 import { Action, handleActions } from "redux-actions";
 import {
-  fetchItemsAction,
-  fetchItemAction,
+  fetchItemMarkerAction,
   loadMapAction,
   checkImageIdsAction,
   initImageIdsAction,
@@ -10,6 +9,7 @@ import {
   setPaletteAction,
   initMapAction,
   setOpacityAction,
+  fetchItemsMarkersAction,
 } from "./actions";
 
 const initialState: {
@@ -19,7 +19,7 @@ const initialState: {
 };
 
 const ACTION_HANDLERS: any = {
-  [fetchItemsAction]: {
+  [fetchItemsMarkersAction]: {
     next: (
       state: State.Coordinates,
       action: Type.ReduxAction<Pick<State.Coordinates, "items">>
@@ -31,7 +31,7 @@ const ACTION_HANDLERS: any = {
       ...state,
     }),
   },
-  [fetchItemAction]: {
+  [fetchItemMarkerAction]: {
     next: (
       state: State.Countries,
       action: Type.ReduxAction<Pick<State.Countries, "item">>
@@ -133,8 +133,8 @@ const ACTION_HANDLERS: any = {
 };
 
 export {
-  fetchItemsAction,
-  fetchItemAction,
+  fetchItemsMarkersAction,
+  fetchItemMarkerAction,
   loadMapAction,
   initImageIdsAction,
   checkImageIdsAction,

@@ -12,7 +12,7 @@ import { paginationSelectorFactory } from "../layouts/selectors";
 import { PaginationType } from "../../constants";
 import queryString from "query-string";
 
-export const fetchItemsAction: any = createAction(
+export const fetchItemsMarkersAction: any = createAction(
   "pointers/FETCH_ITEMS",
   async () =>
     (
@@ -20,26 +20,16 @@ export const fetchItemsAction: any = createAction(
       getState: () => State.Root
     ): Promise<{ count: any; items: any }> => {
       const state = getState();
-      const { limit, offset, sort, column, query, filters } =
-        paginationSelectorFactory(PaginationType.COUNTRIES)(state);
-      const queryFilter = JSON.stringify(filters);
+      // const { limit, offset, sort, column, query, filters } =
+      //   paginationSelectorFactory(PaginationType.COUNTRIES)(state);
+      // const queryFilter = JSON.stringify(filters);
       dispatch(showLoaderAction(true));
       return axios
-        .get(
-          `${baseUrl}/countries/fetch-items?${queryString.stringify({
-            limit,
-            offset,
-            sort,
-            column,
-            query,
-            queryFilter,
-          })}`,
-          {
-            headers: {
-              ...authHeader(state.user.user.email),
-            },
-          }
-        )
+        .get(`${baseUrl}/markers/list`, {
+          headers: {
+            ...authHeader(state.user.user.email),
+          },
+        })
         .then((res: any) => {
           dispatch(showLoaderAction(false));
           return {
@@ -49,8 +39,8 @@ export const fetchItemsAction: any = createAction(
         });
     }
 );
-export const fetchItemAction: any = createAction(
-  "orders/FETCH_ITEM",
+export const fetchItemMarkerAction: any = createAction(
+  "markers/FETCH_ITEM",
   async (id: number) =>
     async (
       dispatch: Type.Dispatch,
@@ -58,27 +48,19 @@ export const fetchItemAction: any = createAction(
     ): Promise<{ item: Articles.ItemData }> => {
       const state = getState();
       dispatch(showLoaderAction(true));
-      const res = await axios.get(`${baseUrl}/countries/fetch-item/${id}`, {
+      const res = await axios.get(`${baseUrl}/markers/fetch-item/${id}`, {
         headers: {
           ...authHeader(state.user.user.email),
         },
       });
       if (res.status) {
         dispatch(showLoaderAction(false));
-        // dispatch(setCountryData(data.item));
-        dispatch(
-          setActivePageAction({
-            type: "countries",
-            modifier: "edit",
-          })
-        );
       }
       return {
         item: res.data.item,
       };
     }
 );
-
 
 export const loadMapAction: any = createAction("countries/MAPLOADED_ACTION");
 export const checkImageIdsAction: any = createAction(
