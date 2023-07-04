@@ -14,7 +14,7 @@ import {
   initMapAction,
   addMarkerAction,
 } from "../../redux/countries";
-import {markersSelector} from "../../redux/coordinates/selectors";
+import { markersSelector } from "../../redux/coordinates/selectors";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
@@ -46,10 +46,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
       map.on("style.load", () => {
         map.on("click", function (e) {
           const coordinates = e.lngLat;
-          console.log("Markers List", coordinatesData);
-
           const marker = new mapboxgl.Marker();
-
           marker.setLngLat(coordinates).addTo(map);
           // store marker to db
           dispatch(addMarkerAction(coordinates, countryData.id));
@@ -119,13 +116,6 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
         const el = document.createElement("div");
         if (countryData.markers.length > 0) {
           for (const marker of countryData.markers) {
-            // Create a DOM element for each marker.
-            // const el = document.createElement("div");
-            // el.className = "marker";
-            // el.innerHTML = `<span>${countryData.flag}</span>`;
-            // el.style.width = `30px`;
-            // el.style.height = `30px`;
-            // el.style.backgroundSize = "100%";
             const geometry = [marker.lng, marker.lat];
             // @ts-ignore
             new mapboxgl.Marker().setLngLat(geometry).addTo(mapCountry);

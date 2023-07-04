@@ -22,16 +22,22 @@ function Phone() {
           }}
         />
         <div className="video">
-          {coordinatesInfo?.video}
-          {/*<iframe*/}
-          {/*  width="100%"*/}
-          {/*  height="200"*/}
-          {/*  src="https://www.youtube.com/embed/l4EF_YuX0qo"*/}
-          {/*  title="Beautiful cloudy sea with waves and sounds of marine nature to the music"*/}
-          {/*  frameBorder="0"*/}
-          {/*  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"*/}
-          {/*  allowFullScreen*/}
-          {/*></iframe>*/}
+          <div
+            className="country-text"
+            dangerouslySetInnerHTML={{
+              __html: coordinatesInfo?.videoCode,
+            }}
+          />
+          {coordinatesInfo?.videoCode}
+          <iframe
+            width="100%"
+            height="200"
+            src="https://www.youtube.com/embed/l4EF_YuX0qo"
+            title="Beautiful cloudy sea with waves and sounds of marine nature to the music"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
         </div>
       </div>
     </>

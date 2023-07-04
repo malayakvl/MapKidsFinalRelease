@@ -1,11 +1,11 @@
-import React, {Fragment, useState} from "react";
+import React, { Fragment, useState } from "react";
 import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { Formik } from "formik";
 import Range from "rc-slider";
 import "rc-slider/assets/index.css";
-import { InputSwitcher, InputColor, InputTextarea } from "../_form";
+import { InputSwitcher, InputColor, InputTextarea, InputText } from "../_form";
 // import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 import { crudAction, setOpacityAction } from "../../redux/countries";
@@ -19,7 +19,9 @@ import {
 } from "../../redux/countries/selectors";
 import MapForm from "../MapForm";
 import VideoList from "./VideosList";
-import {fetchItemMarkerAction} from "../../redux/coordinates";
+import { fetchItemMarkerAction } from "../../redux/coordinates";
+import {markersDataSelector} from "../../redux/coordinates/selectors";
+import {setSwitchHeaderAction} from "../../redux/layouts/actions";
 
 function CountryForm({ countryData }: { countryData: any }) {
   const t = useTranslations();
@@ -31,12 +33,14 @@ function CountryForm({ countryData }: { countryData: any }) {
   const checkedVideoIds = useSelector(checkedVideoIdsSelector);
   const [opacityRange, setOpacityRange] = useState<any[]>([0, 100]);
   const [displayTabs, setDisplayTabs] = useState(false);
+  const markerData = useSelector(markersDataSelector);
 
   const layerColor = useSelector(layerFillSelector);
   const layerOpacity = useSelector(layerOpacitySelector);
 
   // console.log(countrySelectorData);
   // const countryMap = useSelector(countryMapSelector);
+  console.log("Marker Data", markerData);
 
   // console.log("Country Data:", countrySelectorData);
   const onSliderOpacityChange = (_value: any) => {
@@ -52,8 +56,18 @@ function CountryForm({ countryData }: { countryData: any }) {
     changeOpacityDone();
   };
 
+  useEffect(() => {
+    if (markerData?.id) {
+      setDisplayTabs(true);
+    }
+  }, [markerData]);
+
   const showTabs = () => {
     setDisplayTabs(true);
+  };
+
+  const editMarkerAction = (id: number) => {
+    dispatch(fetchItemMarkerAction(id));
   };
 
   return (
@@ -128,7 +142,7 @@ function CountryForm({ countryData }: { countryData: any }) {
                     </div>
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="control-label">Markers List</label>
-                    <table className="full-content">
+                    <table className="full-content" id="markersTable">
                       {countrySelectorData.markers?.map((item: any) => (
                         <Fragment key={item.id}>
                           <tr>
@@ -136,7 +150,7 @@ function CountryForm({ countryData }: { countryData: any }) {
                             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
                             <td
                               className="w-1/2 text-blue-400 cursor-pointer"
-                              onClick={() => dispatch(fetchItemMarkerAction())}
+                              onClick={() => editMarkerAction(item.id)}
                             >
                               Edit
                             </td>
@@ -151,7 +165,21 @@ function CountryForm({ countryData }: { countryData: any }) {
                         displayTabs ? "show" : "hide"
                       }`}
                     >
-                      <nav aria-label="Tabs">
+                      <InputText
+                        icon={null}
+                        label={"Title"}
+                        name={"title"}
+                        placeholder={"Title"}
+                        style={null}
+                        props={props}
+                        tips={null}
+
+                        onChange={(event) => {
+                          event.target.value = event.target.value.trimStart();
+                          props.handleChange(event);
+                        }}
+                      />
+                      <nav aria-label="Tabs" className="mt-10">
                         <ul className="flex border-b border-gray-200 text-center">
                           <li className="flex-1">
                             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

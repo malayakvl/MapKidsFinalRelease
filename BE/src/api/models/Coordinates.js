@@ -6,10 +6,18 @@ class Coordinates {
     async saveMarker (lat, lng, countryId) {
         const client = await pool.connect();
         try {
-            const rowsQuery = `INSERT INTO data.coordinates (lat, lng, country) VALUES (${lat}, ${lng}, ${countryId});`;
-            console.log(rowsQuery);
+            // const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            // let result = '';
+            // const charactersLength = characters.length;
+            // let counter = 0;
+            // while (counter < length) {
+            //     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            //     counter += 1;
+            // }
+            const title = `Pointer ${Date.now()}`
+            const rowsQuery = `INSERT INTO data.coordinates (title, lat, lng, country) VALUES ('${title}', ${lat}, ${lng}, ${countryId});`;
             await client.query(rowsQuery);
-            return { success: true };
+            return { success: true,  };
         } catch (e) {
             console.log(e.message);
             if (process.env.NODE_ENV === 'development') {

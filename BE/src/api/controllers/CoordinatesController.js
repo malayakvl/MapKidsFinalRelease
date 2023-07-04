@@ -1,7 +1,6 @@
-// import coordinatesModel from '../models/Coordinates.js';
-// import statisticModel from "../models/Statistics.js";
 import locationModel from "../models/Location.js";
 import coordinates from "../models/Coordinates.js";
+import videoModel from "../models/Video.js";
 
 
 class CoordinatesController {
@@ -32,12 +31,19 @@ class CoordinatesController {
 
     async fetchItem (req, res) {
         const data = await coordinates.fetchOne(req.params.id);
-        if (!data.item.images) {
-            data.item.images = [];
+        if (data.item?.videos) {
+            // selecting random video
+            const videoData = await videoModel.findById(data.item.videos[0]);
+            data.item.videoCode = videoData.code;
+
         }
-        if (!data.item.videos) {
-            data.item.videos = [];
-        }
+        // console.log(data);
+        // if (!data.item.images) {
+        //     data.item.images = [];
+        // }
+        // if (!data.item.videos) {
+        //     data.item.videos = [];
+        // }
         return res.status(200).json({ item: data.item});
     }
 
