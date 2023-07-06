@@ -1,6 +1,7 @@
 import locationModel from "../models/Location.js";
 import coordinates from "../models/Coordinates.js";
 import videoModel from "../models/Video.js";
+import imageModel from "../models/Image.js";
 
 
 class CoordinatesController {
@@ -35,7 +36,11 @@ class CoordinatesController {
             // selecting random video
             const videoData = await videoModel.findById(data.item.videos[0]);
             data.item.videoCode = videoData.code;
-
+        }
+        if (data.item?.images) {
+            // selecting random video
+            const imageData = await imageModel.findById(data.item.images[0]);
+            data.item.image = imageData.name;
         }
         // console.log(data);
         // if (!data.item.images) {

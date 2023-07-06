@@ -1,0 +1,107 @@
+.phone-content {
+  width: 576px;
+}
+
+.phone-map-block {
+    background: url(../../public/images/phone/bg-phone.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 452px;
+    height: 765px;
+    font-family: 'Inter', serif;
+    top: 50px;
+    right:100px;
+    //border: 6.96965px solid #009EE6;
+    //border-radius: 56px;
+    position: absolute;
+    //right: 20px;
+}
+
+.video-frame {
+  width: 350px;
+  overflow: hidden;
+  //border:solid 1px red;
+  margin-left: 55px;
+}
+
+.photo-frame {
+  //background: url(../../public/images/phone/gray-frame.svg);
+  margin-top: 120px;
+  margin-left: 20px;
+  width: 400px;
+  //height: 239px;
+  position: absolute;
+  top:-15px;
+  right: 5px;
+}
+
+.gray-border-frame {
+  border-radius: 12px;
+  border: solid 7px #878787;
+  width: 355px;
+  height: 200px;
+}
+
+.phone-descr {
+  margin-top: 235px;
+  width: 393px;
+  margin-left: 27px;
+  height: 213px;
+  overflow-y: scroll;
+
+  .country-text {
+    padding: 20px;
+  }
+}
+.photo-content {
+  width: 350px;
+}
+
+.phone-head-green {
+  background: url(../../public/images/phone/green-head.svg);
+  background-repeat: no-repeat;
+  width: 558px;
+  height: 163px;
+  position: absolute;
+  top: 5px;
+  left: -51px;
+
+  span {
+    color: #FFFF;
+  }
+}
+
+.phone-descr {
+  font-family: Inter;
+  color: #818181;
+  font-weight: 400;
+}
+
+.phone-content {
+  width: 350px;
+  background: #fff;
+  margin: 55px;
+  border: solid 1px red;
+}
+
+.title-head {
+  font-size:50px;
+  color:#FFFF;
+text-align: center;
+  font-weight: bold;
+  font-family: Inter;
+}
+
+.close-phone {
+  background: url(../../public/images/phone/close.svg);
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  top: 46px;
+  right: 105px;
+  z-index: 999;
+}
+
+.gotic-frame {
+
+}

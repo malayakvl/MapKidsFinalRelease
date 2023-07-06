@@ -43,7 +43,8 @@ class LocationController {
         } else {
             const { lat, lng, countryId } = req.query;
             await coordinatesModel.saveMarker(lat, lng, countryId);
-            return res.status(200).json({success: true});
+            const markersRes = await coordinatesModel.getCountryMarkers(countryId);
+            return res.status(200).json({success: true, markersList: markersRes.markers});
         }
     }
 
@@ -106,11 +107,42 @@ class LocationController {
         }
     }
 
+    async updateOpacity (req, res) {
+        const { opacity, countryId } = req.query;
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            await locationModel.updateOpacity(opacity, countryId);
+            return res.status(200).json({ success: true});
+        }
+    }
+
+    async updateColor (req, res) {
+        const { color, countryId } = req.query;
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            await locationModel.updateColor(color, countryId);
+            return res.status(200).json({ success: true});
+        }
+    }
+
+    async removeMarker (req, res) {
+        const { markerId, countryId } = req.query;
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            await locationModel.removeMarker(markerId);
+            const markersRes = await coordinatesModel.getCountryMarkers(countryId);
+            return res.status(200).json({success: true, markersList: markersRes.markers});
+        }
+    }
 
     async updateItem (req, res) {
         const dataCountry = req.body;
         const parsedDataImages = JSON.parse(req.body.data.images);
         const parsedDataVideos = JSON.parse(req.body.data.videos);
+        const locationId = req.body.data.locationId;
         const imageIds = [];
         if (parsedDataImages.length) {
             parsedDataImages.forEach(data => {
@@ -132,19 +164,17 @@ class LocationController {
             videos: videoIds,
             fillColor: dataCountry.data.fillColor,
             fillOpacity: dataCountry.data.fillOpacity,
-            description: dataCountry.data.description
+            description: dataCountry.data.description,
+            title: dataCountry.data.title
         }
-        await locationModel.updateRecord(updatedData, dataCountry.countryData.id);
-        // await coun
-        // console.log("query:", query);
-        // console.log("query select:", querySelect);
-        // console.log("images IDS:", countryIds);
-        // console.log("countryId:", dataCountry.countryData.id);
+        await locationModel.updateRecord(updatedData, dataCountry.countryData.id, locationId);
+        const markersRes = await coordinatesModel.getCountryMarkers(dataCountry.countryData.id);
+
         if (!req.user) {
             return res.status(401).json('Access deny');
         } else {
             // const data = await locationModel.activeAction(id, 2);
-            return res.status(200).json({ item: {name: 'Test', id: 235}});
+            return res.status(200).json({ markersList: markersRes.markers, success: true});
         }
     }
 }

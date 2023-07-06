@@ -10,6 +10,7 @@ interface Props {
   tips: string | null;
   disabled?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  extValue?: string;
 }
 
 const InputText: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const InputText: React.FC<Props> = ({
   props,
   disabled,
   onChange,
+  extValue,
 }) => {
   const clear = () => {
     if (disabled) return;
@@ -47,7 +49,7 @@ const InputText: React.FC<Props> = ({
           type="text"
           onFocus={handleFocus}
           onChange={onChange ? onChange : props.handleChange}
-          value={props.values[name]}
+          value={props.values[name] ? props.values[name] : extValue}
           name={name}
           disabled={disabled}
         />

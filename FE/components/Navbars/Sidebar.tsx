@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 // import { signOut } from "next-auth/react";
 // import { setActivePageAction } from "../../redux/layouts";
 import { useDispatch } from "react-redux";
+import { signOut } from "next-auth/react";
 
 // import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "components/Dropdowns/UserDropdown.tsx";
@@ -130,6 +131,28 @@ export default function Sidebar() {
                 <span className="transition ease-in duration-100 ml-auto mr-5 hidden xl:block" />
               </div>
             </Link>
+          </div>
+        </li>
+        <li>
+          <div className={`item-menu cursor-pointer unactive-left-menu`}>
+            {/*<div className="icon-block videos" />*/}
+            <div
+              className={`hidden xl:flex items-center w-full ml-3 font-medium`}
+            >
+              <a
+                href="/api/auth/signout"
+                title={"Logout"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.localStorage.removeItem("user");
+                  signOut();
+                  window.location.reload();
+                }}
+              >
+                Logout
+              </a>
+              <span className="transition ease-in duration-100 ml-auto mr-5 hidden xl:block" />
+            </div>
           </div>
         </li>
 

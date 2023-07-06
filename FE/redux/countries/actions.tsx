@@ -173,6 +173,38 @@ export const crudAction: any = createAction(
             },
           }
         )
+        .then(async (res) => {
+          dispatch(showLoaderAction(false));
+          dispatch(updateMarkerListAction(res.data.markersList));
+          // dispatch()
+          dispatch(setSuccessToastAction("Item has been updated"));
+          await dispatch(fetchItemsAction());
+        });
+    }
+);
+export const updateColorAction: any = createAction(
+  "countries/UPDATE_COLOR_ACTION",
+  async (color: any, id: number | null) =>
+    async (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<void> => {
+      const state = getState();
+      const countrydata = state.countries.item;
+      dispatch(showLoaderAction(true));
+      return axios
+        .post(
+          `${baseUrl}/countries/update-color?color=${color.replace(
+            "#",
+            ""
+          )}&countryId=${countrydata.id}`,
+          { color: color, countryId: countrydata.id },
+          {
+            headers: {
+              ...authHeader(state.user.user.email),
+            },
+          }
+        )
         .then(async () => {
           dispatch(showLoaderAction(false));
           dispatch(setSuccessToastAction("Item has been updated"));
@@ -200,12 +232,74 @@ export const addMarkerAction: any = createAction(
             },
           }
         )
-        .then(async () => {
+        .then(async (res) => {
+          console.log("Markers list", res.data.markersList);
+          dispatch(updateMarkerListAction(res.data.markersList));
           dispatch(showLoaderAction(false));
+          // dispatch(updateMarker)
           dispatch(setSuccessToastAction("Marker has been added"));
         });
     }
 );
+export const updateOpacityAction: any = createAction(
+  "countries/UPDATE_OPACITY_ACTION",
+  async (opacity: any, countryId: number) =>
+    async (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<void> => {
+      const state = getState();
+      const countrydata = state.countries.item;
+      dispatch(showLoaderAction(true));
+      // console.log(countrydata);
+      return axios
+        .post(
+          `${baseUrl}/countries/update-opacity?opacity=${opacity}&countryId=${countrydata.id}`,
+          { opacity: opacity, countryData: countrydata },
+          {
+            headers: {
+              ...authHeader(state.user.user.email),
+            },
+          }
+        )
+        .then(async () => {
+          dispatch(showLoaderAction(false));
+          dispatch(setSuccessToastAction("Item has been updated"));
+          await dispatch(fetchItemsAction());
+        });
+    }
+);
+export const removeMarkerAction: any = createAction(
+  "countries/UPDATE_OPACITY_ACTION",
+  async (markerId: number, countryId: number) =>
+    async (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<void> => {
+      const state = getState();
+      const countrydata = state.countries.item;
+      dispatch(showLoaderAction(true));
+      // console.log(countrydata);
+      return axios
+        .post(
+          `${baseUrl}/countries/remove-marker?markerId=${markerId}&countryId=${countryId}`,
+          {},
+          {
+            headers: {
+              ...authHeader(state.user.user.email),
+            },
+          }
+        )
+        .then(async (res) => {
+          dispatch(showLoaderAction(false));
+          console.log("Returning Data", res.data.markersList);
+          dispatch(updateMarkerListAction(res.data.markersList));
+          dispatch(setSuccessToastAction("Item has been updated"));
+          await dispatch(fetchItemsAction());
+        });
+    }
+);
+
 // export const addMarkerAction: any = createAction(
 //   "countries/FETCH_ITEMS",
 //   async (coordinates: any) =>
@@ -234,6 +328,9 @@ export const addMarkerAction: any = createAction(
 //     }
 // );
 export const loadMapAction: any = createAction("countries/MAPLOADED_ACTION");
+export const updateMarkerListAction: any = createAction(
+  "countries/UPDATE_MARKERS"
+);
 export const checkImageIdsAction: any = createAction(
   "countries/CHECK_IMAGE_IDS"
 );

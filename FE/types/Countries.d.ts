@@ -17,6 +17,7 @@ declare namespace Countries {
     fill_opacity: any;
     countryMap: any;
     iso3: any;
+    markers: any;
   }
 
   interface Item {
@@ -51,6 +52,7 @@ declare namespace Countries {
     iso: any;
     iso3: any;
     active: boolean;
+    title: any;
     description: any;
     created_at: any;
     updated_at: any;

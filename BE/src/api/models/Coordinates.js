@@ -19,7 +19,6 @@ class Coordinates {
             await client.query(rowsQuery);
             return { success: true,  };
         } catch (e) {
-            console.log(e.message);
             if (process.env.NODE_ENV === 'development') {
                 logger.log(
                     'error',
@@ -46,9 +45,8 @@ class Coordinates {
         const client = await pool.connect();
         try {
             const rowsQuery = `SELECT * FROM data.coordinates WHERE country=${countryId};`;
-            console.log(rowsQuery);
             const items = await client.query(rowsQuery);
-            return { markers: items };
+            return { markers: items.rows };
         } catch (e) {
             console.log(e.message);
             if (process.env.NODE_ENV === 'development') {

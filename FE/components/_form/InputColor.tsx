@@ -36,12 +36,12 @@ const InputColor: React.FC<Props> = ({
   };
 
   const handleChange = () => {
-    console.log("handle change");
+    // console.log("handle change");
   };
 
   const handleChangeComplete = (color: any) => {
     setSelectedColor(color.hex);
-    console.log(color.hex);
+    // console.log(color.hex);
     dispatch(setPaletteAction(color.hex));
   };
 

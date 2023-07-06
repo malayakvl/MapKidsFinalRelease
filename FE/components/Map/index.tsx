@@ -41,7 +41,7 @@ const Map = () => {
     const map = new mapboxgl.Map({
       container: "map-container",
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [-100.486052, 37.830348],
+      center: [90.51351884845116, 38.51974209746709],
       zoom: 2,
     });
     const start = {
@@ -211,7 +211,8 @@ const Map = () => {
   });
 
   return (
-    <main>
+    <main className="main-layout">
+      <div className="big-logo" />
       <div className="map-container" id="map-container" ref={mapContainer} />
       {showPhone && <Phone />}
       {/*<Phone />*/}

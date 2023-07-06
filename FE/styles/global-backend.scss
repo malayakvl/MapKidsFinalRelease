@@ -315,11 +315,11 @@ body, html {
   //border-radius: 50%;
   cursor: pointer;
   padding: 0;
-  background-image: url("../public/images/map/marker.svg");
+  background-image: url("../public/images/pin.svg");
   background-repeat: no-repeat;
   background-size: contain;
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 75px;
 
   span {
     margin-left: 9px;

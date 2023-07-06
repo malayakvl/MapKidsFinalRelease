@@ -138,6 +138,28 @@ class Image {
             client.release();
         }
     }
+
+    async findById(id) {
+        const client = await pool.connect();
+        try {
+            const query = `SELECT * FROM data.images WHERE id = ${id}`;
+            const res = await client.query(query);
+            return res.rows.length ? res.rows[0]: null
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error:',
+                    { message: e.message }
+                );
+            }
+            return { success: false, error: { code: 404, message: 'Country Not found' } };
+        } finally {
+            client.release();
+        }
+
+    }
+
 }
 
 export default new Image();

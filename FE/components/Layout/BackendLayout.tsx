@@ -91,33 +91,11 @@ export default function BackendLayout({ children }: { children: any }) {
               <div className="h-[67px] z-[51] flex items-center relative border-b border-slate-200">
                 <nav className="hidden mr-auto -intro-x sm:flex">
                   <ol className="flex items-center text-primary dark:text-slate-300">
-                    <li className="">Application</li>
+                    <li className="">Above and Beyond Children’s Museum”</li>
                   </ol>
                 </nav>
-                <div className="relative mr-auto intro-x sm:mr-6">
-                  <div
-                    className="cursor-pointer relative text-slate-600 outline-none block before:content-[''] before:w-[8px] before:h-[8px] before:rounded-full before:absolute before:top-[-2px] before:right-0 before:bg-danger"
-                    id="headlessui-popover-button-1"
-                    aria-expanded="false"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="stroke-1.5 w-5 h-5 dark:text-slate-500"
-                    >
-                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                    </svg>
-                  </div>
-                </div>
-                <div className="relative z-50">
+                <div className="relative mr-auto intro-x sm:mr-6"></div>
+                <div className="relative z-50 hidden">
                   <div
                     className="cursor-pointer block w-8 h-8 overflow-hidden rounded-full shadow-lg image-fit zoom-in intro-x"
                     aria-haspopup="menu"

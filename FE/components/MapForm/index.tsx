@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,7 +7,6 @@ import {
   isFetchSelector,
   layerFillSelector,
   layerOpacitySelector,
-  mapLoadedSelector,
 } from "../../redux/countries/selectors";
 import {
   loadMapAction,
@@ -27,6 +26,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
   const mapCountry = useSelector(countryMapSelector);
   const countryData = useSelector(countryItemSelector);
   const coordinatesData = useSelector(markersSelector);
+  const currentMarkers: any[] = [];
 
   useEffect(() => {
     if (isFetched) {
@@ -48,6 +48,10 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
           const coordinates = e.lngLat;
           const marker = new mapboxgl.Marker();
           marker.setLngLat(coordinates).addTo(map);
+
+          // const marker = new mapboxgl.Marker();
+          // const oneMarker = marker.setLngLat(coordinates).addTo(map);
+          // currentMarkers.push(oneMarker);
           // store marker to db
           dispatch(addMarkerAction(coordinates, countryData.id));
         });
@@ -116,15 +120,34 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
         const el = document.createElement("div");
         if (countryData.markers.length > 0) {
           for (const marker of countryData.markers) {
+            // Create a DOM element for each marker.
+            const el = document.createElement("div");
+            el.className = "marker";
+            el.innerHTML = `<span>${countryData.flag}</span>`;
+            el.style.width = `50px`;
+            el.style.height = `75px`;
+            el.style.backgroundSize = "100%";
             const geometry = [marker.lng, marker.lat];
             // @ts-ignore
             new mapboxgl.Marker().setLngLat(geometry).addTo(mapCountry);
           }
         }
+        // if (countryData.markers.length > 0) {
+        //   for (const marker of countryData.markers) {
+        //     const geometry = [marker.lng, marker.lat];
+        //     // @ts-ignore
+        //     const oneMarker = mapboxgl
+        //       .Marker()
+        //       .setLngLat(geometry)
+        //       .addTo(mapCountry);
+        //     currentMarkers.push(oneMarker);
+        //   }
+        // }
       });
     }
   }, [countryData, mapCountry]);
 
+  console.log("Current Markers", currentMarkers);
   return (
     <div className="relative">
       <div className="map-form-block relative">

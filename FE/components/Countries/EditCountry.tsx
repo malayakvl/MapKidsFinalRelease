@@ -8,7 +8,11 @@ import "rc-slider/assets/index.css";
 import { InputSwitcher, InputColor, InputTextarea, InputText } from "../_form";
 // import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
-import { crudAction, setOpacityAction } from "../../redux/countries";
+import {
+  crudAction,
+  setOpacityAction,
+  updateMarkerListAction,
+} from "../../redux/countries";
 import ImageList from "./ImagesList";
 import {
   checkedImageIdsSelector,
@@ -16,12 +20,18 @@ import {
   countryItemSelector,
   layerFillSelector,
   layerOpacitySelector,
+  countryMarkersSelector,
 } from "../../redux/countries/selectors";
 import MapForm from "../MapForm";
 import VideoList from "./VideosList";
 import { fetchItemMarkerAction } from "../../redux/coordinates";
-import {markersDataSelector} from "../../redux/coordinates/selectors";
-import {setSwitchHeaderAction} from "../../redux/layouts/actions";
+import { markersDataSelector } from "../../redux/coordinates/selectors";
+import {
+  updateColorAction,
+  updateOpacityAction,
+  removeMarkerAction,
+} from "../../redux/countries/actions";
+// import {setSwitchHeaderAction} from "../../redux/layouts/actions";
 
 function CountryForm({ countryData }: { countryData: any }) {
   const t = useTranslations();
@@ -34,18 +44,23 @@ function CountryForm({ countryData }: { countryData: any }) {
   const [opacityRange, setOpacityRange] = useState<any[]>([0, 100]);
   const [displayTabs, setDisplayTabs] = useState(false);
   const markerData = useSelector(markersDataSelector);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [markerId, setMarkerId] = useState(null);
 
   const layerColor = useSelector(layerFillSelector);
   const layerOpacity = useSelector(layerOpacitySelector);
+  const markersList = useSelector(countryMarkersSelector);
 
-  // console.log(countrySelectorData);
-  // const countryMap = useSelector(countryMapSelector);
-  console.log("Marker Data", markerData);
-
-  // console.log("Country Data:", countrySelectorData);
   const onSliderOpacityChange = (_value: any) => {
     setOpacityRange(_value);
     dispatch(setOpacityAction(_value ? 100 - _value : 100 / 100));
+    dispatch(
+      updateOpacityAction(
+        _value ? 100 - _value : 100 / 100,
+        countrySelectorData.id
+      )
+    );
   };
 
   const changeOpacityDone = () => {
@@ -54,7 +69,15 @@ function CountryForm({ countryData }: { countryData: any }) {
 
   const onSliderAfterChange = () => {
     changeOpacityDone();
+    // console.log("country data", countryData);
   };
+
+  useEffect(() => {
+    console.log("country data", countrySelectorData);
+    if (countrySelectorData) {
+      dispatch(updateMarkerListAction(countrySelectorData.markers));
+    }
+  }, [countrySelectorData]);
 
   useEffect(() => {
     if (markerData?.id) {
@@ -62,12 +85,37 @@ function CountryForm({ countryData }: { countryData: any }) {
     }
   }, [markerData]);
 
+  useEffect(() => {
+    console.log("Markers List Updated", markersList);
+  }, [markersList]);
+
+  useEffect(() => {
+    if (layerColor) {
+      dispatch(updateColorAction(layerColor));
+    }
+  }, [layerColor]);
+
   const showTabs = () => {
     setDisplayTabs(true);
   };
 
   const editMarkerAction = (id: number) => {
     dispatch(fetchItemMarkerAction(id));
+    // @ts-ignore
+    setMarkerId(id);
+  };
+
+  const deleteMarkerAction = (id: number) => {
+    dispatch(removeMarkerAction(id, countrySelectorData.id));
+  };
+
+  // const rebuildMarkersTableAction = () => {};
+
+  const updateLocation = () => {
+    const dataForUpdate = {
+      locationTitle: title,
+      description: description,
+    };
   };
 
   return (
@@ -83,10 +131,13 @@ function CountryForm({ countryData }: { countryData: any }) {
               videos: JSON.stringify(checkedVideoIds),
               fillColor: layerColor,
               fillOpacity: layerOpacity,
+              title: values["title"],
               description: values["description"],
               id: countryData.id,
+              locationId: markerId,
             };
             dispatch(crudAction(formData, values.id));
+            setDisplayTabs(false);
           }}
         >
           {(props) => {
@@ -143,16 +194,25 @@ function CountryForm({ countryData }: { countryData: any }) {
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="control-label">Markers List</label>
                     <table className="full-content" id="markersTable">
-                      {countrySelectorData.markers?.map((item: any) => (
+                      {markersList?.map((item: any) => (
                         <Fragment key={item.id}>
-                          <tr>
-                            <td className="w-1/2">{item.title}</td>
+                          <tr className="border">
+                            <td className="border-blueGray-100 p-1">
+                              {item.title}
+                            </td>
                             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
                             <td
-                              className="w-1/2 text-blue-400 cursor-pointer"
+                              className="p-1 text-blue-400 cursor-pointer text-right"
                               onClick={() => editMarkerAction(item.id)}
                             >
                               Edit
+                            </td>
+                            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+                            <td
+                              className="p-1 text-blue-400 cursor-pointer text-right"
+                              onClick={() => deleteMarkerAction(item.id)}
+                            >
+                              Delete
                             </td>
                           </tr>
                         </Fragment>
@@ -165,20 +225,6 @@ function CountryForm({ countryData }: { countryData: any }) {
                         displayTabs ? "show" : "hide"
                       }`}
                     >
-                      <InputText
-                        icon={null}
-                        label={"Title"}
-                        name={"title"}
-                        placeholder={"Title"}
-                        style={null}
-                        props={props}
-                        tips={null}
-
-                        onChange={(event) => {
-                          event.target.value = event.target.value.trimStart();
-                          props.handleChange(event);
-                        }}
-                      />
                       <nav aria-label="Tabs" className="mt-10">
                         <ul className="flex border-b border-gray-200 text-center">
                           <li className="flex-1">
@@ -222,25 +268,45 @@ function CountryForm({ countryData }: { countryData: any }) {
                       </nav>
                       <div className="tab-content pt-[20px] mb-[20px] bg-white border-gray-200 border border-t-0 p-[20px]">
                         {activeTab === "description" && (
-                          <InputTextarea
-                            icon={null}
-                            style={""}
-                            label={""}
-                            name={`description`}
-                            placeholder={t("Add Description Here")}
-                            props={props}
-                            tips={t("Add Description Here")}
-                            maxLength={1000}
-                          />
+                          <>
+                            <InputText
+                              icon={null}
+                              label={"Title"}
+                              name={"title"}
+                              placeholder={"Title"}
+                              style={"mb-5"}
+                              props={props}
+                              extValue={markerData?.title}
+                              tips={null}
+                              onChange={(event) => {
+                                event.target.value =
+                                  event.target.value.trimStart();
+                                setTitle(event.target.value.trimStart());
+                                props.handleChange(event);
+                              }}
+                            />
+                            <InputTextarea
+                              icon={null}
+                              style={""}
+                              label={""}
+                              name={`description`}
+                              placeholder={t("Add Description Here")}
+                              props={props}
+                              tips={t("Add Description Here")}
+                              maxLength={1000}
+                              extValue={markerData?.description}
+                            />
+                          </>
                         )}
                         {activeTab === "images" && <ImageList />}
                         {activeTab === "videos" && <VideoList />}
                       </div>
                       <button
                         type="submit"
+                        onClick={() => updateLocation()}
                         className="btn bg-purple-800 inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer text-white shadow-md mr-[10px]"
                       >
-                        {t("Update Country")}
+                        {t("Update Location")}
                       </button>
                     </div>
                   </form>

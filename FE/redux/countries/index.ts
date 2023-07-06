@@ -13,6 +13,8 @@ import {
   setOpacityAction,
   addMarkerAction,
   activeItemAction,
+  updateMarkerListAction,
+  removeMarkerAction,
 } from "./actions";
 
 const initialState: {
@@ -171,6 +173,18 @@ const ACTION_HANDLERS: any = {
       countryMap: action.payload,
     }),
   },
+  [updateMarkerListAction]: {
+    next: (state: State.Countries, action: Action<any>): State.Countries => ({
+      ...state,
+      markers: action.payload,
+    }),
+  },
+  // [setMarkerListAction]: {
+  //   next: (state: State.Countries, action: Action<any>): State.Countries => ({
+  //     ...state,
+  //     markers: action.payload,
+  //   }),
+  // },
   // [fetchMarkersAction]: {
   //   next: (
   //     state: State.Countries,
@@ -199,6 +213,8 @@ export {
   setOpacityAction,
   addMarkerAction,
   activeItemAction,
+  updateMarkerListAction,
+  removeMarkerAction,
 };
 
 // ------------------------------------

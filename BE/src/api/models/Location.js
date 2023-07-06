@@ -161,17 +161,131 @@ class Location {
         }
     }
 
-    async updateRecord(data, id) {
+    async updateRecord(data, id, markerId) {
+        const client = await pool.connect();
+        try {
+            // const rowsQuery = `UPDATE data.coordinates SET
+            //     images='${JSON.stringify(data.images)}',
+            //     videos='${JSON.stringify(data.videos)}',
+            //     fill_color='${data.fillColor ? data.fillColor : ''}',
+            //     fill_opacity='${data.fillOpacity ? data.fillOpacity : ''}',
+            //     description=$$${data.description}$$
+            //     WHERE id='${markerId}'`;
+            const rowsQuery = `UPDATE data.coordinates SET 
+                images='${JSON.stringify(data.images)}',
+                videos='${JSON.stringify(data.videos)}',
+                title=$$${data.title}$$,
+                description=$$${data.description}$$
+                WHERE id='${markerId}'`;
+            await client.query(rowsQuery);
+
+            const res = await client.query(`SELECT * FROM data.countries WHERE id='${id}'`);
+            const item = res.rows.length > 0 ? res.rows[0] : {};
+            const error = null;
+            return {
+                item,
+                error
+            };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Article getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+    async removeMarker(id, countryId) {
+        const client = await pool.connect();
+        try {
+            const rowsQuery = `DELETE FROM data.coordinates WHERE id='${id}'`;
+            await client.query(rowsQuery);
+
+            // const res = await client.query(`SELECT * FROM data.coordinates WHERE country='${countryId}'`);
+            // const item = res.rows.length > 0 ? res.rows[0] : {};
+            const error = null;
+            return {
+                error
+            };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Article getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+
+    async updateOpacity(opacity, id) {
         const client = await pool.connect();
         try {
             const rowsQuery = `UPDATE data.countries SET 
-                images='${JSON.stringify(data.images)}',
-                videos='${JSON.stringify(data.videos)}',
-                fill_color='${data.fillColor ? data.fillColor : ''}',
-                fill_opacity='${data.fillOpacity ? data.fillOpacity : ''}',
-                description=$$${data.description}$$
+                fill_opacity='${opacity ? opacity : ''}',
                 WHERE id='${id}'`;
-            console.log(rowsQuery);
+            await client.query(rowsQuery);
+
+            const res = await client.query(`SELECT * FROM data.countries WHERE id='${id}'`);
+            const item = res.rows.length > 0 ? res.rows[0] : {};
+            const error = null;
+            return {
+                item,
+                error
+            };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Article getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+    async updateColor(color, id) {
+        const client = await pool.connect();
+        try {
+            const rowsQuery = `UPDATE data.countries SET 
+                fill_color='${color ? `#${color}` : ''}'
+                WHERE id='${id}'`;
             await client.query(rowsQuery);
 
             const res = await client.query(`SELECT * FROM data.countries WHERE id='${id}'`);

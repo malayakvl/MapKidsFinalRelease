@@ -1,5 +1,5 @@
 // import { useTranslations } from 'next-intl';
-import React, { useEffect, useState} from "react";
+import React, { useState } from "react";
 import Map from "../Map/index";
 import { useDispatch } from "react-redux";
 import { activeItemAction } from "../../redux/countries";

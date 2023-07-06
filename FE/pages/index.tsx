@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="w-full">
       <Head>
-        <title>MapKids</title>
+        <title>Above and Beyond Children’s Museum”</title>
         <meta name="description" content="Mapkids portal" />
       </Head>
 

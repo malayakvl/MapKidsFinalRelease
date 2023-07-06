@@ -6,7 +6,8 @@
 @import "components/variables";
 @import 'components/mixins';
 @import 'components/reset';
-@import 'components/phone';
+//@import 'components/phone';
+@import 'components/phoneMap';
 //@import "components/header";
 //@import "components/home";
 //@import "components/buttons";
@@ -75,5 +76,18 @@ body {
   color: #3D3E52;
   margin-bottom: 30px;
 }
+.main-layout {
+  position: relative;
+}
+.big-logo {
+  position: absolute;
+  background-image: url("../public/images/logo/big-logo.png");
+  background-repeat: no-repeat;
+  z-index: 9999;
+  width: 100px;
+  height: 50px;
+  background-size: contain;
+  top: calc(100vh - 55px);
 
+}
 

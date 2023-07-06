@@ -906,4 +906,15 @@
         order: 2 !important;
     }
 }
+.main-layout {
+    position: relative;
+}
+.big-logo {
+    position: absolute;
+    background-image: url("../../public/images/logo/big-logo.png");
+    background-repeat: no-repeat;
+    z-index: 9999;
+    width: 200px;
+    height: 100px;
+}
 

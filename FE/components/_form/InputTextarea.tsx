@@ -10,6 +10,7 @@ interface Props {
   rows?: number;
   tips: string | null;
   maxLength: number | 10000000;
+  extValue?: string;
 }
 
 const InputTextarea: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const InputTextarea: React.FC<Props> = ({
   rows,
   tips,
   maxLength,
+  extValue,
 }) => {
   const [charLimit, setCharLimit] = React.useState(`0 / ${maxLength}`);
 
@@ -54,7 +56,7 @@ const InputTextarea: React.FC<Props> = ({
           placeholder={placeholder ? placeholder : ""}
           onChange={props.handleChange}
           maxLength={maxLength}
-          value={props.values[name]}
+          value={props.values[name] ? props.values[name] : extValue}
           name={name}
           rows={rows ? rows : 4}
         />
