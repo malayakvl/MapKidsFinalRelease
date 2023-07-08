@@ -1,23 +1,16 @@
 import React, { useCallback, Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { baseApiUrl } from "../../constants";
-import {
-  itemCountSelector,
-  paginatedItemsSelector,
-} from "../../redux/images/selectors";
+import { itemCountSelector } from "../../redux/images/selectors";
 import { fetchAllItemsAction } from "../../redux/videos";
-import {
-  checkedVideoIdsSelector,
-  countryItemSelector,
-} from "../../redux/countries/selectors";
+import { countryItemSelector } from "../../redux/countries/selectors";
 import { nonpaginatedItemsSelector } from "../../redux/videos/selectors";
 import { checkVideoIdsAction, initVideoIdsAction } from "../../redux/countries";
 
-const VideoList: React.FC<any> = () => {
+const VideoList: React.FC<any> = ({ markerData }: { markerData: any }) => {
   const dispatch = useDispatch();
-  const count = useSelector(itemCountSelector);
+  // const count = useSelector(itemCountSelector);
   const items = useSelector(nonpaginatedItemsSelector);
-  const checkedIds = useSelector(checkedVideoIdsSelector);
+  const checkedIds = markerData.videos;
   const countrySelectorData = useSelector(countryItemSelector);
 
   useEffect(() => {
@@ -55,10 +48,7 @@ const VideoList: React.FC<any> = () => {
                       type="checkbox"
                       onChange={() => dispatch(checkVideoIdsAction(item.id))}
                       value={item.id}
-                      checked={
-                        checkedIds.find((data: any) => data.id === item.id)
-                          ?.checked || false
-                      }
+                      checked={checkedIds.includes(item.id) ? true : false}
                     />
                   </div>
                 </div>

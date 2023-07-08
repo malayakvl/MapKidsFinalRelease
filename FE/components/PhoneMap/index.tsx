@@ -22,38 +22,45 @@ function Phone() {
         <div className="phone-head-green">
           <div className="title-head">{coordinatesInfo.title}</div>
         </div>
-        <div className="phone-content">
-          <div className="photo-frame">
-            <div className="photo-content">
-              <div className="gotic-frame"></div>
-              <img
-                src={
-                  /(http(s?)):\/\//i.test(coordinatesInfo.image)
-                    ? coordinatesInfo.image
-                    : `${baseApiUrl}/uploads/photos/${coordinatesInfo.image}`
-                }
-                alt=""
-                className="gray-border-frame"
-              />
-              <img src={imgSlide} alt="" className="gray-border-frame" />
+        {/*<div className="phone-content">*/}
+        {/*  */}
+        {/*</div>*/}
+        <div className="phone-descr">
+          <div>
+            <div className="photo-frame">
+              <div className="relative">
+                <div className="photo-content">
+                  <div className="gotic-frame"></div>
+                  <img
+                    src={
+                      /(http(s?)):\/\//i.test(coordinatesInfo.image)
+                        ? coordinatesInfo.image
+                        : `${baseApiUrl}/uploads/photos/${coordinatesInfo.image}`
+                    }
+                    alt=""
+                    className="gray-border-frame"
+                  />
+                </div>
+                {/*<img src={imgSlide} alt="" className="gray-border-frame" />*/}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="phone-descr">
           <div
             className="country-text"
             dangerouslySetInnerHTML={{
               __html: coordinatesInfo.description,
             }}
           />
-        </div>
-        <div className="video-frame">
-          <div
-            className="country-text"
-            dangerouslySetInnerHTML={{
-              __html: coordinatesInfo?.videoCode,
-            }}
-          />
+          <div className="clearfix" />
+          <div className="play-video"></div>
+          <div className="video-frame hidden">
+            <div
+              className="country-text"
+              dangerouslySetInnerHTML={{
+                __html: coordinatesInfo?.videoCode,
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

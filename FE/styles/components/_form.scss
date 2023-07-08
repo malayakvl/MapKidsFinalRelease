@@ -347,4 +347,9 @@ input:checked + .toggle-bg {
 textarea.form-control {
     min-height: 250px;
 }
+.play-video {
+    background-image: url(../../public/images/phone/play.svg);
+    width: 156px;
+    height: 58px;
+}
 

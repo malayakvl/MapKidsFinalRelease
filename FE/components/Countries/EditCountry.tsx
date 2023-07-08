@@ -15,12 +15,14 @@ import {
 } from "../../redux/countries";
 import ImageList from "./ImagesList";
 import {
-  checkedImageIdsSelector,
-  checkedVideoIdsSelector,
   countryItemSelector,
   layerFillSelector,
   layerOpacitySelector,
   countryMarkersSelector,
+} from "../../redux/countries/selectors";
+import {
+  checkedImageIdsSelector,
+  checkedVideoIdsSelector,
 } from "../../redux/countries/selectors";
 import MapForm from "../MapForm";
 import VideoList from "./VideosList";
@@ -47,6 +49,7 @@ function CountryForm({ countryData }: { countryData: any }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [markerId, setMarkerId] = useState(null);
+  const [markerImages, setMarkerImages] = useState([]);
 
   const layerColor = useSelector(layerFillSelector);
   const layerOpacity = useSelector(layerOpacitySelector);
@@ -73,7 +76,6 @@ function CountryForm({ countryData }: { countryData: any }) {
   };
 
   useEffect(() => {
-    console.log("country data", countrySelectorData);
     if (countrySelectorData) {
       dispatch(updateMarkerListAction(countrySelectorData.markers));
     }
@@ -81,6 +83,8 @@ function CountryForm({ countryData }: { countryData: any }) {
 
   useEffect(() => {
     if (markerData?.id) {
+      console.log("MARKER DATA COUNTRIES", markerData);
+      setMarkerImages(markerData.images);
       setDisplayTabs(true);
     }
   }, [markerData]);
@@ -98,6 +102,7 @@ function CountryForm({ countryData }: { countryData: any }) {
   const showTabs = () => {
     setDisplayTabs(true);
   };
+
 
   const editMarkerAction = (id: number) => {
     dispatch(fetchItemMarkerAction(id));
@@ -117,6 +122,7 @@ function CountryForm({ countryData }: { countryData: any }) {
       description: description,
     };
   };
+
 
   return (
     <>
@@ -298,8 +304,12 @@ function CountryForm({ countryData }: { countryData: any }) {
                             />
                           </>
                         )}
-                        {activeTab === "images" && <ImageList />}
-                        {activeTab === "videos" && <VideoList />}
+                        {activeTab === "images" && (
+                          <ImageList markerData={markerData} />
+                        )}
+                        {activeTab === "videos" && (
+                          <VideoList markerData={markerData} />
+                        )}
                       </div>
                       <button
                         type="submit"

@@ -18,36 +18,42 @@
 }
 
 .video-frame {
-  width: 350px;
+  width: 390px;
   overflow: hidden;
   //border:solid 1px red;
-  margin-left: 55px;
+  //margin-left: 55px;
 }
 
 .photo-frame {
   //background: url(../../public/images/phone/gray-frame.svg);
-  margin-top: 120px;
-  margin-left: 20px;
-  width: 400px;
+  //margin-top: 120px;
+  //margin-left: 20px;
+  //width: 400px;
   //height: 239px;
   position: absolute;
-  top:-15px;
-  right: 5px;
+  //top:-15px;
+  //right: 5px;
+  top: 125px;
+  right: 45px;
 }
 
 .gray-border-frame {
-  border-radius: 12px;
-  border: solid 7px #878787;
-  width: 355px;
-  height: 200px;
+  //border-radius: 12px;
+  //border: solid 7px #878787;
+  //width: 345px;
+  //height: 239px;
+  width: 336px;
+  height: 220px;
+  border-radius: 29px;
 }
 
 .phone-descr {
-  margin-top: 235px;
+  margin-top: 300px;
   width: 393px;
   margin-left: 27px;
-  height: 213px;
+  height: 375px;
   overflow-y: scroll;
+  overflow-x: hidden;
 
   .country-text {
     padding: 20px;
@@ -63,8 +69,9 @@
   width: 558px;
   height: 163px;
   position: absolute;
-  top: 5px;
+  top: 16px;
   left: -51px;
+  z-index: 999;
 
   span {
     color: #FFFF;
@@ -99,9 +106,20 @@ text-align: center;
   position: absolute;
   top: 46px;
   right: 105px;
-  z-index: 999;
+  z-index: 999999;
 }
 
 .gotic-frame {
+  background: url(../../public/images/phone/Border.svg);
+  width: 346px;
+  height: 239px;
+  position: absolute;
+  top: -12px;
+}
 
+.play-video {
+  width: 156px;
+  height: 58px;
+  background-image: url(../../public/images/phone/play.svg);
+  background-repeat: no-repeat;
 }

@@ -14,8 +14,14 @@ import {
 
 const initialState: {
   items: any[];
+  item: any;
+  checkedImageIds: number[];
+  checkedVideoIds: number[];
 } = {
   items: [],
+  item: null,
+  checkedImageIds: [],
+  checkedVideoIds: [],
 };
 
 const ACTION_HANDLERS: any = {

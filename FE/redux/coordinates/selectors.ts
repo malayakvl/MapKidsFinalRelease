@@ -16,3 +16,11 @@ export const markersDataSelector = createSelector(
   rootSelector,
   (coordinates: State.Coordinates): any => coordinates.item
 );
+export const checkedImageIdsSelector = createSelector(
+  rootSelector,
+  (coordinates: State.Coordinates): any[] => coordinates.item.images
+);
+export const checkedVideoIdsSelector = createSelector(
+  rootSelector,
+  (coordinates: State.Coordinates): any[] => coordinates.item.videos
+);

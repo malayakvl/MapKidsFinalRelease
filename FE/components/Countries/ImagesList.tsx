@@ -6,20 +6,17 @@ import {
   nonpaginatedItemsSelector,
 } from "../../redux/images/selectors";
 import { checkImageIdsAction, initImageIdsAction } from "../../redux/countries";
-import {
-  checkedImageIdsSelector,
-  countryItemSelector,
-} from "../../redux/countries/selectors";
+import { countryItemSelector } from "../../redux/countries/selectors";
 import { fetchAllItemsAction } from "../../redux/images";
 
-const ImageList: React.FC<any> = () => {
+const ImageList: React.FC<any> = ({ markerData }: { markerData: any }) => {
   const dispatch = useDispatch();
-  const count = useSelector(itemCountSelector);
+  // const count = useSelector(itemCountSelector);
   const items = useSelector(nonpaginatedItemsSelector);
-  const checkedIds = useSelector(checkedImageIdsSelector);
+  const checkedIds = markerData.images;
   const countrySelectorData = useSelector(countryItemSelector);
 
-  // console.log("COUNTRY DATA", countrySelectorData);
+  console.log("MARKER DATA IMAGES LIST DONE?", checkedIds);
 
   useEffect(() => {
     const setupChecked: any = [];
@@ -60,17 +57,8 @@ const ImageList: React.FC<any> = () => {
                       type="checkbox"
                       onChange={() => dispatch(checkImageIdsAction(item.id))}
                       value={item.id}
-                      checked={
-                        checkedIds.find((data: any) => data.id === item.id)
-                          ?.checked || false
-                      }
+                      checked={checkedIds.includes(item.id) ? true : false}
                     />
-                    {/*<label*/}
-                    {/*  htmlFor="inline-checkbox"*/}
-                    {/*  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"*/}
-                    {/*>*/}
-                    {/*  Select*/}
-                    {/*</label>*/}
                   </div>
                 </div>
               </Fragment>
