@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { markersDataSelector } from "../../redux/coordinates/selectors";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { baseApiUrl } from "../../constants";
+import { showPhoneAction } from "../../redux/layouts";
 
 function Phone() {
   const coordinatesInfo = useSelector(markersDataSelector);
+  const dispatch = useDispatch();
   console.log("Marker Data", coordinatesInfo);
   let imgSlide;
   if (coordinatesInfo.title == "USA") {
@@ -17,14 +19,15 @@ function Phone() {
 
   return (
     <div className="phone-content">
-      <div className="close-phone"></div>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div
+        className="close-phone cursor-pointer"
+        onClick={() => dispatch(showPhoneAction(false))}
+      ></div>
       <div className="phone-map-block">
         <div className="phone-head-green">
           <div className="title-head">{coordinatesInfo.title}</div>
         </div>
-        {/*<div className="phone-content">*/}
-        {/*  */}
-        {/*</div>*/}
         <div className="phone-descr">
           <div>
             <div className="photo-frame">

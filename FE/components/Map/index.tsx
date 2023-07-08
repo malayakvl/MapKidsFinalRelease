@@ -11,7 +11,8 @@ import {
   markersDataSelector,
   markersSelector,
 } from "../../redux/coordinates/selectors";
-import { showLoaderAction } from "../../redux/layouts/actions";
+import { showLoaderAction, showPhoneAction } from "../../redux/layouts/actions";
+import { showPhoneSelector } from "../../redux/layouts/selectors";
 
 const Map = () => {
   const mapContainer = useRef<any>(null);
@@ -19,8 +20,9 @@ const Map = () => {
   const dispatch = useDispatch();
   const countries = useSelector(activeCountriesSelector);
   // const markers = useSelector(markersSelector);
-  const [showPhone, setShowPhone] = useState(false);
+  // const [showPhone, setShowPhone] = useState(false);
   const coordinates = useSelector(markersSelector);
+  const showPhone = useSelector(showPhoneSelector);
   const coordinatesInfo = useSelector(markersDataSelector);
 
   useEffect(() => {
@@ -28,10 +30,9 @@ const Map = () => {
   }, [countries]);
 
   useEffect(() => {
-    // setShowPhone(true);
-    console.log("Marker Data", coordinatesInfo);
+    console.log("MARKER INFO", coordinatesInfo);
     if (coordinatesInfo) {
-      setShowPhone(true);
+      dispatch(showPhoneAction(true));
     }
   }, [coordinatesInfo]);
 
@@ -56,9 +57,6 @@ const Map = () => {
       bearing: 130,
       pitch: 75,
     };
-    // map.on("click", function (e) {
-    //   // alert(1);
-    // });
     map.on("style.load", () => {
       // console.log("coordinates", coordinates);
       countries.forEach((country: any) => {
@@ -92,121 +90,8 @@ const Map = () => {
         pointer.getElement().addEventListener("click", () => {
           dispatch(showLoaderAction(true));
           dispatch(fetchItemMarkerAction(marker.id));
-          // setShowPhone(true);
         });
       }
-
-      // map.addLayer(
-      //   {
-      //     id: "country-boundaries-LAO",
-      //     source: {
-      //       type: "vector",
-      //       url: "mapbox://mapbox.country-boundaries-v1",
-      //     },
-      //     "source-layer": "country_boundaries",
-      //     type: "fill",
-      //     paint: {
-      //       "fill-color": "#511c60",
-      //       "fill-opacity": 0.4,
-      //     },
-      //   },
-      //   "country-label"
-      // );
-      //
-      // map.setFilter("country-boundaries-LAO", [
-      //   "in",
-      //   "iso_3166_1_alpha_3",
-      //   "LAO",
-      // ]);
-      //
-      // map.addLayer(
-      //   {
-      //     id: "country-boundaries-CHN",
-      //     source: {
-      //       type: "vector",
-      //       url: "mapbox://mapbox.country-boundaries-v1",
-      //     },
-      //     "source-layer": "country_boundaries",
-      //     type: "fill",
-      //     paint: {
-      //       "fill-color": "#dc7ca4",
-      //       "fill-opacity": 0.4,
-      //     },
-      //   },
-      //   "country-label"
-      // );
-      //
-      // map.setFilter("country-boundaries-CHN", [
-      //   "in",
-      //   "iso_3166_1_alpha_3",
-      //   "CHN",
-      // ]);
-      //
-      // map.addLayer(
-      //   {
-      //     id: "country-boundaries-USA",
-      //     source: {
-      //       type: "vector",
-      //       url: "mapbox://mapbox.country-boundaries-v1",
-      //     },
-      //     "source-layer": "country_boundaries",
-      //     type: "fill",
-      //     paint: {
-      //       "fill-color": "#68e7d0",
-      //       "fill-opacity": 0.4,
-      //     },
-      //   },
-      //   "country-label"
-      // );
-      // map.setFilter("country-boundaries-USA", [
-      //   "in",
-      //   "iso_3166_1_alpha_3",
-      //   "USA",
-      // ]);
-      //
-      // map.addLayer(
-      //   {
-      //     id: "country-boundaries-VNM",
-      //     source: {
-      //       type: "vector",
-      //       url: "mapbox://mapbox.country-boundaries-v1",
-      //     },
-      //     "source-layer": "country_boundaries",
-      //     type: "fill",
-      //     paint: {
-      //       "fill-color": "#5788e3",
-      //       "fill-opacity": 0.4,
-      //     },
-      //   },
-      //   "country-label"
-      // );
-      // map.setFilter("country-boundaries-VNM", [
-      //   "in",
-      //   "iso_3166_1_alpha_3",
-      //   "VNM",
-      // ]);
-      //
-      // map.addLayer(
-      //   {
-      //     id: "country-boundaries-UMI",
-      //     source: {
-      //       type: "vector",
-      //       url: "mapbox://mapbox.country-boundaries-v1",
-      //     },
-      //     "source-layer": "country_boundaries",
-      //     type: "fill",
-      //     paint: {
-      //       "fill-color": "#cbac12",
-      //       "fill-opacity": 0.4,
-      //     },
-      //   },
-      //   "country-label"
-      // );
-      // map.setFilter("country-boundaries-UMI", [
-      //   "in",
-      //   "iso_3166_1_alpha_3",
-      //   "UMI",
-      // ]);
     });
   });
 
@@ -215,7 +100,6 @@ const Map = () => {
       <div className="big-logo" />
       <div className="map-container" id="map-container" ref={mapContainer} />
       {showPhone && <Phone />}
-      {/*<Phone />*/}
     </main>
   );
 };

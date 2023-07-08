@@ -1,8 +1,11 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { baseApiUrl } from "../../constants";
 import { nonpaginatedItemsSelector } from "../../redux/images/selectors";
-import { checkImageIdsAction, initImageIdsAction } from "../../redux/countries";
+import {
+  checkImageIdsAction,
+  initImageIdsAction,
+} from "../../redux/coordinates";
 import { countryItemSelector } from "../../redux/countries/selectors";
 import { fetchAllItemsAction } from "../../redux/images";
 
@@ -10,10 +13,10 @@ const ImageList: React.FC<any> = ({ markerData }: { markerData: any }) => {
   const dispatch = useDispatch();
   // const count = useSelector(itemCountSelector);
   const items = useSelector(nonpaginatedItemsSelector);
-  const checkedIds = markerData.images;
+  const [checkedIds, setCheckedIds] = useState(
+    markerData.images ? markerData.images : []
+  );
   const countrySelectorData = useSelector(countryItemSelector);
-
-  console.log("MARKER DATA IMAGES LIST DONE?", checkedIds);
 
   useEffect(() => {
     const setupChecked: any = [];
@@ -29,6 +32,12 @@ const ImageList: React.FC<any> = ({ markerData }: { markerData: any }) => {
   useEffect(() => {
     dispatch(fetchAllItemsAction());
   }, []);
+
+  const checkImageData = (id: number) => {
+    const tmpChecked = checkedIds;
+    tmpChecked.push(id);
+    setCheckedIds(tmpChecked);
+  };
 
   return (
     <>
@@ -52,7 +61,10 @@ const ImageList: React.FC<any> = ({ markerData }: { markerData: any }) => {
                     <input
                       className="float-checkbox"
                       type="checkbox"
-                      onChange={() => dispatch(checkImageIdsAction(item.id))}
+                      onChange={() => {
+                        dispatch(checkImageIdsAction(item.id));
+                        checkImageData(item.id);
+                      }}
                       value={item.id}
                       checked={checkedIds.includes(item.id) ? true : false}
                     />

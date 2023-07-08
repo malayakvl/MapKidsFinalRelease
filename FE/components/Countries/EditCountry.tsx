@@ -103,7 +103,6 @@ function CountryForm({ countryData }: { countryData: any }) {
     setDisplayTabs(true);
   };
 
-
   const editMarkerAction = (id: number) => {
     dispatch(fetchItemMarkerAction(id));
     // @ts-ignore
@@ -122,7 +121,6 @@ function CountryForm({ countryData }: { countryData: any }) {
       description: description,
     };
   };
-
 
   return (
     <>

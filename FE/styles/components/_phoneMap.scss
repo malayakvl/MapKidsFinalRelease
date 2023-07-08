@@ -9,7 +9,7 @@
     width: 452px;
     height: 765px;
     font-family: 'Inter', serif;
-    top: 50px;
+    top: 20px;
     right:100px;
     //border: 6.96965px solid #009EE6;
     //border-radius: 56px;
@@ -33,7 +33,7 @@
   position: absolute;
   //top:-15px;
   //right: 5px;
-  top: 125px;
+  top: 109px;
   right: 45px;
 }
 
@@ -48,15 +48,28 @@
 }
 
 .phone-descr {
-  margin-top: 300px;
+  margin-top: 340px;
   width: 393px;
   margin-left: 27px;
   height: 375px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  //overflow-y: scroll;
+  //overflow-x: hidden;
+  //border: solid 1px red;
+  //background: #0c63e4;
 
   .country-text {
-    padding: 20px;
+    padding: 20px 20px;
+    margin-left: 15px;
+    color: #818181;
+    font-family: Inter;
+    margin-top: 25px;
+    height: 290px;
+    line-height: 21px;
+    letter-spacing: 0.7px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    //border:solid 1px blue;
+
   }
 }
 .photo-content {
@@ -69,7 +82,7 @@
   width: 558px;
   height: 163px;
   position: absolute;
-  top: 16px;
+  top: 17px;
   left: -51px;
   z-index: 999;
 
@@ -88,15 +101,16 @@
   width: 350px;
   background: #fff;
   margin: 55px;
-  border: solid 1px red;
+  //border: solid 1px red;
 }
 
 .title-head {
-  font-size:50px;
-  color:#FFFF;
-text-align: center;
+  font-size: 60px;
+  color: white;
+  text-align: center;
   font-weight: bold;
-  font-family: Inter;
+  font-family: "Hind", sans-serif;
+  margin-top: 5px;
 }
 
 .close-phone {
@@ -104,7 +118,7 @@ text-align: center;
   width: 64px;
   height: 64px;
   position: absolute;
-  top: 46px;
+  top: 15px;
   right: 105px;
   z-index: 999999;
 }
@@ -122,4 +136,6 @@ text-align: center;
   height: 58px;
   background-image: url(../../public/images/phone/play.svg);
   background-repeat: no-repeat;
+  margin-left: 115px;
+  margin-top: 25px;
 }

@@ -1,16 +1,19 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { itemCountSelector } from "../../redux/images/selectors";
 import { fetchAllItemsAction } from "../../redux/videos";
 import { countryItemSelector } from "../../redux/countries/selectors";
 import { nonpaginatedItemsSelector } from "../../redux/videos/selectors";
 import { checkVideoIdsAction, initVideoIdsAction } from "../../redux/countries";
+// import {checkImageIdsAction} from "../../redux/coordinates";
 
 const VideoList: React.FC<any> = ({ markerData }: { markerData: any }) => {
   const dispatch = useDispatch();
   // const count = useSelector(itemCountSelector);
   const items = useSelector(nonpaginatedItemsSelector);
-  const checkedIds = markerData.videos;
+  const [checkedIds, setCheckedIds] = useState(
+    markerData.videos ? markerData.videos : []
+  );
   const countrySelectorData = useSelector(countryItemSelector);
 
   useEffect(() => {
@@ -27,6 +30,12 @@ const VideoList: React.FC<any> = ({ markerData }: { markerData: any }) => {
   useEffect(() => {
     dispatch(fetchAllItemsAction());
   }, []);
+
+  const checkVideoData = (id: number) => {
+    const tmpChecked = checkedIds;
+    tmpChecked.push(id);
+    setCheckedIds(tmpChecked);
+  };
 
   return (
     <>
@@ -46,7 +55,10 @@ const VideoList: React.FC<any> = ({ markerData }: { markerData: any }) => {
                     <input
                       className="float-checkbox"
                       type="checkbox"
-                      onChange={() => dispatch(checkVideoIdsAction(item.id))}
+                      onChange={() => {
+                        dispatch(checkVideoIdsAction(item.id));
+                        checkVideoData(item.id);
+                      }}
                       value={item.id}
                       checked={checkedIds.includes(item.id) ? true : false}
                     />

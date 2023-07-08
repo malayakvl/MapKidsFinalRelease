@@ -27,6 +27,13 @@ body, html {
   background: #F5F5F5;
 }
 
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+  display: none !important;
+}
+.mapboxgl-ctrl-logo {
+  display: none !important;
+}
+
 .map-container {
   position: absolute;
   top: 0;
@@ -84,10 +91,10 @@ body {
   background-image: url("../public/images/logo/big-logo.png");
   background-repeat: no-repeat;
   z-index: 9999;
-  width: 100px;
-  height: 50px;
+  width: 200px;
+  height: 100px;
   background-size: contain;
-  top: calc(100vh - 55px);
+  top: calc(100vh - 105px);
 
 }
 

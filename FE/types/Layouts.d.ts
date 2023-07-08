@@ -29,6 +29,7 @@ declare namespace Layouts {
       countries: TabTypes;
     };
     editorContent: string;
+    showPhone: boolean;
   }
 
   interface TabTypes {

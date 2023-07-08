@@ -143,6 +143,7 @@ class LocationController {
         const parsedDataImages = JSON.parse(req.body.data.images);
         const parsedDataVideos = JSON.parse(req.body.data.videos);
         const locationId = req.body.data.locationId;
+        console.log(parsedDataImages);
         const imageIds = [];
         if (parsedDataImages.length) {
             parsedDataImages.forEach(data => {
@@ -167,7 +168,7 @@ class LocationController {
             description: dataCountry.data.description,
             title: dataCountry.data.title
         }
-        await locationModel.updateRecord(updatedData, dataCountry.countryData.id, locationId);
+        // await locationModel.updateRecord(updatedData, dataCountry.countryData.id, locationId);
         const markersRes = await coordinatesModel.getCountryMarkers(dataCountry.countryData.id);
 
         if (!req.user) {

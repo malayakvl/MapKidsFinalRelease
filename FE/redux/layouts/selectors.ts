@@ -79,3 +79,7 @@ export const modalMarkerConfirmationMetaSelector = createSelector(
   (layouts: State.Layouts): Layouts.ModalConfirmationMeta | null =>
     layouts.modalConfirmationMeta
 );
+export const showPhoneSelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): boolean => layouts.showPhone
+);

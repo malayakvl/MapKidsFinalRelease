@@ -23,6 +23,7 @@ import {
   setEditorContentAction,
   initImageIdsAction,
   checkImageIdsAction,
+  showPhoneAction,
 } from "./actions";
 import { PaginationType } from "../../constants";
 
@@ -99,6 +100,7 @@ const initialState: State.Layouts = {
     countries: { tab: "list" },
   },
   editorContent: "",
+  showPhone: false,
 };
 
 // ------------------------------------
@@ -305,6 +307,12 @@ const ACTION_HANDLERS: any = {
       isReload: false,
     }),
   },
+  [showPhoneAction]: {
+    next: (state: State.Layouts, action: Action<boolean>): State.Layouts => ({
+      ...state,
+      showPhone: action.payload,
+    }),
+  },
 };
 
 export {
@@ -329,6 +337,7 @@ export {
   setActivePageAction,
   initImageIdsAction,
   checkImageIdsAction,
+  showPhoneAction,
 };
 
 // ------------------------------------
