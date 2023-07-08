@@ -1,6 +1,6 @@
-import React, { useCallback, Fragment, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { itemCountSelector } from "../../redux/images/selectors";
+// import { itemCountSelector } from "../../redux/images/selectors";
 import { fetchAllItemsAction } from "../../redux/videos";
 import { countryItemSelector } from "../../redux/countries/selectors";
 import { nonpaginatedItemsSelector } from "../../redux/videos/selectors";
