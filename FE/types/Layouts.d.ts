@@ -30,6 +30,7 @@ declare namespace Layouts {
     };
     editorContent: string;
     showPhone: boolean;
+    showGalley: boolean;
   }
 
   interface TabTypes {

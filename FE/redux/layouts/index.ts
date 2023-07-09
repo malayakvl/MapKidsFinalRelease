@@ -24,6 +24,7 @@ import {
   initImageIdsAction,
   checkImageIdsAction,
   showPhoneAction,
+  showImageGalleryAction,
 } from "./actions";
 import { PaginationType } from "../../constants";
 
@@ -101,6 +102,7 @@ const initialState: State.Layouts = {
   },
   editorContent: "",
   showPhone: false,
+  showGalley: false,
 };
 
 // ------------------------------------
@@ -313,6 +315,12 @@ const ACTION_HANDLERS: any = {
       showPhone: action.payload,
     }),
   },
+  [showImageGalleryAction]: {
+    next: (state: State.Layouts, action: Action<boolean>): State.Layouts => ({
+      ...state,
+      showGalley: action.payload,
+    }),
+  },
 };
 
 export {
@@ -338,6 +346,7 @@ export {
   initImageIdsAction,
   checkImageIdsAction,
   showPhoneAction,
+  showImageGalleryAction,
 };
 
 // ------------------------------------

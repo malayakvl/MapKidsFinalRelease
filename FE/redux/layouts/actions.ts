@@ -53,3 +53,6 @@ export const checkImageIdsAction: any = createAction(
   "layouts/CHECK_ALL_IMAGE_IDS"
 );
 export const showPhoneAction: any = createAction("layouts/SHOW_PHONE");
+export const showImageGalleryAction: any = createAction(
+  "layouts/SHOW_IMAGE_GALLERY"
+);

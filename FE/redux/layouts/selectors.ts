@@ -83,3 +83,7 @@ export const showPhoneSelector = createSelector(
   rootSelector,
   (layouts: State.Layouts): boolean => layouts.showPhone
 );
+export const showImageGallerySelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): boolean => layouts.showGalley
+);

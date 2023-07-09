@@ -2,19 +2,11 @@ import React from "react";
 import { markersDataSelector } from "../../redux/coordinates/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { baseApiUrl } from "../../constants";
-import { showPhoneAction } from "../../redux/layouts";
+import { showImageGalleryAction, showPhoneAction } from "../../redux/layouts";
 
 function Phone() {
   const coordinatesInfo = useSelector(markersDataSelector);
   const dispatch = useDispatch();
-  // let imgSlide;
-  // if (coordinatesInfo.title == "USA") {
-  //   imgSlide =
-  //     "http://212.111.202.6:1400/uploads/photos/1688631848112-Americans_with_Hmong_Ancestry_by_state.svg.png";
-  // } else {
-  //   imgSlide =
-  //     "http://212.111.202.6:1400/uploads/photos/1688637207774-water-buffalo.jpg";
-  // }
 
   return (
     <div className="phone-content">
@@ -29,7 +21,11 @@ function Phone() {
         </div>
         <div className="phone-descr">
           <div>
-            <div className="photo-frame">
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+            <div
+              className="photo-frame cursor-pointer"
+              onClick={() => dispatch(showImageGalleryAction(true))}
+            >
               <div className="relative">
                 <div className="photo-content">
                   <div className="gotic-frame"></div>
