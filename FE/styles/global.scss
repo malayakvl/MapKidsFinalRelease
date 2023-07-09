@@ -60,6 +60,34 @@ body {
   }
 }
 
+.marker {
+  display: block;
+  border: none;
+  //border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  //background-image: url("../public/images/map/marker.svg");
+  background-image: url("../public/images/map/pin.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+
+  span {
+    //margin-left: 9px;
+    //margin-top: 5px;
+    //width: 56px;
+    //display: block;
+    //background-image: url("../public/images/flags/1x1/cn.svg");
+    margin-left: 15px;
+    margin-top: 13px;
+    width: 56px;
+    display: block;
+    background-repeat: no-repeat;
+  }
+}
+
+
 .container {
   @include less($medium) {
     padding-left: 0;

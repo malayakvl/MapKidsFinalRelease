@@ -31,6 +31,7 @@ class CoordinatesController {
     }
 
     async fetchItem (req, res) {
+
         const data = await coordinates.fetchOne(req.params.id);
         if (data.item?.videos) {
             // selecting random video
@@ -48,13 +49,12 @@ class CoordinatesController {
             data.item.videosGallery = videosGallery;
         }
         // getting gallery info
-        // console.log(data);
-        // if (!data.item.images) {
-        //     data.item.images = [];
-        // }
-        // if (!data.item.videos) {
-        //     data.item.videos = [];
-        // }
+        if (!data.item.images) {
+            data.item.images = [];
+        }
+        if (!data.item.videos) {
+            data.item.videos = [];
+        }
         return res.status(200).json({ item: data.item});
     }
 

@@ -43,7 +43,7 @@ const Map = () => {
       container: "map-container",
       style: "mapbox://styles/mapbox/streets-v11",
       center: [90.51351884845116, 38.51974209746709],
-      zoom: 2,
+      zoom: 3,
     });
     const start = {
       center: [80, 36],
@@ -52,13 +52,17 @@ const Map = () => {
       bearing: 0,
     };
     const end = {
-      center: [8.11862, 46.58842],
+      center: [51.376530443836856, 57.44904393011032],
       zoom: 12.5,
       bearing: 130,
       pitch: 75,
     };
     map.on("style.load", () => {
       // console.log("coordinates", coordinates);
+      // map.on("click", function (e) {
+      //   const coordinates = e.lngLat;
+      //   console.log(coordinates);
+      // });
       countries.forEach((country: any) => {
         map.addLayer(
           {
@@ -83,10 +87,22 @@ const Map = () => {
           country.iso3,
         ]);
       });
+      // const el = document.createElement("div");
+
       for (const marker of coordinates) {
+        const el = document.createElement("div");
+        el.className = "marker";
+        // el.innerHTML = `<span>${marker.flag}</span>`;
+        const flagImage = `../../images/flags/1x1/${marker.flag_name}`;
+        el.innerHTML = `<span style="background-image: url(${flagImage})">&nbsp;</span>`;
+        el.style.width = `50px`;
+        el.style.height = `75px`;
+        el.style.backgroundSize = "100%";
         const geometry = [marker.lng, marker.lat];
+        // console.log(marker.flag);
         // @ts-ignore
-        const pointer = new mapboxgl.Marker().setLngLat(geometry).addTo(map);
+        // const pointer = new mapboxgl.Marker().setLngLat(geometry).addTo(map);
+        const pointer = new mapboxgl.Marker(el).setLngLat(geometry).addTo(map);
         pointer.getElement().addEventListener("click", () => {
           dispatch(showLoaderAction(true));
           dispatch(fetchItemMarkerAction(marker.id));

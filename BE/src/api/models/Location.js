@@ -330,7 +330,10 @@ class Location {
     async fetchMarkers () {
         const client = await pool.connect();
         try {
-            const rowsQuery = `SELECT * FROM data.coordinates;`;
+            // const rowsQuery = `SELECT * FROM data.coordinates;`;
+            // const rowsQuery = `SELECT * FROM data.coordinates LEFT JOIN data.countries ON data.countries.id = data.coordinates.country;`;
+            const rowsQuery = `SELECT data.coordinates.*, data.countries.flag_name
+                        FROM data.coordinates LEFT JOIN data.countries ON data.countries.id = data.coordinates.country;`;
             const res = await client.query(rowsQuery);
             const items = res.rows.length > 0 ? res.rows : [];
             const error = null;
