@@ -10,6 +10,9 @@ import {
   initMapAction,
   setOpacityAction,
   fetchItemsMarkersAction,
+  updateImageIdsAction,
+  updateVideoIdsAction,
+  updateTitleAction,
 } from "./actions";
 
 const initialState: {
@@ -17,11 +20,15 @@ const initialState: {
   item: any;
   checkedImageIds: number[];
   checkedVideoIds: number[];
+  title: string;
+  description: string;
 } = {
   items: [],
   item: null,
   checkedImageIds: [],
   checkedVideoIds: [],
+  title: "",
+  description: "",
 };
 
 const ACTION_HANDLERS: any = {
@@ -124,6 +131,34 @@ const ACTION_HANDLERS: any = {
       countryMap: action.payload,
     }),
   },
+  [updateImageIdsAction]: {
+    next: (
+      state: State.Coordinates,
+      action: Action<any>
+    ): State.Coordinates => ({
+      ...state,
+      imagesSelectedIds: action.payload,
+    }),
+  },
+  [updateVideoIdsAction]: {
+    next: (
+      state: State.Coordinates,
+      action: Action<any>
+    ): State.Coordinates => ({
+      ...state,
+      videosSelectedIds: action.payload,
+    }),
+  },
+  [updateTitleAction]: {
+    next: (
+      state: State.Coordinates,
+      action: Action<any>
+    ): State.Coordinates => ({
+      ...state,
+      title: action.payload,
+    }),
+  },
+
   // [fetchMarkersAction]: {
   //   next: (
   //     state: State.Countries,
@@ -149,6 +184,9 @@ export {
   setPaletteAction,
   initMapAction,
   setOpacityAction,
+  updateImageIdsAction,
+  updateVideoIdsAction,
+  updateTitleAction,
 };
 
 // ------------------------------------

@@ -4,7 +4,6 @@ import { activeItemAction } from "../../redux/countries";
 import { useDispatch } from "react-redux";
 
 export default function MainLayout() {
-  console.log("here we are");
   const dispatch = useDispatch();
 
   useEffect(() => {

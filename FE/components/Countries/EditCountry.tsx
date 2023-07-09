@@ -26,8 +26,18 @@ import {
 } from "../../redux/countries/selectors";
 import MapForm from "../MapForm";
 import VideoList from "./VideosList";
-import { fetchItemMarkerAction } from "../../redux/coordinates";
-import { markersDataSelector } from "../../redux/coordinates/selectors";
+import {
+  fetchItemMarkerAction,
+  updateImageIdsAction,
+  updateTitleAction,
+  updateVideoIdsAction,
+} from "../../redux/coordinates";
+import {
+  imageCheckedIdsSelector,
+  markersDataSelector,
+  markerTitleSelector,
+  videoCheckedIdsSelector,
+} from "../../redux/coordinates/selectors";
 import {
   updateColorAction,
   updateOpacityAction,
@@ -50,6 +60,10 @@ function CountryForm({ countryData }: { countryData: any }) {
   const [description, setDescription] = useState("");
   const [markerId, setMarkerId] = useState(null);
   const [markerImages, setMarkerImages] = useState([]);
+  // NEW WORKED SELECTORS
+  const newImageIds = useSelector(imageCheckedIdsSelector);
+  const newVideoIds = useSelector(videoCheckedIdsSelector);
+  // const newTitleMarker = useSelector(markerTitleSelector);
 
   const layerColor = useSelector(layerFillSelector);
   const layerOpacity = useSelector(layerOpacitySelector);
@@ -72,7 +86,6 @@ function CountryForm({ countryData }: { countryData: any }) {
 
   const onSliderAfterChange = () => {
     changeOpacityDone();
-    // console.log("country data", countryData);
   };
 
   useEffect(() => {
@@ -83,15 +96,17 @@ function CountryForm({ countryData }: { countryData: any }) {
 
   useEffect(() => {
     if (markerData?.id) {
-      console.log("MARKER DATA COUNTRIES", markerData);
-      setMarkerImages(markerData.images);
+      // setMarkerImages(markerData.images);
       setDisplayTabs(true);
+      dispatch(updateTitleAction(markerData.title));
+      dispatch(updateImageIdsAction(markerData.images));
+      dispatch(updateVideoIdsAction(markerData.videos));
     }
   }, [markerData]);
 
-  useEffect(() => {
-    console.log("Markers List Updated", markersList);
-  }, [markersList]);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // useEffect(() => {
+  // }, [markersList]);
 
   useEffect(() => {
     if (layerColor) {
@@ -130,9 +145,12 @@ function CountryForm({ countryData }: { countryData: any }) {
           initialValues={countrySelectorData}
           validationSchema={SubmitSchema}
           onSubmit={(values) => {
+            console.log(values);
             const formData = {
               images: JSON.stringify(checkedImageIds),
               videos: JSON.stringify(checkedVideoIds),
+              newImages: JSON.stringify(newImageIds),
+              newVideos: JSON.stringify(newVideoIds),
               fillColor: layerColor,
               fillOpacity: layerOpacity,
               title: values["title"],
@@ -286,6 +304,11 @@ function CountryForm({ countryData }: { countryData: any }) {
                                 event.target.value =
                                   event.target.value.trimStart();
                                 setTitle(event.target.value.trimStart());
+                                dispatch(
+                                  updateTitleAction(
+                                    event.target.value.trimStart()
+                                  )
+                                );
                                 props.handleChange(event);
                               }}
                             />
@@ -297,7 +320,7 @@ function CountryForm({ countryData }: { countryData: any }) {
                               placeholder={t("Add Description Here")}
                               props={props}
                               tips={t("Add Description Here")}
-                              maxLength={1000}
+                              maxLength={10000}
                               extValue={markerData?.description}
                             />
                           </>

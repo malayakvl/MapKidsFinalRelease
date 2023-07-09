@@ -41,7 +41,13 @@ class CoordinatesController {
             // selecting random video
             const imageData = await imageModel.findById(data.item.images[0]);
             data.item.image = imageData.name;
+            // getting images gallery
+            const imagesGallery = await imageModel.getGallery(data.item.images);
+            data.item.imageGallery = imagesGallery;
+            const videosGallery = await videoModel.getGallery(data.item.videos);
+            data.item.videosGallery = videosGallery;
         }
+        // getting gallery info
         // console.log(data);
         // if (!data.item.images) {
         //     data.item.images = [];

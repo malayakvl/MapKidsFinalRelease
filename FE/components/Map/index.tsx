@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import Phone from "../PhoneMap";
 import { useDispatch, useSelector } from "react-redux";

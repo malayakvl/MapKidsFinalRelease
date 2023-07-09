@@ -17,6 +17,10 @@ declare namespace Countries {
     fill_opacity: any;
     countryMap: any;
     iso3: any;
+    imagesSelectedIds: any[];
+    videosSelectedIds: any[];
+    title: any;
+    description: any;
   }
 
   interface Item {

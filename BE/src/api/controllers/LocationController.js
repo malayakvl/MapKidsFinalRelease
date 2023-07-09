@@ -142,8 +142,9 @@ class LocationController {
         const dataCountry = req.body;
         const parsedDataImages = JSON.parse(req.body.data.images);
         const parsedDataVideos = JSON.parse(req.body.data.videos);
+        const newImageIds = JSON.parse(req.body.data.newImages);
+        const newVideoIds = JSON.parse(req.body.data.newVideos);
         const locationId = req.body.data.locationId;
-        console.log(parsedDataImages);
         const imageIds = [];
         if (parsedDataImages.length) {
             parsedDataImages.forEach(data => {
@@ -160,15 +161,22 @@ class LocationController {
                 }
             })
         }
+        // console.log("SELECTED IMAGES", newImageIds);
+        // console.log("SELECTED VIDEOS", newVideoIds);
+        // console.log("TITLE VALUE", req.body.data.title);
+        // console.log("DESCRIPTION VALUE", req.body.data.description);
+
         const updatedData = {
             images: imageIds,
             videos: videoIds,
+            newVideoIds: newVideoIds,
+            newImageIds: newImageIds,
             fillColor: dataCountry.data.fillColor,
             fillOpacity: dataCountry.data.fillOpacity,
-            description: dataCountry.data.description,
-            title: dataCountry.data.title
+            description: req.body.data.description,
+            title: req.body.data.title
         }
-        // await locationModel.updateRecord(updatedData, dataCountry.countryData.id, locationId);
+        await locationModel.updateRecord(updatedData, dataCountry.countryData.id, locationId);
         const markersRes = await coordinatesModel.getCountryMarkers(dataCountry.countryData.id);
 
         if (!req.user) {

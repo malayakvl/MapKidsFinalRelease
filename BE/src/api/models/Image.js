@@ -102,14 +102,6 @@ class Image {
                 await Promise.all(promisesQueries);
             }
 
-            // CREATE DATABASE mapkids_data
-            // WITH OWNER = mapkids_admin
-            // ENCODING = 'UTF8'
-            // TABLESPACE = pg_default
-            // LC_COLLATE = 'en_US.UTF-8'
-            // LC_CTYPE = 'en_US.UTF-8'
-            // CONNECTION LIMIT = -1;
-
             const success = {
                 code: 200,
             };
@@ -160,6 +152,26 @@ class Image {
 
     }
 
+    async getGallery(imageIds) {
+        const client = await pool.connect();
+        try {
+            const query = `SELECT * FROM data.images WHERE id IN (${imageIds.join(',')})`;
+            const res = await client.query(query);
+            return res.rows.length ? res.rows: []
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error:',
+                    { message: e.message }
+                );
+            }
+            return { success: false, error: { code: 404, message: 'Country Not found' } };
+        } finally {
+            client.release();
+        }
+
+    }
 }
 
 export default new Image();

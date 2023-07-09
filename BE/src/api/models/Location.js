@@ -172,12 +172,22 @@ class Location {
             //     description=$$${data.description}$$
             //     WHERE id='${markerId}'`;
             const rowsQuery = `UPDATE data.coordinates SET 
-                images='${JSON.stringify(data.images)}',
-                videos='${JSON.stringify(data.videos)}',
-                title=$$${data.title}$$,
-                description=$$${data.description}$$
+                images='${JSON.stringify(data.newImageIds)}',
+                videos='${JSON.stringify(data.newVideoIds)}'
                 WHERE id='${markerId}'`;
             await client.query(rowsQuery);
+            if (data.title) {
+                const rowsQueryTitle = `UPDATE data.coordinates SET
+                    title=$$${data.title}$$
+                    WHERE id='${markerId}'`;
+                await client.query(rowsQueryTitle);
+            }
+            if (data.description) {
+                const rowsQueryDescr = `UPDATE data.coordinates SET
+                    description=$$${data.description}$$
+                    WHERE id='${markerId}'`;
+                await client.query(rowsQueryDescr);
+            }
 
             const res = await client.query(`SELECT * FROM data.countries WHERE id='${id}'`);
             const item = res.rows.length > 0 ? res.rows[0] : {};

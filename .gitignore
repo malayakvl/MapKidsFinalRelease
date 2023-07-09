@@ -123,3 +123,5 @@ FE/.env
 /BE/src/api/html/
 /FE/.vscode/
 /FE/package-lock.json
+/BE/public/uploads/
+

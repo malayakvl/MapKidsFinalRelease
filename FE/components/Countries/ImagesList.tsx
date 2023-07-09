@@ -5,6 +5,7 @@ import { nonpaginatedItemsSelector } from "../../redux/images/selectors";
 import {
   checkImageIdsAction,
   initImageIdsAction,
+  updateImageIdsAction,
 } from "../../redux/coordinates";
 import { countryItemSelector } from "../../redux/countries/selectors";
 import { fetchAllItemsAction } from "../../redux/images";
@@ -33,10 +34,43 @@ const ImageList: React.FC<any> = ({ markerData }: { markerData: any }) => {
     dispatch(fetchAllItemsAction());
   }, []);
 
-  const checkImageData = (id: number) => {
-    const tmpChecked = checkedIds;
-    tmpChecked.push(id);
-    setCheckedIds(tmpChecked);
+  // useEffect(() => {
+  //   if (markerData?.id) {
+  //     console.log("MARKER DATA COUNTRIES", markerData);
+  //     setMarkerImages(markerData.images);
+  //     setDisplayTabs(true);
+  //   }
+  // }, [markerData]);
+
+  // const checkImageData = (id: number) => {
+  //   const tmpChecked = checkedIds;
+  //   tmpChecked.push(id);
+  //   setCheckedIds(tmpChecked);
+  // };
+
+  const handleCheck = (event: any) => {
+    let updatedList = [...checkedIds];
+    if (event.target.checked) {
+      updatedList = [...checkedIds, parseInt(event.target.value)];
+    } else {
+      updatedList.splice(checkedIds.indexOf(parseInt(event.target.value)), 1);
+    }
+    setCheckedIds(updatedList);
+    dispatch(updateImageIdsAction(updatedList));
+  };
+
+  const handleImage = (e: any) => {
+    const tmpCheckedIds = checkedIds;
+    if (e.target.checked) {
+      tmpCheckedIds.push(parseInt(e.target.value));
+      setCheckedIds(tmpCheckedIds);
+    } else {
+      setCheckedIds(
+        tmpCheckedIds.filter(
+          (item: number) => item !== parseInt(e.target.value)
+        )
+      );
+    }
   };
 
   return (
@@ -61,12 +95,14 @@ const ImageList: React.FC<any> = ({ markerData }: { markerData: any }) => {
                     <input
                       className="float-checkbox"
                       type="checkbox"
-                      onChange={() => {
+                      // onChange={(e) => handleCheck(e)}
+                      onChange={(e) => {
                         dispatch(checkImageIdsAction(item.id));
-                        checkImageData(item.id);
+                        // checkImageData(item.id);
+                        handleCheck(e);
                       }}
                       value={item.id}
-                      checked={checkedIds.includes(item.id) ? true : false}
+                      checked={checkedIds.includes(item.id)}
                     />
                   </div>
                 </div>

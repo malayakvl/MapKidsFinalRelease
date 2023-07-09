@@ -147,7 +147,6 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
     }
   }, [countryData, mapCountry]);
 
-  console.log("Current Markers", currentMarkers);
   return (
     <div className="relative">
       <div className="map-form-block relative">

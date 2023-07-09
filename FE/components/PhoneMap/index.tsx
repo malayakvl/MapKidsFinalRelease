@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { markersDataSelector } from "../../redux/coordinates/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { baseApiUrl } from "../../constants";
@@ -7,15 +7,14 @@ import { showPhoneAction } from "../../redux/layouts";
 function Phone() {
   const coordinatesInfo = useSelector(markersDataSelector);
   const dispatch = useDispatch();
-  console.log("Marker Data", coordinatesInfo);
-  let imgSlide;
-  if (coordinatesInfo.title == "USA") {
-    imgSlide =
-      "http://212.111.202.6:1400/uploads/photos/1688631848112-Americans_with_Hmong_Ancestry_by_state.svg.png";
-  } else {
-    imgSlide =
-      "http://212.111.202.6:1400/uploads/photos/1688637207774-water-buffalo.jpg";
-  }
+  // let imgSlide;
+  // if (coordinatesInfo.title == "USA") {
+  //   imgSlide =
+  //     "http://212.111.202.6:1400/uploads/photos/1688631848112-Americans_with_Hmong_Ancestry_by_state.svg.png";
+  // } else {
+  //   imgSlide =
+  //     "http://212.111.202.6:1400/uploads/photos/1688637207774-water-buffalo.jpg";
+  // }
 
   return (
     <div className="phone-content">

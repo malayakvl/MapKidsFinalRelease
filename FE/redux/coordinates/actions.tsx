@@ -8,9 +8,9 @@ import {
 } from "../layouts/actions";
 import { baseApiUrl } from "../../constants";
 const baseUrl = `${baseApiUrl}/api`;
-import { paginationSelectorFactory } from "../layouts/selectors";
-import { PaginationType } from "../../constants";
-import queryString from "query-string";
+// import { paginationSelectorFactory } from "../layouts/selectors";
+// import { PaginationType } from "../../constants";
+// import queryString from "query-string";
 
 export const fetchItemsMarkersAction: any = createAction(
   "pointers/FETCH_ITEMS",
@@ -61,6 +61,29 @@ export const fetchItemMarkerAction: any = createAction(
       };
     }
 );
+// export const updateImageIdsAction: any = createAction(
+//   "markers/UPDATE_IMAGE_IDS",
+//   async (id: number) =>
+//         async (
+//             dispatch: Type.Dispatch,
+//             getState: () => State.Root
+//         ): Promise<{ item: Articles.ItemData }> => {
+//           const state = getState();
+//           dispatch(showLoaderAction(true));
+//           const res = await axios.get(`${baseUrl}/markers/fetch-item/${id}`, {
+//             headers: {
+//               ...authHeader(state.user.user.email),
+//             },
+//           });
+//           if (res.status) {
+//             dispatch(showLoaderAction(false));
+//           }
+//           return {
+//             item: res.data.item,
+//           };
+//         }
+// );
+
 
 export const loadMapAction: any = createAction("countries/MAPLOADED_ACTION");
 export const checkImageIdsAction: any = createAction(
@@ -76,3 +99,11 @@ export const setPaletteAction: any = createAction(
   "countries/SET_PALETTE_COLOR"
 );
 export const setOpacityAction: any = createAction("countries/SET_OPACITY");
+
+export const updateImageIdsAction: any = createAction(
+  "coordintate/UPDATE_IMAGE_IDS"
+);
+export const updateVideoIdsAction: any = createAction(
+  "coordintate/UPDATE_VIDEO_IDS"
+);
+export const updateTitleAction: any = createAction("coordintate/UPDATE_TITLE");

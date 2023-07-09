@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllItemsAction } from "../../redux/videos";
 import { countryItemSelector } from "../../redux/countries/selectors";
 import { nonpaginatedItemsSelector } from "../../redux/videos/selectors";
-import { checkVideoIdsAction, initVideoIdsAction } from "../../redux/countries";
+import { initVideoIdsAction } from "../../redux/countries";
+import {
+  checkImageIdsAction,
+  updateVideoIdsAction,
+} from "../../redux/coordinates";
 // import {checkImageIdsAction} from "../../redux/coordinates";
 
 const VideoList: React.FC<any> = ({ markerData }: { markerData: any }) => {
@@ -31,10 +35,21 @@ const VideoList: React.FC<any> = ({ markerData }: { markerData: any }) => {
     dispatch(fetchAllItemsAction());
   }, []);
 
-  const checkVideoData = (id: number) => {
-    const tmpChecked = checkedIds;
-    tmpChecked.push(id);
-    setCheckedIds(tmpChecked);
+  // const checkVideoData = (id: number) => {
+  //   const tmpChecked = checkedIds;
+  //   tmpChecked.push(id);
+  //   setCheckedIds(tmpChecked);
+  // };
+
+  const handleCheck = (event: any) => {
+    let updatedList = [...checkedIds];
+    if (event.target.checked) {
+      updatedList = [...checkedIds, parseInt(event.target.value)];
+    } else {
+      updatedList.splice(checkedIds.indexOf(parseInt(event.target.value)), 1);
+    }
+    setCheckedIds(updatedList);
+    dispatch(updateVideoIdsAction(updatedList));
   };
 
   return (
@@ -55,13 +70,23 @@ const VideoList: React.FC<any> = ({ markerData }: { markerData: any }) => {
                     <input
                       className="float-checkbox"
                       type="checkbox"
-                      onChange={() => {
-                        dispatch(checkVideoIdsAction(item.id));
-                        checkVideoData(item.id);
+                      onChange={(e) => {
+                        dispatch(checkImageIdsAction(item.id));
+                        handleCheck(e);
                       }}
                       value={item.id}
-                      checked={checkedIds.includes(item.id) ? true : false}
+                      checked={checkedIds.includes(item.id)}
                     />
+                    {/*<input*/}
+                    {/*  className="float-checkbox"*/}
+                    {/*  type="checkbox"*/}
+                    {/*  onChange={() => {*/}
+                    {/*    dispatch(checkVideoIdsAction(item.id));*/}
+                    {/*    checkVideoData(item.id);*/}
+                    {/*  }}*/}
+                    {/*  value={item.id}*/}
+                    {/*  checked={!!checkedIds.includes(item.id)}*/}
+                    {/*/>*/}
                   </div>
                 </div>
               </Fragment>
