@@ -11,10 +11,6 @@ function ImagesGallery() {
   );
   const dispatch = useDispatch();
 
-  // const parseGallery(images) => {
-  //
-  // }
-
   return (
     <div className="gallery-content">
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}

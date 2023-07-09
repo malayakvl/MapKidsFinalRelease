@@ -57,5 +57,5 @@ export const showImageGalleryAction: any = createAction(
   "layouts/SHOW_IMAGE_GALLERY"
 );
 export const showVideoGalleryAction: any = createAction(
-  "layouts/SHOW_IMAGE_GALLERY"
+  "layouts/SHOW_VIDEO_GALLERY"
 );
