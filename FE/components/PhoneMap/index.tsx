@@ -2,7 +2,11 @@ import React from "react";
 import { markersDataSelector } from "../../redux/coordinates/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { baseApiUrl } from "../../constants";
-import { showImageGalleryAction, showPhoneAction } from "../../redux/layouts";
+import {
+  showImageGalleryAction,
+  showPhoneAction,
+  showVideoGalleryAction,
+} from "../../redux/layouts";
 
 function Phone() {
   const coordinatesInfo = useSelector(markersDataSelector);
@@ -50,7 +54,11 @@ function Phone() {
             }}
           />
           <div className="clearfix" />
-          <div className="play-video"></div>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+          <div
+            className="play-video cursor-pointer"
+            onClick={() => dispatch(showVideoGalleryAction(true))}
+          ></div>
           <div className="video-frame hidden">
             <div
               className="country-text"

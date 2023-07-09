@@ -56,3 +56,6 @@ export const showPhoneAction: any = createAction("layouts/SHOW_PHONE");
 export const showImageGalleryAction: any = createAction(
   "layouts/SHOW_IMAGE_GALLERY"
 );
+export const showVideoGalleryAction: any = createAction(
+  "layouts/SHOW_IMAGE_GALLERY"
+);
