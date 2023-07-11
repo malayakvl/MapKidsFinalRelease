@@ -35,7 +35,7 @@ function VideoGallery() {
                 {markerData.videosGallery.map((item: any) => (
                   // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                   <div
-                    className="image-content cursor-pointer"
+                    className="image-content cursor-pointer0"
                     key={item.id}
                     onClick={() => {
                       // console.log(item.name)
@@ -48,15 +48,17 @@ function VideoGallery() {
                       <div className="gotic-frame-video-left" />
                       <div className="gotic-frame-video-right" />
                       <div className="gotic-frame-video-bottom" />
-
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: item.code
-                            .replace('height="209"', 'height="140"')
-                            .replace('width="100%"', 'width="190"'),
-                        }}
-                        className=""
-                      ></div>
+                      <div className="absolute w-[190px] h-[140px] opacity-0 z-50"></div>
+                      <div className="w-">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: item.code
+                              .replace('height="209"', 'height="140"')
+                              .replace('width="100%"', 'width="190"'),
+                          }}
+                          className=""
+                        ></div>
+                      </div>
                     </div>
                   </div>
                 ))}
