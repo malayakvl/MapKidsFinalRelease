@@ -91,3 +91,7 @@ export const showVideoGallerySelector = createSelector(
   rootSelector,
   (layouts: State.Layouts): boolean => layouts.showVideoGalley
 );
+export const mapMainSelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): any => layouts.mapMain
+);

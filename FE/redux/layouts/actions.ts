@@ -59,3 +59,4 @@ export const showImageGalleryAction: any = createAction(
 export const showVideoGalleryAction: any = createAction(
   "layouts/SHOW_VIDEO_GALLERY"
 );
+export const initMapAction: any = createAction("layouts/FRONTEND_INIT_MAP");

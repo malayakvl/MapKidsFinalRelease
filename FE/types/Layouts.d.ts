@@ -32,6 +32,7 @@ declare namespace Layouts {
     showPhone: boolean;
     showImageGalley: boolean;
     showVideoGalley: boolean;
+    mapMain: any;
   }
 
   interface TabTypes {
