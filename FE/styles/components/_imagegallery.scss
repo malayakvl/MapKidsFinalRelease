@@ -180,6 +180,50 @@
 
   }
 
+  //=================================================
+  //================VIDO BIG FRAME STYLES
+  //=================================================
+  .big-big-frame-gotic {
+    margin-left: calc(50% - 430px);
+    margin-top:80px;
+    display: block;
+  }
+  .gotic-big-frame-video-top {
+    background: url(../../public/images/gallery/big/Top.svg);
+    position: absolute;
+    top: -19px;
+    left: -8px;
+    width: 878px;
+    height: 43px;
+
+  }
+  .gotic-big-frame-video-left {
+    background: url(../../public/images/gallery/big/Left.svg);
+    //background-size: contain;
+    position: absolute;
+    top: 14px;
+    left: -11px;
+    width: 33px;
+    height: 461px;
+  }
+  .gotic-big-frame-video-right {
+    background: url(../../public/images/gallery/big/Right.svg);
+    //background-size: contain;
+    position: absolute;
+    top: 7px;
+    left: 842px;
+    width: 32px;
+    height: 478px;
+  }
+  .gotic-big-frame-video-bottom {
+    background: url(../../public/images/gallery/big/Buttom.svg);
+    //background-size: contain;
+    position: absolute;
+    bottom: -19px;
+    left: -4px;
+    width: 868px;
+    height: 36px;
+  }
 
   .gotic-frame-gallery {
     background: url(../../public/images/gallery/small-frame.svg);

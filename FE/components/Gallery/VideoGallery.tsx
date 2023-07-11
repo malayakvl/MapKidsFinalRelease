@@ -17,15 +17,26 @@ function VideoGallery() {
           className="close-gallery"
           onClick={() => dispatch(showVideoGalleryAction(false))}
         />
-        <div className="relative">
-          <div className="big-frame-gotic mx-auto">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: bigVideo.code
-                  .replace('height="209"', 'height="485"')
-                  .replace('width="100%"', 'width="863"'),
-              }}
-            />
+        <div className="">
+          <div
+            className="big-big-frame-gotic mx-auto"
+            style={{ left: "calc(50% - 430px)", position: "relative" }}
+          >
+            <div>
+              <div className="relative">
+                <div className="gotic-big-frame-video-top" />
+                <div className="gotic-big-frame-video-left" />
+                <div className="gotic-big-frame-video-right" />
+                <div className="gotic-big-frame-video-bottom" />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: bigVideo.code
+                      .replace('height="209"', 'height="485"')
+                      .replace('width="100%"', 'width="863"'),
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
         <div className="gallery-thumbs">
