@@ -357,6 +357,12 @@ const ACTION_HANDLERS: any = {
       selectedImgIndex: action.payload,
     }),
   },
+  [setVideoIndexAction]: {
+    next: (state: State.Layouts, action: Action<number>): State.Layouts => ({
+      ...state,
+      selectedVideoIndex: action.payload,
+    }),
+  },
   [initFrameTypeAction]: {
     next: (state: State.Layouts, action: Action<string>): State.Layouts => ({
       ...state,

@@ -10,7 +10,6 @@ import {
 } from "../../redux/layouts";
 import {
   imgIndexSelector,
-  videoIndexSelector,
   imageFrameTypeSelector,
 } from "../../redux/layouts/selectors";
 
@@ -33,7 +32,6 @@ function ImagesGallery() {
     `${baseApiUrl}/uploads/photos/${markerData.imageGallery[0].name}`
   );
   const imgIndex = useSelector(imgIndexSelector);
-  const videoIndex = useSelector(videoIndexSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -80,11 +78,6 @@ function ImagesGallery() {
     }
   }, [imgIndex]);
 
-  // console.log("Frame type", frameTypeData);
-  // console.log("Image index", imgIndex);
-  // console.log("Image length", markerData.imageGallery.length);
-  // console.log("Video index", videoIndex);
-
   return (
     <div>
       <div className="loader-content" />
@@ -103,7 +96,6 @@ function ImagesGallery() {
                 imgIndex != 0
                   ? imgIndex - 1
                   : markerData.imageGallery.length - 1;
-              console.log("IMAGE INDEX", imgIndexSelectedLeftVal);
               const widthFrameSelected =
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgWidth >
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgHeight

@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { markersDataSelector } from "../../redux/coordinates/selectors";
-import { showVideoGalleryAction } from "../../redux/layouts";
+import {
+  setVideoIndexAction,
+  showVideoGalleryAction,
+} from "../../redux/layouts";
+import { videoIndexSelector } from "../../redux/layouts/selectors";
 
 function VideoGallery() {
   const markerData = useSelector(markersDataSelector);
   const [bigVideo, setBigVideo] = useState(markerData.videosGallery[0]);
   const dispatch = useDispatch();
+  const videoIndex = useSelector(videoIndexSelector);
+
+  console.log("VIDEO INDEX", videoIndex);
+
+  useEffect(() => {
+    if (markerData.id) {
+      setBigVideo(markerData.videosGallery[videoIndex]);
+    }
+  }, [videoIndex]);
 
   return (
     <div>
@@ -18,6 +31,29 @@ function VideoGallery() {
           onClick={() => dispatch(showVideoGalleryAction(false))}
         />
         <div className="">
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+          <div
+            className="arrow-left cursor-pointer"
+            onClick={() => {
+              const videoIndexSelectedLeftVal =
+                videoIndex != 0
+                  ? videoIndex - 1
+                  : markerData.videosGallery.length - 1;
+              dispatch(setVideoIndexAction(videoIndexSelectedLeftVal));
+            }}
+          />
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+          <div
+            className="arrow-right cursor-pointer"
+            onClick={() => {
+              const videoIndexSelectedLeftVal =
+                videoIndex < markerData.videosGallery.length - 1
+                  ? videoIndex + 1
+                  : 0;
+              dispatch(setVideoIndexAction(videoIndexSelectedLeftVal));
+            }}
+          />
+
           <div
             className="big-big-frame-gotic mx-auto"
             style={{ left: "calc(50% - 430px)", position: "relative" }}
@@ -43,7 +79,7 @@ function VideoGallery() {
           <div className="gallery-line row-1">
             {markerData.videosGallery.length > 1 && (
               <>
-                {markerData.videosGallery.map((item: any) => (
+                {markerData.videosGallery.map((item: any, key: number) => (
                   // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                   <div
                     className="image-content cursor-pointer0"
@@ -51,6 +87,7 @@ function VideoGallery() {
                     onClick={() => {
                       // console.log(item.name)
                       setBigVideo(item);
+                      dispatch(setVideoIndexAction(key));
                     }}
                   >
                     <div className="gotic-frame-gallery-1"></div>
