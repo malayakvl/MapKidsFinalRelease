@@ -9,7 +9,6 @@ import {
   showImageGalleryAction,
 } from "../../redux/layouts";
 import {
-  frameTypeSelector,
   imgIndexSelector,
   videoIndexSelector,
   imageFrameTypeSelector,
@@ -206,7 +205,7 @@ function ImagesGallery() {
         </div>
         <div className="gallery-thumbs">
           <div className="gallery-line row-1">
-            {markerData.imageGallery.map((item: any) => (
+            {markerData.imageGallery.map((item: any, key: number) => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
               <div
                 className="image-content cursor-pointer"
@@ -236,6 +235,7 @@ function ImagesGallery() {
                       ? "horizontalTypeFrame"
                       : "verticalTypeFrame"
                   );
+                  dispatch(setImgIndexAction(key));
                 }}
               >
                 {/*<div className="gotic-frame-gallery"></div>*/}
