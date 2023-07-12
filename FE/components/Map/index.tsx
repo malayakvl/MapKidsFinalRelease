@@ -35,12 +35,6 @@ const Map = () => {
   const coordinatesInfo = useSelector(markersDataSelector);
   mapboxgl.accessToken =
     "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
-  // const map = new mapboxgl.Map({
-  //   container: "map-container",
-  //   style: "mapbox://styles/mapbox/streets-v11",
-  //   center: [90.51351884845116, 38.51974209746709],
-  //   zoom: 3,
-  // });
 
   useEffect(() => {
     if (mapContainer) {
@@ -54,79 +48,11 @@ const Map = () => {
         zoom: 3,
       });
       map.on("style.load", () => {
-        // countries.forEach((country: any) => {
-        //   map.addLayer(
-        //     {
-        //       id: `country-boundaries-${country.iso3}`,
-        //       source: {
-        //         type: "vector",
-        //         url: "mapbox://mapbox.country-boundaries-v1",
-        //       },
-        //       "source-layer": "country_boundaries",
-        //       type: "fill",
-        //       paint: {
-        //         "fill-color": country.fill_color,
-        //         "fill-opacity": 0.4,
-        //       },
-        //     },
-        //     "country-label"
-        //   );
-        //
-        //   map.setFilter(`country-boundaries-${country.iso3}`, [
-        //     "in",
-        //     "iso_3166_1_alpha_3",
-        //     country.iso3,
-        //   ]);
-        // });
         setStyleLoading(true);
         dispatch(initMapAction(map));
       });
     }
   }, [mapContainer]);
-
-  useEffect(() => {
-    console.log("COUNTRIED", Object.keys(countries).length);
-    // dispatch(fetchItemsMarkersAction());
-    if (mapMain && countries) {
-      // const element = mapContainer.current;
-      // const map = new mapboxgl.Map({
-      //   container: "map-container",
-      //   style: "mapbox://styles/mapbox/streets-v11",
-      //   center: [90.51351884845116, 38.51974209746709],
-      //   zoom: 3,
-      // });
-      if (styleLoading && mapMain) {
-        console.log("STYLE LOADING DONE");
-      }
-      // mapMain.on("style.load", () => {
-      //   console.log("STYLES LOADING");
-      //   // countries.forEach((country: any) => {
-      //   //   mapMain.addLayer(
-      //   //     {
-      //   //       id: `country-boundaries-${country.iso3}`,
-      //   //       source: {
-      //   //         type: "vector",
-      //   //         url: "mapbox://mapbox.country-boundaries-v1",
-      //   //       },
-      //   //       "source-layer": "country_boundaries",
-      //   //       type: "fill",
-      //   //       paint: {
-      //   //         "fill-color": country.fill_color,
-      //   //         "fill-opacity": 0.4,
-      //   //       },
-      //   //     },
-      //   //     "country-label"
-      //   //   );
-      //   //
-      //   //   mapMain.setFilter(`country-boundaries-${country.iso3}`, [
-      //   //     "in",
-      //   //     "iso_3166_1_alpha_3",
-      //   //     country.iso3,
-      //   //   ]);
-      //   // });
-      // });
-    }
-  }, [countries, styleLoading]);
 
   useEffect(() => {
     if (mapMain) {

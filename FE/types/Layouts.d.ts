@@ -33,6 +33,10 @@ declare namespace Layouts {
     showImageGalley: boolean;
     showVideoGalley: boolean;
     mapMain: any;
+    frameType: string;
+    selectedImgIndex: number;
+    selectedVideoIndex: number;
+    selectedFrameType: string;
   }
 
   interface TabTypes {

@@ -95,3 +95,19 @@ export const mapMainSelector = createSelector(
   rootSelector,
   (layouts: State.Layouts): any => layouts.mapMain
 );
+export const frameTypeSelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): any => layouts.frameType
+);
+export const imgIndexSelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): any => layouts.selectedImgIndex
+);
+export const videoIndexSelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): any => layouts.selectedVideoIndex
+);
+export const imageFrameTypeSelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): any => layouts.selectedFrameType
+);

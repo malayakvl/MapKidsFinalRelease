@@ -27,6 +27,10 @@ import {
   showImageGalleryAction,
   showVideoGalleryAction,
   initMapAction,
+  setFrameTypeAction,
+  setImgIndexAction,
+  setVideoIndexAction,
+  initFrameTypeAction,
 } from "./actions";
 import { PaginationType } from "../../constants";
 
@@ -107,6 +111,10 @@ const initialState: State.Layouts = {
   showImageGalley: false,
   showVideoGalley: false,
   mapMain: null,
+  frameType: "",
+  selectedImgIndex: 0,
+  selectedVideoIndex: 0,
+  selectedFrameType: "horizontalTypeFrame",
 };
 
 // ------------------------------------
@@ -337,6 +345,24 @@ const ACTION_HANDLERS: any = {
       mapMain: action.payload,
     }),
   },
+  [setFrameTypeAction]: {
+    next: (state: State.Layouts, action: Action<string>): State.Layouts => ({
+      ...state,
+      frameType: action.payload,
+    }),
+  },
+  [setImgIndexAction]: {
+    next: (state: State.Layouts, action: Action<number>): State.Layouts => ({
+      ...state,
+      selectedImgIndex: action.payload,
+    }),
+  },
+  [initFrameTypeAction]: {
+    next: (state: State.Layouts, action: Action<string>): State.Layouts => ({
+      ...state,
+      selectedFrameType: action.payload,
+    }),
+  },
 };
 
 export {
@@ -365,6 +391,10 @@ export {
   showImageGalleryAction,
   showVideoGalleryAction,
   initMapAction,
+  setFrameTypeAction,
+  setImgIndexAction,
+  setVideoIndexAction,
+  initFrameTypeAction,
 };
 
 // ------------------------------------

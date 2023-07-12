@@ -60,3 +60,9 @@ export const showVideoGalleryAction: any = createAction(
   "layouts/SHOW_VIDEO_GALLERY"
 );
 export const initMapAction: any = createAction("layouts/FRONTEND_INIT_MAP");
+export const setFrameTypeAction: any = createAction(
+  "layouts/SET_IMG_FRAME_TYPE"
+);
+export const setImgIndexAction: any = createAction("layouts/SET_IMG_INDEX");
+export const setVideoIndexAction: any = createAction("layouts/SET_VIDEO_INDEX");
+export const initFrameTypeAction: any = createAction("layouts/FRAME_TYPE");

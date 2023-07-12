@@ -43,11 +43,16 @@
     margin-left: calc(50% - 450px);
     display: flex;
     justify-content: center;
+
     img {
       width: auto;
-      height: 580px;
-      border: solid 10px;
+      height: 501px;
+      //border: solid 10px;
     }
+  }
+
+  .gotic-big-frame-image-top {
+
   }
 
   .image-content {
@@ -69,7 +74,7 @@
 
 
   //=================================================
-  //================VIDO FRAME STYLES
+  //================IMAGE FRAME STYLES
   //=================================================
   .gotic-frame-gallery-top {
     background: url(../../public/images/gallery/Top.svg);
@@ -139,6 +144,99 @@
     height: 12px;
   }
 
+  .image-big-content {
+    border: solid 1px red;
+    display: block;
+    height: 501px;
+  }
+
+  .img-bg-container-block {
+    height: 501px;
+    width: 863px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .arrow-left {
+    background: url(../../public/images/gallery/arrow-left.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 49px;
+    height: 64px;
+    top: 35%;
+    left: 100px;
+  }
+
+  .arrow-right {
+    background: url(../../public/images/gallery/arrow-right.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 49px;
+    height: 64px;
+    top: 35%;
+    right: 100px;
+  }
+
+  .gotic-big-frame-image-top {
+    background: url(../../public/images/gallery/big/Top.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    //background-size: contain;
+    //width: 100%;
+    //top: -12px;
+    //left: -4px;
+    //height: 43px;
+    background-size: contain;
+    width: calc(100% + 11px);
+    top: -10px;
+    left: -5px;
+    height: 43px;
+  }
+  //.ggotic-big-frame-image-bottom {
+  //  background: url(../../public/images/gallery/big/Buttom.svg);
+  //  background-repeat: no-repeat;
+  //  position: absolute;
+  //  background-size: contain;
+  //  width: calc(100% + 14px);
+  //  top: -20px;
+  //  left: -7px;
+  //  height: 43px;
+  //
+  //}
+  .ggotic-big-frame-image-right {
+    background: url(../../public/images/gallery/big/Right.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: contain;
+    width: 43px;
+    top: 8px;
+    right: -26px;
+    height: calc(100% - 10px);
+  }
+
+  .ggotic-big-frame-image-left {
+    background: url(../../public/images/gallery/big/Left.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: contain;
+    width: 100%;
+    bottom: -8px;
+    left: -8px;
+    height: 100%;
+  }
+
+  .ggotic-big-frame-image-bottom {
+    background: url(../../public/images/gallery/big/Buttom.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    background-size: contain;
+    width: calc(100% + 9px);
+    bottom: -40px;
+    left: 6px;
+    height: 43px;
+  }
+
+
   //=================================================
   //================VIDO FRAME STYLES
   //=================================================
@@ -188,6 +286,22 @@
     margin-top:80px;
     display: block;
   }
+  .gotic-big-frame-vertical-video-top {
+    background: url(../../public/images/gallery/big/Top_vertical.svg);
+    position: absolute;
+    top: -19px;
+    left: -7px;
+    width: 607px;
+    height: 43px;
+  }
+  .gotic-big-frame-vertical-video-bottom {
+    background: url(../../public/images/gallery/big/Bottom_vertical.svg);
+    position: absolute;
+    bottom: -29px;
+    left: -7px;
+    width: 607px;
+    height: 43px;
+  }
   .gotic-big-frame-video-top {
     background: url(../../public/images/gallery/big/Top.svg);
     position: absolute;
@@ -195,7 +309,6 @@
     left: -8px;
     width: 878px;
     height: 43px;
-
   }
   .gotic-big-frame-video-left {
     background: url(../../public/images/gallery/big/Left.svg);
@@ -206,6 +319,25 @@
     width: 33px;
     height: 461px;
   }
+  .gotic-big-frame-vertical-video-left {
+    background: url(../../public/images/gallery/big/Left.svg);
+    background-size: cover;
+    position: absolute;
+    top: 14px;
+    left: -11px;
+    width: 33px;
+    height: 736px;
+  }
+  .gotic-big-frame-vertical-video-right {
+    background: url(../../public/images/gallery/big/Right.svg);
+    background-size: cover;
+    position: absolute;
+    top: 14px;
+    right: -3px;
+    width: 33px;
+    height: 736px;
+  }
+
   .gotic-big-frame-video-right {
     background: url(../../public/images/gallery/big/Right.svg);
     //background-size: contain;

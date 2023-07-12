@@ -2,6 +2,7 @@ import locationModel from "../models/Location.js";
 import coordinates from "../models/Coordinates.js";
 import videoModel from "../models/Video.js";
 import imageModel from "../models/Image.js";
+import sizeOf from 'image-size'
 
 
 class CoordinatesController {
@@ -42,8 +43,16 @@ class CoordinatesController {
             // selecting random video
             const imageData = await imageModel.findById(data.item.images[0]);
             data.item.image = imageData.name;
-            // getting images gallery
+            const { height, width } = sizeOf(`${process.env.FS_UPLOAD_FOLDER}/photos/${imageData.name}`)
+            // console.log("Image width", width);
+            data.item.imgWidth = width;
+            data.item.imgHeight = height;
             const imagesGallery = await imageModel.getGallery(data.item.images);
+            imagesGallery.forEach((image, key) => {
+                const { height, width } = sizeOf(`${process.env.FS_UPLOAD_FOLDER}/photos/${image.name}`);
+                imagesGallery[key].imgWidth = width;
+                imagesGallery[key].imgHeight = height;
+            })
             data.item.imageGallery = imagesGallery;
             const videosGallery = await videoModel.getGallery(data.item.videos);
             data.item.videosGallery = videosGallery;
