@@ -44,11 +44,18 @@ const Map = () => {
       const map = new mapboxgl.Map({
         container: "map-container",
         style: "mapbox://styles/mapbox/streets-v11",
-        center: [90.51351884845116, 38.51974209746709],
-        zoom: 3,
+        // center: [90.51351884845116, 38.51974209746709],
+        center: [7.223010832344329, 35.85742466168547],
+        zoom: 2.049633575520722,
       });
       map.on("style.load", () => {
         setStyleLoading(true);
+        // map.on("click", function (e) {
+        //   const coordinates = e.lngLat;
+        //   const zoom = map.getZoom();
+        //   console.log("COORDINATES", coordinates);
+        //   console.log("ZOOM", zoom);
+        // });
         dispatch(initMapAction(map));
       });
     }
