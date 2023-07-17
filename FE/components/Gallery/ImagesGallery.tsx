@@ -23,7 +23,7 @@ function ImagesGallery() {
   );
   const [width, setWidth] = useState(
     markerData.imageGallery[0].imgWidth > markerData.imageGallery[0].imgHeight
-      ? "863"
+      ? "650"
       : "100"
   );
   const [frameType, setFrameType] = useState("");
@@ -60,7 +60,7 @@ function ImagesGallery() {
           `${
             markerData.imageGallery[imgIndex].imgWidth >
             markerData.imageGallery[imgIndex].imgHeight
-              ? "863"
+              ? "650"
               : "595"
           }`
         );
@@ -99,13 +99,13 @@ function ImagesGallery() {
               const widthFrameSelected =
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgWidth >
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgHeight
-                  ? "863"
+                  ? "650"
                   : "595";
               const heightFrameSelected =
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgWidth >
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgHeight
                   ? "485"
-                  : "752";
+                  : "486";
               setWidth(widthFrameSelected);
               setHeight(heightFrameSelected);
               setBigImg(
@@ -133,13 +133,13 @@ function ImagesGallery() {
               const widthFrameSelected =
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgWidth >
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgHeight
-                  ? "863"
+                  ? "650"
                   : "595";
               const heightFrameSelected =
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgWidth >
                 markerData.imageGallery[imgIndexSelectedLeftVal].imgHeight
                   ? "485"
-                  : "752";
+                  : "485";
               setWidth(widthFrameSelected);
               setHeight(heightFrameSelected);
               setBigImg(
@@ -156,8 +156,19 @@ function ImagesGallery() {
               );
             }}
           />
+          <div className="big-frame-gotic mx-auto">
+            <div className="relative" id="image-big-content" ref={refBigImg}>
+              {/*<div className="gotic-big-frame-image-top" />*/}
+              {/*<div className="ggotic-big-frame-image-left" />*/}
+              {/*<div className="ggotic-big-frame-image-right" />*/}
+              {/*<div className="ggotic-big-frame-image-bottom" />*/}
+
+              <img src={bigImg} alt="" className="gray-border-frame" />
+            </div>
+            <div className="top-frame hidden" />
+          </div>
           <div
-            className="relative"
+            className="hidden"
             id="image-big-content"
             ref={refBigImg}
             style={{ width: `${width}px`, height: `${height}px` }}
@@ -168,30 +179,22 @@ function ImagesGallery() {
             {/*<div className="ggotic-big-frame-image-bottom hide" />*/}
             {frameTypeData === "horizontalTypeFrame" && (
               <>
-                <div className="gotic-big-frame-video-top" />
-                <div className="gotic-big-frame-video-left" />
-                <div className="gotic-big-frame-video-right" />
-                <div className="gotic-big-frame-video-bottom" />
+                {/*<div className="gotic-big-frame-video-top" />*/}
+                {/*<div className="gotic-big-frame-video-left" />*/}
+                {/*<div className="gotic-big-frame-video-right" />*/}
+                {/*<div className="gotic-big-frame-video-bottom" />*/}
               </>
             )}
             {frameTypeData === "verticalTypeFrame" && (
               <>
-                <div className="gotic-big-frame-vertical-video-top" />
-                <div className="gotic-big-frame-vertical-video-left" />
-                <div className="gotic-big-frame-vertical-video-right" />
-                <div className="gotic-big-frame-vertical-video-bottom" />
+                {/*<div className="gotic-big-frame-vertical-video-top" />*/}
+                {/*<div className="gotic-big-frame-vertical-video-left" />*/}
+                {/*<div className="gotic-big-frame-vertical-video-right" />*/}
+                {/*<div className="gotic-big-frame-vertical-video-bottom" />*/}
               </>
             )}
 
-            <div
-              className="img-bg-container-block"
-              style={{
-                backgroundImage: `url(${bigImg})`,
-                width: `${width}px`,
-                height: `${height}px`,
-              }}
-            ></div>
-            <img src={bigImg} alt="" className="hide" />
+            <img src={bigImg} alt="" className="gray-border-frame" />
           </div>
           <div className="top-frame hidden" />
         </div>
@@ -204,7 +207,7 @@ function ImagesGallery() {
                 key={item.id}
                 onClick={() => {
                   setBigImg(`${baseApiUrl}/uploads/photos/${item.name}`);
-                  setWidth(`${item.imgWidth > item.imgHeight ? "863" : "595"}`);
+                  setWidth(`${item.imgWidth > item.imgHeight ? "650" : "485"}`);
                   setHeight(
                     `${item.imgWidth > item.imgHeight ? "485" : "752"}`
                   );
@@ -242,6 +245,9 @@ function ImagesGallery() {
                       backgroundImage: `url(${baseApiUrl}/uploads/photos/${item.name})`,
                     }}
                   ></div>
+                </div>
+                <div className="image-title">
+                  <em>{item.title}</em>
                 </div>
                 {/*<img*/}
                 {/*  src={`${baseApiUrl}/uploads/photos/${item.name}`}*/}

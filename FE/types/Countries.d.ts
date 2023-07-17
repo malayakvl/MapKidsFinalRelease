@@ -18,6 +18,10 @@ declare namespace Countries {
     countryMap: any;
     iso3: any;
     markers: any;
+    reloadMap: boolean;
+    mapRebuilded: boolean;
+    countryMapRebuild: any;
+    markersUpdated: any;
   }
 
   interface Item {

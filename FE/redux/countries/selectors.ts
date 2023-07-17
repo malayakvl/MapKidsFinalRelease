@@ -53,9 +53,21 @@ export const countryMapSelector = createSelector(
   rootSelector,
   (countries: State.Countries): any => countries.countryMap
 );
+export const countryRebuildMapSelector = createSelector(
+  rootSelector,
+  (countries: State.Countries): any => countries.countryMapRebuild
+);
 export const countryMarkersSelector = createSelector(
   rootSelector,
   (countries: State.Countries): any => countries.markers
+);
+export const reloadMapSelector = createSelector(
+  rootSelector,
+  (countries: State.Countries): any => countries.reloadMap
+);
+export const rebuildMapSelector = createSelector(
+  rootSelector,
+  (countries: State.Countries): any => countries.mapRebuilded
 );
 
 // export const coordinatesSelector = createSelector(

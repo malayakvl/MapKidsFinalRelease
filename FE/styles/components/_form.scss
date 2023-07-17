@@ -41,7 +41,7 @@ label {
 
     &:focus, &:active {
         box-shadow: none;
-        border: 1px solid #F3F3F3;
+        border: 1px solid blue;
     }
 }
 
@@ -93,7 +93,36 @@ textarea.form-control {
     //}
 }
 
+.add-title-btn {
+    //background-color: mediumpurple;
+    border-radius: 5px;
+    @apply bg-purple-800;
+    position: relative;
 
+    &:after {
+        background-image: url(../../public/images/save.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 15px;
+        height: 15px;
+        content: " ";
+        display: block;
+        position: absolute;
+        left: 5px;
+        top: 4px;
+    }
+}
+.title-control {
+    width: 220px;
+}
+
+.img-opacity {
+    opacity: 30;
+}
+.img-checkbox {
+    margin-top: -13px;
+    margin-right: 10px;
+}
 
 .error-el {
     font-size:10px;

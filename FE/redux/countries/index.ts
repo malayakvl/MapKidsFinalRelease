@@ -15,6 +15,10 @@ import {
   activeItemAction,
   updateMarkerListAction,
   removeMarkerAction,
+  reloadMapAction,
+  mapRebuildedAction,
+  initRebuildMapAction,
+  setMainMarkerAction,
 } from "./actions";
 
 const initialState: {
@@ -35,6 +39,10 @@ const initialState: {
   fillOpacity: any;
   countryMap: any;
   countryCenter: any;
+  reloadMap: boolean;
+  rebuildMap: boolean;
+  countryMapRebuild: any;
+  markersUpdated: any;
 } = {
   items: [],
   loading: false,
@@ -53,6 +61,10 @@ const initialState: {
   fillOpacity: null,
   countryMap: null,
   countryCenter: null,
+  reloadMap: false,
+  rebuildMap: false,
+  countryMapRebuild: null,
+  markersUpdated: [],
 };
 
 const ACTION_HANDLERS: any = {
@@ -179,6 +191,31 @@ const ACTION_HANDLERS: any = {
       markers: action.payload,
     }),
   },
+  [reloadMapAction]: {
+    next: (state: State.Countries, action: Action<any>): State.Countries => ({
+      ...state,
+      reloadMap: action.payload,
+    }),
+  },
+  [mapRebuildedAction]: {
+    next: (state: State.Countries, action: Action<any>): State.Countries => ({
+      ...state,
+      mapRebuilded: action.payload,
+    }),
+  },
+  [initRebuildMapAction]: {
+    next: (state: State.Countries, action: Action<any>): State.Countries => ({
+      ...state,
+      countryMapRebuild: action.payload,
+    }),
+  },
+  [setMainMarkerAction]: {
+    next: (state: State.Countries, action: Action<any>): State.Countries => ({
+      ...state,
+      markersUpdated: action.payload,
+    }),
+  },
+
   // [setMarkerListAction]: {
   //   next: (state: State.Countries, action: Action<any>): State.Countries => ({
   //     ...state,
@@ -215,6 +252,10 @@ export {
   activeItemAction,
   updateMarkerListAction,
   removeMarkerAction,
+  reloadMapAction,
+  mapRebuildedAction,
+  initRebuildMapAction,
+  setMainMarkerAction,
 };
 
 // ------------------------------------

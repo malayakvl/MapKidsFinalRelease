@@ -24,6 +24,7 @@ apiRoutes.post('/countries/add-marker', LocationController.addMarker);
 apiRoutes.get('/countries/add-marker', LocationController.addMarker);
 apiRoutes.get('/markers/list', CoordinatesController.activeMarkers);
 apiRoutes.get('/markers/fetch-item/:id', CoordinatesController.fetchItem);
+apiRoutes.get('/markers/set-main/:id', CoordinatesController.setMainMarker);
 apiRoutes.post('/countries/add-marker', LocationController.addMarker);
 // apiRoutes.get('/countries/update-opacity', LocationController.updateOpacity);
 // apiRoutes.post('/countries/update-opacity', LocationController.updateOpacity);
@@ -62,6 +63,7 @@ apiRoutes.post('/countries/update-opacity', LocationController.updateOpacity);
 apiRoutes.get('/countries/update-color', LocationController.updateColor);
 apiRoutes.post('/countries/update-color', LocationController.updateColor);
 apiRoutes.post('/countries/remove-marker', LocationController.removeMarker);
+apiRoutes.get('/countries/set-main/:id/:countryId', CoordinatesController.setMainMarker);
 
 
 /** ===================================================================== */
@@ -69,7 +71,7 @@ apiRoutes.post('/countries/remove-marker', LocationController.removeMarker);
 /** ===================================================================== */
 apiRoutes.get('/images/fetch-items', ImageController.fetchItems);
 apiRoutes.get('/images/fetch-all-items', ImageController.fetchAllItems);
-// apiRoutes.post('/images/bulk-delete', ImageController.bulkDelete);
+apiRoutes.post('/images/update-title', ImageController.updateTitle);
 apiRoutes.post('/images/upload-photos', ImageController.uploadImages);
 
 /** ===================================================================== */

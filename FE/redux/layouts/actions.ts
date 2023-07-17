@@ -26,6 +26,8 @@ export const showColorPopupAction: any = createAction(
 export const setPaginationAction: any = createAction("layouts/SET_PAGINATION");
 export const initIdsAction: any = createAction("layouts/INIT_IDS");
 export const checkIdsAction: any = createAction("layouts/CHECK_IDS");
+export const checkTitleAction: any = createAction("layouts/CHECK_TITLE");
+export const initTitleAction: any = createAction("layouts/INIT_TITLE");
 export const checkAllIdsAction: any = createAction("layouts/CHECK_ALL_IDS");
 export const uncheckAllIdsAction: any = createAction("layouts/UNCHECK_ALL_IDS");
 export const toggleMenuAction: any = createAction("layouts/TOGGLE_MENU");
@@ -66,3 +68,9 @@ export const setFrameTypeAction: any = createAction(
 export const setImgIndexAction: any = createAction("layouts/SET_IMG_INDEX");
 export const setVideoIndexAction: any = createAction("layouts/SET_VIDEO_INDEX");
 export const initFrameTypeAction: any = createAction("layouts/FRAME_TYPE");
+export const setFrontSelectedCountryAction: any = createAction(
+  "layouts/SET_FRONT_SELECTED_COUNTRY"
+);
+export const setMarkerIdAction: any = createAction(
+  "layouts/SET_SELECTED_MARKER_ID"
+);

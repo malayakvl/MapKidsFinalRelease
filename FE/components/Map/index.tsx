@@ -11,12 +11,9 @@ import {
   markersDataSelector,
   markersSelector,
 } from "../../redux/coordinates/selectors";
+import { showPhoneAction, initMapAction } from "../../redux/layouts";
 import {
-  showLoaderAction,
-  showPhoneAction,
-  initMapAction,
-} from "../../redux/layouts/actions";
-import {
+  frontCountrySelector,
   mapMainSelector,
   showPhoneSelector,
 } from "../../redux/layouts/selectors";
@@ -26,19 +23,21 @@ const Map = () => {
   // let hoveredPolygonId = null;
   const dispatch = useDispatch();
   const countries = useSelector(activeCountriesSelector);
+  const selectedCountry = useSelector(frontCountrySelector);
   // const markers = useSelector(markersSelector);
   const [styleLoading, setStyleLoading] = useState(false);
   const coordinates = useSelector(markersSelector);
   const showPhone = useSelector(showPhoneSelector);
-  const mapRef = useRef(null);
+  // const mapRef = useRef(null);
   const mapMain = useSelector(mapMainSelector);
   const coordinatesInfo = useSelector(markersDataSelector);
+  // const selectedMarkerId = useSelector(selectedMarkerIdSelector);
   mapboxgl.accessToken =
     "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
 
   useEffect(() => {
     if (mapContainer) {
-      const element = mapContainer.current;
+      // const element = mapContainer.current;
       mapboxgl.accessToken =
         "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
       const map = new mapboxgl.Map({
@@ -62,24 +61,39 @@ const Map = () => {
   }, [mapContainer]);
 
   useEffect(() => {
+    if (mapMain && selectedCountry) {
+      mapMain.flyTo({
+        center: [
+          selectedCountry.countryCenter[0],
+          selectedCountry.countryCenter[1],
+        ],
+        speed: 0.5,
+        zoom: 5,
+      });
+    }
+  }, [selectedCountry]);
+
+  useEffect(() => {
     if (mapMain) {
       countries.forEach((country: any) => {
-        mapMain.addLayer(
-          {
-            id: `country-boundaries-${country.iso3}`,
-            source: {
-              type: "vector",
-              url: "mapbox://mapbox.country-boundaries-v1",
+        if (!mapMain.getLayer(`country-boundaries-${country.iso3}`)) {
+          mapMain.addLayer(
+            {
+              id: `country-boundaries-${country.iso3}`,
+              source: {
+                type: "vector",
+                url: "mapbox://mapbox.country-boundaries-v1",
+              },
+              "source-layer": "country_boundaries",
+              type: "fill",
+              paint: {
+                "fill-color": country.fill_color,
+                "fill-opacity": 0.4,
+              },
             },
-            "source-layer": "country_boundaries",
-            type: "fill",
-            paint: {
-              "fill-color": country.fill_color,
-              "fill-opacity": 0.4,
-            },
-          },
-          "country-label"
-        );
+            "country-label"
+          );
+        }
 
         mapMain.setFilter(`country-boundaries-${country.iso3}`, [
           "in",
@@ -88,13 +102,15 @@ const Map = () => {
         ]);
       });
 
-      const el = document.createElement("div");
+      // const el = document.createElement("div");
       for (const marker of coordinates) {
         const el = document.createElement("div");
-        el.className = "marker";
+        el.className = marker.is_main ? "marker" : "marker-add";
         const flagImage = `../../images/flags/1x1/${marker.flag_name}`;
-        el.innerHTML = `<span style="background-image: url(${flagImage})">&nbsp;</span>`;
-        el.style.width = `50px`;
+        el.innerHTML = marker.is_main
+          ? `<span style="background-image: url(${flagImage})">&nbsp;</span>`
+          : "";
+        el.style.width = `${marker.is_main ? 50 : 30}px`;
         el.style.height = `75px`;
         el.style.backgroundSize = "100%";
         const geometry = [marker.lng, marker.lat];
@@ -104,8 +120,15 @@ const Map = () => {
           .setLngLat([marker.lng, marker.lat])
           .addTo(mapMain);
         pointer.getElement().addEventListener("click", (ev) => {
-          dispatch(showLoaderAction(true));
           dispatch(fetchItemMarkerAction(marker.id));
+          // if (selectedMarkerId != marker.id) {
+          //   dispatch(showLoaderAction(true));
+          //   dispatch(fetchItemMarkerAction(marker.id));
+          //   dispatch(setMarkerIdAction(marker.id));
+          // } else {
+          //   dispatch(setMarkerIdAction(null));
+          //   dispatch(showPhoneAction(false));
+          // }
           // mapMain.setCenter([marker.lng, marker.lat]);
         });
       }
@@ -121,64 +144,6 @@ const Map = () => {
       dispatch(showPhoneAction(true));
     }
   }, [coordinatesInfo]);
-
-  useEffect(() => {
-    // mapboxgl.accessToken =
-    //   "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
-    // const map = new mapboxgl.Map({
-    //   container: "map-container",
-    //   style: "mapbox://styles/mapbox/streets-v11",
-    //   center: [90.51351884845116, 38.51974209746709],
-    //   zoom: 3,
-    // });
-    // map.on("style.load", () => {
-    //   countries.forEach((country: any) => {
-    //     map.addLayer(
-    //       {
-    //         id: `country-boundaries-${country.iso3}`,
-    //         source: {
-    //           type: "vector",
-    //           url: "mapbox://mapbox.country-boundaries-v1",
-    //         },
-    //         "source-layer": "country_boundaries",
-    //         type: "fill",
-    //         paint: {
-    //           "fill-color": country.fill_color,
-    //           "fill-opacity": 0.4,
-    //         },
-    //       },
-    //       "country-label"
-    //     );
-    //
-    //     map.setFilter(`country-boundaries-${country.iso3}`, [
-    //       "in",
-    //       "iso_3166_1_alpha_3",
-    //       country.iso3,
-    //     ]);
-    //   });
-    //   // const el = document.createElement("div");
-    //
-    //   for (const marker of coordinates) {
-    //     const el = document.createElement("div");
-    //     el.className = "marker";
-    //     const flagImage = `../../images/flags/1x1/${marker.flag_name}`;
-    //     el.innerHTML = `<span style="background-image: url(${flagImage})">&nbsp;</span>`;
-    //     el.style.width = `50px`;
-    //     el.style.height = `75px`;
-    //     el.style.backgroundSize = "100%";
-    //     const geometry = [marker.lng, marker.lat];
-    //     // @ts-ignore
-    //     // const pointer = new mapboxgl.Marker().setLngLat(geometry).addTo(map);
-    //     const pointer = new mapboxgl.Marker(el).setLngLat(geometry).addTo(map);
-    //     pointer.getElement().addEventListener("click", (ev) => {
-    //       dispatch(showLoaderAction(true));
-    //       dispatch(fetchItemMarkerAction(marker.id));
-    //       console.log("here we are");
-    //       map.setCenter([marker.lng, marker.lat]);
-    //     });
-    //   }
-    // });
-  });
 
   return (
     <main className="main-layout">

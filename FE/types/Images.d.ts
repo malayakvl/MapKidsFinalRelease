@@ -14,6 +14,7 @@ declare namespace Images {
   interface ImageItem {
     id: number;
     name: string;
+    title: string;
     type: string;
     created_at: any;
     updated_at: any;

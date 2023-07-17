@@ -105,5 +105,41 @@ class Coordinates {
         }
     }
 
+    async setMain(id, countryId) {
+        const client = await pool.connect();
+        try {
+            const rowsQuery = `UPDATE data.coordinates SET is_main=false WHERE country='${countryId}';`;
+            await client.query(rowsQuery);
+            const resQueryUpd = `UPDATE data.coordinates SET is_main=true WHERE id='${id}'`;
+            await client.query(resQueryUpd);
+            const rowsQueryMarkers = `SELECT * FROM data.coordinates WHERE country=${countryId};`;
+            const items = await client.query(rowsQueryMarkers);
+            return { markers: items.rows };
+            // return {
+            //     item,
+            //     error
+            // };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Article getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
 }
 export default new Coordinates();

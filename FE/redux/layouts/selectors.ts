@@ -111,3 +111,15 @@ export const imageFrameTypeSelector = createSelector(
   rootSelector,
   (layouts: State.Layouts): any => layouts.selectedFrameType
 );
+export const frontCountrySelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): any => layouts.selectedFrontCountry
+);
+export const titleImageSelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): any => layouts.checkedTitleIds
+);
+export const selectedMarkerIdSelector = createSelector(
+  rootSelector,
+  (layouts: State.Layouts): any => layouts.selectedMarkerId
+);

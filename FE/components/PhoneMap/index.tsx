@@ -5,6 +5,7 @@ import { baseApiUrl } from "../../constants";
 import {
   initFrameTypeAction,
   setFrameTypeAction,
+  setMarkerIdAction,
   showImageGalleryAction,
   showPhoneAction,
   showVideoGalleryAction,
@@ -16,6 +17,8 @@ function Phone() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const descrDiv = document.getElementById("country-text-val");
+    (descrDiv as any).scrollTop = 0;
     if (coordinatesInfo?.id) {
       dispatch(
         initFrameTypeAction(
@@ -39,7 +42,10 @@ function Phone() {
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
       <div
         className="close-phone cursor-pointer"
-        onClick={() => dispatch(showPhoneAction(false))}
+        onClick={() => {
+          dispatch(showPhoneAction(false));
+          dispatch(setMarkerIdAction(null));
+        }}
       ></div>
       <div className="phone-map-block">
         <div className="phone-head-green">
@@ -69,10 +75,20 @@ function Phone() {
                 </div>
                 {/*<img src={imgSlide} alt="" className="gray-border-frame" />*/}
               </div>
+              <div className="clearfix" />
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+              <span
+                className="view-gallery cursor-pointer"
+                onClick={() => showImageGalleryAction(true)}
+              >
+                View Gallery
+              </span>
             </div>
           </div>
+          <div className="clearfix" />
           <div
             className="country-text"
+            id="country-text-val"
             dangerouslySetInnerHTML={{
               __html: coordinatesInfo.description,
             }}

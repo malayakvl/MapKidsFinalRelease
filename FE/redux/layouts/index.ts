@@ -31,6 +31,10 @@ import {
   setImgIndexAction,
   setVideoIndexAction,
   initFrameTypeAction,
+  setFrontSelectedCountryAction,
+  checkTitleAction,
+  initTitleAction,
+  setMarkerIdAction,
 } from "./actions";
 import { PaginationType } from "../../constants";
 
@@ -42,6 +46,7 @@ const initPagination = {
   query: "",
 };
 
+// @ts-ignore
 const initialState: State.Layouts = {
   pagination: {
     [PaginationType.IMAGES]: {
@@ -87,6 +92,7 @@ const initialState: State.Layouts = {
   },
   toggleMenu: false,
   checkedIds: [],
+  checkedTitleIds: [],
   checkedImageIds: [],
   checkedVideoIds: [],
   toasts: [],
@@ -115,6 +121,9 @@ const initialState: State.Layouts = {
   selectedImgIndex: 0,
   selectedVideoIndex: 0,
   selectedFrameType: "horizontalTypeFrame",
+  selectedFrontCountry: null,
+  editedTitle: null,
+  selectedMarkerId: null,
 };
 
 // ------------------------------------
@@ -155,6 +164,41 @@ const ACTION_HANDLERS: any = {
       checkedIds: state.checkedIds.map((data) =>
         (data as any).id === action.payload
           ? { ...data, checked: !data.checked }
+          : data
+      ),
+    };
+  },
+  [initTitleAction]: (
+    state: State.Layouts,
+    action: Type.ReduxAction<State.Layouts>
+  ): State.Layouts => {
+    return <Layouts.Root>(<unknown>{
+      ...state,
+      checkedTitleIds: action.payload,
+    });
+  },
+  // [initTitleAction]: (
+  //   state: State.Layouts,
+  //   action: Type.ReduxAction<State.Layouts>
+  // ): State.Layouts => {
+  //   return <Layouts.Root>{
+  //     ...state,
+  //     checkedTitleIds: state.checkedTitleIds.map((data) =>
+  //       (data as any).id === action.payload.id
+  //         ? { ...data, title: action.payload.title }
+  //         : data
+  //     ),
+  //   };
+  // },
+  [checkTitleAction]: (
+    state: State.Layouts,
+    action: Type.ReduxAction<State.Layouts>
+  ): State.Layouts => {
+    return <Layouts.Root>{
+      ...state,
+      checkedTitleIds: state.checkedTitleIds.map((data) =>
+        (data as any).id === action.payload.id
+          ? { ...data, title: action.payload.title }
           : data
       ),
     };
@@ -369,6 +413,21 @@ const ACTION_HANDLERS: any = {
       selectedFrameType: action.payload,
     }),
   },
+  [setFrontSelectedCountryAction]: {
+    next: (state: State.Layouts, action: Action<string>): State.Layouts => ({
+      ...state,
+      selectedFrontCountry: action.payload,
+    }),
+  },
+  [setMarkerIdAction]: {
+    next: (
+      state: State.Layouts,
+      action: Action<number | null>
+    ): State.Layouts => ({
+      ...state,
+      selectedMarkerId: action.payload,
+    }),
+  },
 };
 
 export {
@@ -383,6 +442,7 @@ export {
   setupRowIdAction,
   setPaginationAction,
   checkIdsAction,
+  checkTitleAction,
   initIdsAction,
   checkAllIdsAction,
   uncheckAllIdsAction,
@@ -401,6 +461,9 @@ export {
   setImgIndexAction,
   setVideoIndexAction,
   initFrameTypeAction,
+  setFrontSelectedCountryAction,
+  initTitleAction,
+  setMarkerIdAction,
 };
 
 // ------------------------------------

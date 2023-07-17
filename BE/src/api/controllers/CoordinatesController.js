@@ -1,5 +1,5 @@
 import locationModel from "../models/Location.js";
-import coordinates from "../models/Coordinates.js";
+import coordinatesModel from "../models/Coordinates.js";
 import videoModel from "../models/Video.js";
 import imageModel from "../models/Image.js";
 import sizeOf from 'image-size'
@@ -32,8 +32,7 @@ class CoordinatesController {
     }
 
     async fetchItem (req, res) {
-
-        const data = await coordinates.fetchOne(req.params.id);
+        const data = await coordinatesModel.fetchOne(req.params.id);
         if (data.item?.videos) {
             // selecting random video
             const videoData = await videoModel.findById(data.item.videos[0]);
@@ -65,6 +64,17 @@ class CoordinatesController {
             data.item.videos = [];
         }
         return res.status(200).json({ item: data.item});
+    }
+
+
+    async setMainMarker(req, res) {
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            const { id, countryId } = req.params;
+            const data = await coordinatesModel.setMain(id, countryId);
+            return res.status(200).json({ success: true, markers: data.markers });
+        }
     }
 
 }

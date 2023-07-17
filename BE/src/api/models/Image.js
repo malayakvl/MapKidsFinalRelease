@@ -131,6 +131,37 @@ class Image {
         }
     }
 
+    async updateTitle (data) {
+        const client = await pool.connect();
+        try {
+            const title = data.title
+            const rowsQuery = `UPDATE data.images SET title='${title}' WHERE id='${data.imageId}';`;
+            await client.query(rowsQuery);
+            return { success: true,  };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Article getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+
+
     async findById(id) {
         const client = await pool.connect();
         try {

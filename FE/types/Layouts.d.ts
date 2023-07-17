@@ -1,5 +1,7 @@
 declare namespace Layouts {
   interface Root {
+    title: any;
+    id: any;
     pagination: {
       images: Pagination;
       videos: Pagination;
@@ -11,6 +13,7 @@ declare namespace Layouts {
     checkedIds: CheckedIds[];
     checkedImageIds: CheckedIds[];
     checkedVideoIds: CheckedIds[];
+    checkedTitleIds: CheckedTitle[];
     toasts: Toast[];
     isDataLoading: boolean;
     isReload: boolean;
@@ -37,6 +40,9 @@ declare namespace Layouts {
     selectedImgIndex: number;
     selectedVideoIndex: number;
     selectedFrameType: string;
+    selectedFrontCountry: any;
+    editedTitle: any;
+    selectedMarkerId: number | null;
   }
 
   interface TabTypes {
@@ -63,6 +69,11 @@ declare namespace Layouts {
   interface CheckedIds {
     id: number;
     checked: boolean;
+  }
+
+  interface CheckedTitle {
+    id: number;
+    title: string;
   }
 
   interface Meta {

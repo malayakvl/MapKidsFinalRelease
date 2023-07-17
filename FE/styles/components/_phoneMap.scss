@@ -48,7 +48,7 @@
 }
 
 .phone-descr {
-  margin-top: 340px;
+  margin-top: 315px;
   width: 393px;
   margin-left: 27px;
   height: 375px;
@@ -58,16 +58,20 @@
   //background: #0c63e4;
 
   .country-text {
-    padding: 20px 20px;
+    padding: 0 20px;
     margin-left: 15px;
     color: #818181;
-    font-family: Inter;
-    margin-top: 25px;
-    height: 290px;
+    //border: solid 1px;
+    //font-family: Inter;
+    margin-top: 60px;
+    height: 240px;
     line-height: 21px;
     letter-spacing: 0.7px;
     overflow-y: scroll;
     overflow-x: hidden;
+    display: inline-block;
+    //background: red;
+
     //border:solid 1px blue;
 
   }

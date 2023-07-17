@@ -1,10 +1,18 @@
-import React, { useCallback, useEffect, Fragment } from "react";
+import React, { useCallback, useEffect, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 import { DataGrid, ButtonTableAction } from "../../components/_common";
 import { PaginationType } from "../../constants";
-import { checkedIdsSelector } from "../../redux/layouts/selectors";
-import { checkIdsAction, initIdsAction } from "../../redux/layouts";
+import {
+  checkedIdsSelector,
+  titleImageSelector,
+} from "../../redux/layouts/selectors";
+import {
+  checkIdsAction,
+  checkTitleAction,
+  initIdsAction,
+  initTitleAction,
+} from "../../redux/layouts";
 import {
   itemCountSelector,
   paginatedItemsSelector,
@@ -13,6 +21,7 @@ import {
   fetchItemsAction,
   bulkDeleteAction,
   deleteItemAction,
+  updateImageTitleActon,
 } from "../../redux/images/actions";
 import { baseApiUrl } from "../../constants";
 import { setModalConfirmationMetaAction } from "../../redux/layouts";
@@ -20,9 +29,13 @@ import { setModalConfirmationMetaAction } from "../../redux/layouts";
 // import Image from 'next/image';
 
 const ListDatas: React.FC<any> = () => {
-  const t = useTranslations();
+  // const t = useTranslations();
   const dispatch = useDispatch();
   const count = useSelector(itemCountSelector);
+  const [showTitleForm, setShowTitleForm] = useState([]);
+  const [shareholderName, setSharholderName] = useState([]);
+  const [titleValue, setTitleValue] = useState("");
+  const itemsTitle = useSelector(titleImageSelector);
 
   const items = useSelector(paginatedItemsSelector);
   const checkedIds = useSelector(checkedIdsSelector);
@@ -37,10 +50,15 @@ const ListDatas: React.FC<any> = () => {
 
   useEffect(() => {
     const setupChecked: any = [];
+    const titleValues: any = [];
     items.forEach((item: Images.ImageItem) => {
       setupChecked.push({ id: item.id, checked: false });
+      titleValues.push({ title: item.title ? item.title : "", id: item.id });
     });
+    setSharholderName(titleValues);
     dispatch(initIdsAction(setupChecked));
+    dispatch(initTitleAction(titleValues));
+    setShowTitleForm(setupChecked);
   }, [items]);
 
   const handleDeleteBtnClick = useCallback(
@@ -56,6 +74,14 @@ const ListDatas: React.FC<any> = () => {
     [dispatch, sendRequest]
   );
 
+  console.log("EDITET TITLE VALUE", titleValue);
+
+  const editItem = (evt: any, item: any) => {
+    item.title = evt.target.value;
+    console.log("ITEM", item);
+    dispatch(checkTitleAction(item));
+  };
+
   return (
     <>
       <div className="mt-7">
@@ -67,13 +93,13 @@ const ListDatas: React.FC<any> = () => {
             sendRequest={sendRequest}
             sendDeleteRequest={sendDeleteRequest}
           >
-            {items?.map((item: any) => (
+            {items?.map((item: any, idx: number) => (
               <Fragment key={item.id}>
                 <div className="flex w-1/4 flex-wrap">
-                  <div className="relative w-full md:m-4 max-h-[250px]">
-                    <div className="rounded-t-lg absolute top-0 left-0 bg-blue-200 h-[40px] p-2 w-full opacity-70">
+                  <div className="relative w-full md:m-4 max-h-[250px] h-[250px]">
+                    <div className="rounded-t-lg absolute top-0 left-0 bg-blue-200 h-[40px] p-2 w-full img-opacity">
                       <input
-                        className="float-checkbox"
+                        className="float-checkbox img-checkbox"
                         type="checkbox"
                         onChange={() => dispatch(checkIdsAction(item.id))}
                         value={item.id}
@@ -98,7 +124,32 @@ const ListDatas: React.FC<any> = () => {
                       alt=""
                       className="block h-full w-full rounded-lg object-cover object-center"
                     />
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                   </div>
+                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                  <div className="block">
+                    <div className="float-left ml-[14px]">
+                      <input
+                        type="text"
+                        className={`form-control title-control`}
+                        placeholder={`Input Image Title`}
+                        value={itemsTitle[idx]?.title}
+                        onChange={(evt) => editItem(evt, item)}
+                      />
+                    </div>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-has-content,jsx-a11y/anchor-is-valid */}
+                    <a
+                      href="javascript:void(0)"
+                      title="Save"
+                      onClick={() =>
+                        dispatch(
+                          updateImageTitleActon(itemsTitle[idx]?.title, item.id)
+                        )
+                      }
+                      className="inline-block ml-2 mt-2 w-[25px] h-[25px] float-left add-title-btn"
+                    />
+                  </div>
+                  <div className="clearfix" />
                 </div>
               </Fragment>
             ))}

@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 @import "components/variables";
 @import 'components/mixins';
@@ -9,6 +9,7 @@
 //@import 'components/phone';
 @import 'components/phoneMap';
 @import "components/imagegallery";
+@import "components/countriesList";
 //@import "components/home";
 //@import "components/buttons";
 //@import "components/modal";
@@ -60,7 +61,7 @@ body {
   }
 }
 
-.marker {
+.marker, .marker-add {
   display: block;
   border: none;
   //border-radius: 50%;
@@ -85,6 +86,20 @@ body {
     display: block;
     background-repeat: no-repeat;
   }
+}
+
+.marker-add {
+  width: 30px;
+  height: 55px;
+  background-image: url("../public/images/map/pin-add.svg");
+}
+
+.view-gallery {
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  margin-top:10px;
 }
 
 
@@ -123,6 +138,49 @@ body {
   height: 100px;
   background-size: contain;
   top: calc(100vh - 105px);
+}
 
+.image-title {
+  color: #000;
+  margin-top: 20px;
+  display: inline-block;
+  min-height: 30px;
+  text-align: center;
+  font-weight: bold;
+  width: 196px;
+  //font-family: 'Bebas Neue', cursive;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+
+  em{
+    font-style: normal;
+    padding: 0.1em 0.3em;
+    border-radius: 0.2em;
+    position: relative;
+    background: white;
+    background: linear-gradient(to right, #fff1b2, #d08201);;
+    transform: skewX(-10deg);
+    display: inline-block;
+  }
+
+  //span {
+  //  font-family: 'Bebas Neue', cursive;
+  //  font-size: 3em;
+  //  position: absolute;
+  //  top: 50%;
+  //  left: 50%;
+  //  transform: translate(-50%,-50%);
+  //  background-image: linear-gradient(gold, gold);
+  //  background-size: 100% 10px;
+  //  background-repeat: no-repeat;
+  //  background-position: 100% 0%;
+  //  transition: background-size .7s, background-position .5s ease-in-out;
+  //}
+  //
+  //span:hover {
+  //  background-size: 100% 100%;
+  //  background-position: 0% 100%;
+  //  transition: background-position .7s, background-size .5s ease-in-out;
+  //}
 }
 

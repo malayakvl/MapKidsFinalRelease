@@ -13,6 +13,7 @@ import {
   updateImageIdsAction,
   updateVideoIdsAction,
   updateTitleAction,
+  setMainMarkerAction,
 } from "./actions";
 
 const initialState: {
@@ -187,6 +188,7 @@ export {
   updateImageIdsAction,
   updateVideoIdsAction,
   updateTitleAction,
+  setMainMarkerAction,
 };
 
 // ------------------------------------

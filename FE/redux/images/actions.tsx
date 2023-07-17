@@ -142,6 +142,32 @@ export const uploadPhotosAction: any = createAction(
         });
     }
 );
+export const updateImageTitleActon: any = createAction(
+  "slide/UPDATE_ITEM_TITLE_ACTION",
+  async (title: any, imageId: number) =>
+    (dispatch: Type.Dispatch, getState: () => State.Root): Promise<void> => {
+      const state = getState();
+      console.log(title);
+      console.log(imageId);
+      dispatch(showLoaderAction(true));
+      return axios
+        .post(
+          `${baseUrl}/images/update-title`,
+          { data: { title: title, imageId: imageId } },
+          {
+            headers: {
+              ...authHeader(state.user.user.email),
+            },
+          }
+        )
+        .then(async (res) => {
+          // dispatch(updateCompanyLogoAction(res.data.fileName));
+          dispatch(showLoaderAction(false));
+          dispatch(uploadDoneAction(true));
+          dispatch(setSuccessToastAction(`Upload complete succsessfully`));
+        });
+    }
+);
 
 export const uploadDoneAction: any = createAction("images/UPLOAD_DONE");
 export const addUploadedFile: any = createAction("images/ADD_UPLOADED_FILE");

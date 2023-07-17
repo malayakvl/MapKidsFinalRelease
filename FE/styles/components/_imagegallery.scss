@@ -1,6 +1,6 @@
 .loader-content {
   background: #0B0F32;
-  z-index: 75;
+  z-index: 99;
   @apply w-full h-full bg-black fixed opacity-75 top-0;
 }
 
@@ -121,7 +121,7 @@
     //background-size: contain;
     position: absolute;
     top: -1px;
-    right: -2px;
+    right: -3px;
     width: 14px;
     height: 144px;
   }
@@ -138,9 +138,13 @@
     background: url(../../public/images/gallery/Buttom.svg);
     //background-size: contain;
     position: absolute;
+    //bottom: 3px;
+    //right: 2px;
+    //width: 193px;
+    //height: 12px;
     bottom: 3px;
-    right: 2px;
-    width: 199px;
+    right: 0;
+    width: 197px;
     height: 12px;
   }
 
@@ -151,9 +155,9 @@
   }
 
   .img-bg-container-block {
-    height: 501px;
-    width: 863px;
-    background-size: cover;
+    //height: 501px;
+    //width: 863px;
+    background-size: contain;
     background-repeat: no-repeat;
   }
 

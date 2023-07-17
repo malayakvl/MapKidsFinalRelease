@@ -13,7 +13,7 @@ class Location {
             } else {
                 offset = (Number(page) - 1) * Number(perPage);
             }
-            const rowsQuery = `SELECT * FROM data.get_countries_list(${perPage}, ${offset}, '', 'active ASC');`;
+            const rowsQuery = `SELECT * FROM data.get_countries_list(${perPage}, ${offset}, '', 'active ASC, name ASC');`;
             const res = await client.query(rowsQuery);
             const items = res.rows.length > 0 ? res.rows : [];
             const error = null;
@@ -257,7 +257,7 @@ class Location {
         const client = await pool.connect();
         try {
             const rowsQuery = `UPDATE data.countries SET 
-                fill_opacity='${opacity ? opacity : ''}',
+                fill_opacity='${opacity ? opacity : ''}'
                 WHERE id='${id}'`;
             await client.query(rowsQuery);
 

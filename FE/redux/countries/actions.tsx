@@ -79,6 +79,34 @@ export const fetchItemAction: any = createAction(
     }
 );
 
+export const setMainMarkerAction: any = createAction(
+  "markers/SET_MAIN_MARKER",
+  async (id: number) =>
+    async (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<{ item: any }> => {
+      const state = getState();
+      const countryData = state.countries.item;
+      dispatch(showLoaderAction(true));
+      const res = await axios.get(
+        `${baseUrl}/countries/set-main/${id}/${countryData.id}`,
+        {
+          headers: {
+            ...authHeader(state.user.user.email),
+          },
+        }
+      );
+      if (res.status) {
+        dispatch(showLoaderAction(false));
+        dispatch(fetchItemAction(countryData.id));
+      }
+      return {
+        item: res.data.item,
+      };
+    }
+);
+
 // export const fetchMarkersAction: any = createAction(
 //   "orders/FETCH_MARKERS",
 //   async (countryId: number) =>
@@ -270,8 +298,8 @@ export const updateOpacityAction: any = createAction(
     }
 );
 export const removeMarkerAction: any = createAction(
-  "countries/UPDATE_OPACITY_ACTION",
-  async (markerId: number, countryId: number) =>
+  "countries/REMOVE_MARKER_ACTION",
+  async (markerId: number, countryId: number, countryMap: any) =>
     async (
       dispatch: Type.Dispatch,
       getState: () => State.Root
@@ -292,9 +320,12 @@ export const removeMarkerAction: any = createAction(
         )
         .then(async (res) => {
           dispatch(showLoaderAction(false));
-          console.log("Returning Data", res.data.markersList);
           dispatch(updateMarkerListAction(res.data.markersList));
           dispatch(setSuccessToastAction("Item has been updated"));
+          // dispatch(initMapAction(countryMap));
+          dispatch(reloadMapAction(true));
+
+          // dispatch(reloadMapAction(true));
           await dispatch(fetchItemsAction());
         });
     }
@@ -340,6 +371,13 @@ export const checkVideoIdsAction: any = createAction(
 );
 export const initVideoIdsAction: any = createAction("countries/INIT_VIDEO_IDS");
 export const initMapAction: any = createAction("countries/INIT_MAP_ACTION");
+export const initRebuildMapAction: any = createAction(
+  "countries/INIT_REBIOL_MAP_ACTION"
+);
+export const reloadMapAction: any = createAction("countries/RELOAD_MAP_ACTION");
+export const mapRebuildedAction: any = createAction(
+  "countries/REBUILDED_MAP_ACTION"
+);
 export const setPaletteAction: any = createAction(
   "countries/SET_PALETTE_COLOR"
 );

@@ -7,6 +7,7 @@ interface Props {
   label: string | null;
   props: any;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  extValue?: boolean;
 }
 
 const InputSwitcher: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const InputSwitcher: React.FC<Props> = ({
   label,
   props,
   onChange = props.handleChange,
+  extValue,
 }) => {
   const t = useTranslations();
 
@@ -31,7 +33,7 @@ const InputSwitcher: React.FC<Props> = ({
             className="sr-only"
             onChange={onChange}
             name={name}
-            checked={props.values[name]}
+            checked={extValue ? extValue : props.values[name]}
           />
           <div className="toggle-bg bg-gray-200 border border-gray-200 h-6 w-11 rounded-full dark:bg-gray-700 dark:border-gray-600" />
           {label && (

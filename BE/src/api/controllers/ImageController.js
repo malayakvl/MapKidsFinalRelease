@@ -28,6 +28,20 @@ class ImageController {
         }
     }
 
+    async updateTitle (req, res) {
+        const { data } = req.params;
+        console.log("TITLE", req.body.data.title);
+        console.log("IMAGE ID", req.body.data.imageId);
+        const client = await pool.connect();
+        // const { limit, offset, queryFilter, column, sort } = req.query;
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            const data = await imagesModel.updateTitle(req.body.data);
+            return res.status(200).json({ count: data.size, items: data.items});
+        }
+    }
+
     async uploadImages(req, res) {
         if (!req.user) {
             return res.status(401).json('Access deny');
