@@ -10,11 +10,13 @@ import {
   showPhoneAction,
   showVideoGalleryAction,
 } from "../../redux/layouts";
+import { mapMainSelector } from "../../redux/layouts/selectors";
 // import {fetchItemsMarkersAction} from "../../redux/coordinates";
 
 function Phone() {
   const coordinatesInfo = useSelector(markersDataSelector);
   const dispatch = useDispatch();
+  const mapMain = useSelector(mapMainSelector);
 
   useEffect(() => {
     const descrDiv = document.getElementById("country-text-val");
@@ -35,6 +37,11 @@ function Phone() {
         )
       );
     }
+    mapMain.flyTo({
+      center: [coordinatesInfo.lng, coordinatesInfo.lat],
+      speed: 0.5,
+      zoom: 5,
+    });
   }, [coordinatesInfo]);
 
   return (
