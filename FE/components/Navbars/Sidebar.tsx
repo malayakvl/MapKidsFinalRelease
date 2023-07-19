@@ -31,14 +31,14 @@ export default function Sidebar() {
               src="../../images/logo/4437813.png"
             />
             <span className="hidden ml-3 text-lg text-white xl:inline-block uppercase md:inline-block mt-[10px]">
-              Map Kids
+              Above and Beyond Children’s Museum”
             </span>
           </div>
         </a>
       </Link>
       <div className="w-full h-px bg-white/[0.08] z-10 relative dark:bg-white/[0.07] my-6" />
       <ul className="sidebar">
-        <li className={`${router.pathname === "/dashboard" ? "active" : ""}`}>
+        <li className={`hidden`}>
           <div
             className={`item-menu cursor-pointer ${
               router.pathname !== "/dashboard" ? "unactive-left-menu" : ""

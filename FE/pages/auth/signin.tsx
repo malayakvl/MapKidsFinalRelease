@@ -27,7 +27,7 @@ function Signin() {
   return (
     <div className="relative w-full h-full py-40 min-h-screen">
       <Head>
-        <title>Mapkids - Backend Area</title>
+        <title>Above and Beyond Children’s Museum” - Backend Area</title>
       </Head>
       <div
         className="absolute top-0 w-full h-full bg-blueGray-800 bg-no-repeat bg-full"
@@ -45,7 +45,7 @@ function Signin() {
                   className="flex-auto px-4 lg:px-10 pt-10 py-5"
                   style={{ background: "#f5f5f5", borderRadius: "10px" }}
                 >
-                  <div className="text-center">
+                  <div className="text-center mb-4">
                     <Image
                       src="/images/backend/kids.jpeg"
                       alt="Map Kids"
@@ -53,7 +53,7 @@ function Signin() {
                       width={100}
                       height={100}
                     />
-                    <b>MAPKIDS</b>
+                    <b>Above and Beyond Children’s Museum”</b>
                   </div>
                   {query.authError && (
                     <div className="error-el" style={{ right: "40px" }}>
@@ -68,7 +68,7 @@ function Signin() {
                       signIn("credentials_login", {
                         email: (values as any).email,
                         password: (values as any).password,
-                        callbackUrl: `/dashboard`,
+                        callbackUrl: `/countries`,
                       });
                     }}
                   >
