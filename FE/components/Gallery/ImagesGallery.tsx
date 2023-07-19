@@ -158,10 +158,11 @@ function ImagesGallery() {
           />
           <div className="big-frame-gotic mx-auto">
             <div className="relative" id="image-big-content" ref={refBigImg}>
-              {/*<div className="gotic-big-frame-image-top" />*/}
+              {/*<div className="ggotic-big-frame-image-top" />*/}
               {/*<div className="ggotic-big-frame-image-left" />*/}
               {/*<div className="ggotic-big-frame-image-right" />*/}
               {/*<div className="ggotic-big-frame-image-bottom" />*/}
+              {/*<div className="new-frame-bg" />*/}
 
               <img src={bigImg} alt="" className="gray-border-frame" />
             </div>
