@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useTranslations } from "next-intl";
 import { DataGrid, ButtonTableAction } from "../../components/_common";
 import { PaginationType } from "../../constants";
 import {
@@ -16,17 +15,15 @@ import {
 import {
   itemCountSelector,
   paginatedItemsSelector,
-} from "../../redux/images/selectors";
+} from "../../redux/icons/selectors";
 import {
   fetchItemsAction,
   bulkDeleteAction,
   deleteItemAction,
   updateImageTitleActon,
-} from "../../redux/images/actions";
+} from "../../redux/icons/actions";
 import { baseApiUrl } from "../../constants";
 import { setModalConfirmationMetaAction } from "../../redux/layouts";
-// import { setActivePageAction } from '../../redux/layouts/actions';
-// import Image from 'next/image';
 
 const ListDatas: React.FC<any> = () => {
   // const t = useTranslations();
@@ -50,15 +47,10 @@ const ListDatas: React.FC<any> = () => {
 
   useEffect(() => {
     const setupChecked: any = [];
-    const titleValues: any = [];
-    items.forEach((item: Images.ImageItem) => {
+    items.forEach((item: Icons.ImageItem) => {
       setupChecked.push({ id: item.id, checked: false });
-      titleValues.push({ title: item.title ? item.title : "", id: item.id });
     });
-    setSharholderName(titleValues);
     dispatch(initIdsAction(setupChecked));
-    dispatch(initTitleAction(titleValues));
-    setShowTitleForm(setupChecked);
   }, [items]);
 
   const handleDeleteBtnClick = useCallback(
@@ -120,33 +112,12 @@ const ListDatas: React.FC<any> = () => {
                           : `${baseApiUrl}/uploads/photos/${item.name}`
                       }
                       alt=""
-                      className="block h-full w-full rounded-lg object-cover object-center"
+                      className="block rounded-lg object-contain object-center pt-[70px]"
                     />
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                   </div>
                   {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-                  <div className="block">
-                    <div className="float-left ml-[14px]">
-                      <input
-                        type="text"
-                        className={`form-control title-control`}
-                        placeholder={`Input Image Title`}
-                        value={itemsTitle[idx]?.title}
-                        onChange={(evt) => editItem(evt, item)}
-                      />
-                    </div>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-has-content,jsx-a11y/anchor-is-valid */}
-                    <a
-                      href="javascript:void(0)"
-                      title="Save"
-                      onClick={() =>
-                        dispatch(
-                          updateImageTitleActon(itemsTitle[idx]?.title, item.id)
-                        )
-                      }
-                      className="inline-block ml-2 mt-2 w-[25px] h-[25px] float-left add-title-btn"
-                    />
-                  </div>
+                  <div className="block w-[150px]" />
                   <div className="clearfix" />
                 </div>
               </Fragment>

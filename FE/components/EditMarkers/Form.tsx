@@ -3,7 +3,6 @@ import * as Yup from "yup";
 import { useTranslations } from "next-intl";
 import { Formik } from "formik";
 import { InputText, InputSwitcher } from "../_form";
-// import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 import { crudAction } from "../../redux/articles";
 import { toastsSelector } from "../../redux/layouts/selectors";

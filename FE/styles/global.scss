@@ -71,7 +71,7 @@ body {
   background-image: url("../public/images/map/pin.svg");
   background-repeat: no-repeat;
   background-size: contain;
-  width: 40px;
+  width: 50px;
   height: 40px;
 
   span {
@@ -89,9 +89,24 @@ body {
 }
 
 .marker-add {
-  width: 30px;
-  height: 55px;
+  width: 50px;
+  height: 75px;
   background-image: url("../public/images/map/pin-add.svg");
+
+  span {
+    //margin-left: 9px;
+    //margin-top: 5px;
+    //width: 56px;
+    //display: block;
+    //background-image: url("../public/images/flags/1x1/cn.svg");
+    margin-left: 11px;
+    margin-top: 13px;
+    width: 25px;
+    display: block;
+    background-repeat: no-repeat;
+    height: 25px;
+    background-size: contain;
+  }
 }
 
 .view-gallery {
@@ -215,4 +230,24 @@ body {
   height: 501px;
   background-repeat: no-repeat;
 }
+
+.country-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.country-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.selected-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  float:left;
+}
+
 

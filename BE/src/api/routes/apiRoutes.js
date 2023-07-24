@@ -1,7 +1,6 @@
 import * as express from 'express';
-// import TestController from '../controllers/TestController.js';
-// import DashboardController from '../controllers/DashboardController.js';
 import ImageController from '../controllers/ImageController.js';
+import IconController from '../controllers/IconController.js';
 import ArticleController from '../controllers/ArticleController.js';
 import VideoController from '../controllers/VideoController.js';
 import UserController from '../controllers/UserController.js';
@@ -9,7 +8,6 @@ import SettingsController from '../controllers/SettingsController.js';
 import LocationController from "../controllers/LocationController.js";
 import CoordinatesController from "../controllers/CoordinatesController.js";
 import userModel from '../models/User.js';
-// import Coordinates from "../models/Coordinates.js";
 
 const apiRoutes = express.Router();
 
@@ -18,14 +16,16 @@ apiRoutes.use(express.json({
     limit: '512kb',
     strict: true
 }));
-apiRoutes.get('/countries/fetch-active', LocationController.activeItems);
-
-apiRoutes.post('/countries/add-marker', LocationController.addMarker);
-apiRoutes.get('/countries/add-marker', LocationController.addMarker);
 apiRoutes.get('/markers/list', CoordinatesController.activeMarkers);
 apiRoutes.get('/markers/fetch-item/:id', CoordinatesController.fetchItem);
-apiRoutes.get('/markers/set-main/:id', CoordinatesController.setMainMarker);
-apiRoutes.post('/countries/add-marker', LocationController.addMarker);
+apiRoutes.get('/countries/fetch-active', LocationController.activeItems);
+
+// apiRoutes.post('/countries/add-marker', LocationController.addMarker);
+// apiRoutes.get('/countries/add-marker', LocationController.addMarker);
+// apiRoutes.get('/markers/list', CoordinatesController.activeMarkers);
+// apiRoutes.get('/markers/fetch-item/:id', CoordinatesController.fetchItem);
+// apiRoutes.get('/markers/set-main/:id', CoordinatesController.setMainMarker);
+// apiRoutes.post('/countries/add-marker', LocationController.addMarker);
 // apiRoutes.get('/countries/update-opacity', LocationController.updateOpacity);
 // apiRoutes.post('/countries/update-opacity', LocationController.updateOpacity);
 
@@ -75,6 +75,15 @@ apiRoutes.post('/images/update-title', ImageController.updateTitle);
 apiRoutes.post('/images/upload-photos', ImageController.uploadImages);
 
 /** ===================================================================== */
+/** ================== ICONS ROUTES ===================================== */
+/** ===================================================================== */
+apiRoutes.get('/icons/fetch-items', IconController.fetchItems);
+apiRoutes.get('/icons/fetch-all-items', IconController.fetchAllItems);
+apiRoutes.post('/icons/update-title', IconController.updateTitle);
+apiRoutes.post('/icons/upload-photos', IconController.uploadImages);
+apiRoutes.delete('/icons/delete/:id', IconController.deletePhoto);
+
+/** ===================================================================== */
 /** ================== ARTICLES ROUTES ================================== */
 /** ===================================================================== */
 apiRoutes.get('/articles/fetch-items', ArticleController.fetchItems);
@@ -90,6 +99,10 @@ apiRoutes.get('/videos/fetch-items', VideoController.fetchItems);
 apiRoutes.post('/videos/save-item', VideoController.addVideo);
 apiRoutes.get('/videos/fetch-all-items', VideoController.fetchAllItems);
 
+apiRoutes.post('/countries/add-marker', LocationController.addMarker);
+apiRoutes.get('/countries/add-marker', LocationController.addMarker);
+apiRoutes.get('/markers/set-main/:id', CoordinatesController.setMainMarker);
+apiRoutes.post('/countries/add-marker', LocationController.addMarker);
 
 apiRoutes.route('/profile')
     .post(UserController.changePassword)

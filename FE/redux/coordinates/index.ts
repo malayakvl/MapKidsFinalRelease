@@ -14,6 +14,7 @@ import {
   updateVideoIdsAction,
   updateTitleAction,
   setMainMarkerAction,
+  updateIconAction,
 } from "./actions";
 
 const initialState: {
@@ -159,6 +160,15 @@ const ACTION_HANDLERS: any = {
       title: action.payload,
     }),
   },
+  [updateIconAction]: {
+    next: (
+      state: State.Coordinates,
+      action: Action<any>
+    ): State.Coordinates => ({
+      ...state,
+      icon: action.payload,
+    }),
+  },
 
   // [fetchMarkersAction]: {
   //   next: (
@@ -189,6 +199,7 @@ export {
   updateVideoIdsAction,
   updateTitleAction,
   setMainMarkerAction,
+  updateIconAction,
 };
 
 // ------------------------------------

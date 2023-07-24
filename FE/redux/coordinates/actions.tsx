@@ -144,3 +144,4 @@ export const updateVideoIdsAction: any = createAction(
   "coordintate/UPDATE_VIDEO_IDS"
 );
 export const updateTitleAction: any = createAction("coordintate/UPDATE_TITLE");
+export const updateIconAction: any = createAction("coordintate/UPDATE_ICON");

@@ -4,6 +4,7 @@ declare namespace Layouts {
     id: any;
     pagination: {
       images: Pagination;
+      icons: Pagination;
       videos: Pagination;
       articles: Pagination;
       locations: Pagination;

@@ -6,6 +6,7 @@ export const baseUrl = publicRuntimeConfig.siteUrl;
 
 export enum PaginationType {
   IMAGES = "images",
+  ICONS = "icons",
   ARTICLES = "articles",
   VIDEOS = "videos",
   COUNTRIES = "countries",
@@ -15,6 +16,10 @@ export enum PaginationType {
 export const TableHeaders: { [key in PaginationType]: Type.DataTableHeader[] } =
   {
     [PaginationType.IMAGES]: [
+      { titleKey: "image" },
+      { titleKey: "Actions", className: "actions" },
+    ],
+    [PaginationType.ICONS]: [
       { titleKey: "image" },
       { titleKey: "Actions", className: "actions" },
     ],

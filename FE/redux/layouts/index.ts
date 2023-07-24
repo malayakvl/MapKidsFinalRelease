@@ -57,6 +57,14 @@ const initialState: State.Layouts = {
         created_at: [],
       },
     },
+    [PaginationType.ICONS]: {
+      ...initPagination,
+      sort: "DESC",
+      column: "created_at",
+      filters: {
+        created_at: [],
+      },
+    },
     [PaginationType.VIDEOS]: {
       ...initPagination,
       sort: "DESC",

@@ -1,7 +1,7 @@
 import pool from './connect.js';
 import { logger } from '../../common/logger.js';
 
-class Image {
+class Icon {
     async fileUpload (req, res) {
         // const dirUpload = `${process.env.DOWNLOAD_FOLDER}/logos`;
         const storage = multer.diskStorage({
@@ -30,7 +30,7 @@ class Image {
     async getAll (page, perPage = 20, reqOffset = null) {
         const client = await pool.connect();
         try {
-            const _total = await client.query(`SELECT * FROM common__tools._select_total_from_table_by_where('data', 'images', 'id', null);`);
+            const _total = await client.query(`SELECT * FROM common__tools._select_total_from_table_by_where('data', 'icons', 'id', null);`);
             const size = _total.rows[0].total;
             // const perPage = 20;
             let offset;
@@ -39,7 +39,7 @@ class Image {
             } else {
                 offset = (Number(page) - 1) * Number(perPage);
             }
-            const rowsQuery = `SELECT * FROM data.get_images_list(${perPage}, ${offset}, '', 'created_at DESC');`;
+            const rowsQuery = `SELECT * FROM data.get_icons_list(${perPage}, ${offset}, '', 'created_at DESC');`;
             const res = await client.query(rowsQuery);
             const items = res.rows.length > 0 ? res.rows : [];
             const error = null;
@@ -74,7 +74,7 @@ class Image {
     async addPhoto(photo) {
         const client = await pool.connect();
         try {
-            await client.query(`INSERT INTO data.images (name) VALUES ('${photo}')`);
+            await client.query(`INSERT INTO data.icons (name) VALUES ('${photo}')`);
             return {success: true, error: null};
         } catch (e) {
             if (process.env.NODE_ENV === 'development') {
@@ -113,40 +113,19 @@ class Image {
             if (process.env.NODE_ENV === 'development') {
                 logger.log(
                     'error',
-                    'Model error (Notifications getAll):',
+                    'Model error (Photos upload):',
                     { message: e.message }
                 );
             }
             const users = null;
             const error = {
                 code: 500,
-                message: 'Error get list of users'
+                message: 'Error get upload photos'
             };
             return {
                 users,
                 error
             };
-        } finally {
-            client.release();
-        }
-    }
-
-    async deletePhoto (photoId, userId, photo) {
-        const SQL = `SELECT * FROM data.images WHERE id=${photoId}`;
-        const client = await pool.connect();
-        try {
-            const res = await client.query(SQL);
-            const productPhotos = res.rows[0].name;
-            return true;
-        } catch (e) {
-            if (process.env.NODE_ENV === 'development') {
-                logger.log(
-                    'error',
-                    'Model error:',
-                    { message: e.message }
-                );
-            }
-            return null;
         } finally {
             client.release();
         }
@@ -224,6 +203,30 @@ class Image {
         }
 
     }
+
+
+    async deletePhoto (photoId, userId, photo) {
+        const SQL = `SELECT * FROM data.icons WHERE id=${photoId}`;
+        console.log(SQL);
+        const client = await pool.connect();
+        try {
+            const res = await client.query(SQL);
+            const productPhotos = res.rows[0].name;
+            return true;
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error:',
+                    { message: e.message }
+                );
+            }
+            return null;
+        } finally {
+            client.release();
+        }
+    }
+
 }
 
-export default new Image();
+export default new Icon();

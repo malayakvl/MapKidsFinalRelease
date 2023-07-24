@@ -4,9 +4,9 @@ import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { Formik } from "formik";
 import Range from "rc-slider";
+import Select, { components } from "react-select";
 import "rc-slider/assets/index.css";
 import { InputSwitcher, InputColor, InputTextarea, InputText } from "../_form";
-// import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 import {
   crudAction,
@@ -16,8 +16,11 @@ import {
   updateMarkerListAction,
   setMainMarkerAction,
 } from "../../redux/countries";
-// import { setMainMarkerAction } from "../../redux/coordinates";
 import ImageList from "./ImagesList";
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+export const baseApiUrl = publicRuntimeConfig.apiUrl;
+
 import {
   countryItemSelector,
   layerFillSelector,
@@ -36,6 +39,7 @@ import {
   updateImageIdsAction,
   updateTitleAction,
   updateVideoIdsAction,
+  updateIconAction,
 } from "../../redux/coordinates";
 import {
   imageCheckedIdsSelector,
@@ -48,7 +52,8 @@ import {
   updateOpacityAction,
   removeMarkerAction,
 } from "../../redux/countries/actions";
-// import {setSwitchHeaderAction} from "../../redux/layouts/actions";
+import { dropdownIconItemsSelector } from "../../redux/icons/selectors";
+import { fetchDropdownItemsAction } from "../../redux/icons";
 
 function CountryForm({ countryData }: { countryData: any }) {
   const t = useTranslations();
@@ -66,6 +71,22 @@ function CountryForm({ countryData }: { countryData: any }) {
   const [mainMarker, setMainMarker] = useState(false);
   const [markerId, setMarkerId] = useState(null);
   const [markerImages, setMarkerImages] = useState([]);
+  const iconsData = useSelector(dropdownIconItemsSelector);
+  const [countries, setCountries] = useState<any[]>([]);
+
+  const Option = (props: any) => (
+    <components.Option {...props} className="inline-block">
+      <div className="inline-block">
+        <img
+          src={props.data.icon}
+          alt="logo"
+          className="country-logo float-left"
+        />
+        {props.data.label}
+      </div>
+    </components.Option>
+  );
+
   // NEW WORKED SELECTORS
   const newImageIds = useSelector(imageCheckedIdsSelector);
   const newVideoIds = useSelector(videoCheckedIdsSelector);
@@ -76,6 +97,8 @@ function CountryForm({ countryData }: { countryData: any }) {
   const layerColor = useSelector(layerFillSelector);
   const layerOpacity = useSelector(layerOpacitySelector);
   const markersList = useSelector(countryMarkersSelector);
+  const [selectedCountry, setSelectedCountry] = useState(countries[0]);
+  const [selectedIcon, setSelectedIcon] = useState(countries[0]);
 
   const onSliderOpacityChange = (_value: any) => {
     setOpacityRange(_value);
@@ -97,15 +120,27 @@ function CountryForm({ countryData }: { countryData: any }) {
   };
 
   useEffect(() => {
+    if (iconsData) {
+      const iconsDropIcons: any[] = [];
+      console.log(iconsData);
+      iconsData.forEach((icon: any) => {
+        iconsDropIcons.push({
+          value: icon.id,
+          label: `Icon ${icon.id}`,
+          icon: `${baseApiUrl}/uploads/photos/${icon.name}`,
+        });
+      });
+      setCountries(iconsDropIcons);
+    }
+  }, [iconsData]);
+
+  useEffect(() => {
     if (countrySelectorData) {
       dispatch(updateMarkerListAction(countrySelectorData.markers));
+      dispatch(fetchDropdownItemsAction());
       onSliderOpacityChange(countrySelectorData.fill_opacity);
     }
   }, [countrySelectorData]);
-
-  // useEffect(() => {
-  //   console.log("UPDATED MARKERS LIST", markersCountry);
-  // }, [markersCountry]);
 
   useEffect(() => {
     if (markerData?.id) {
@@ -115,10 +150,6 @@ function CountryForm({ countryData }: { countryData: any }) {
       dispatch(updateVideoIdsAction(markerData.videos));
     }
   }, [markerData]);
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  // useEffect(() => {
-  // }, [markersList]);
 
   useEffect(() => {
     if (layerColor) {
@@ -149,7 +180,24 @@ function CountryForm({ countryData }: { countryData: any }) {
     const dataForUpdate = {
       locationTitle: title,
       description: description,
+      locationIcon: selectedIcon,
     };
+  };
+
+  // @ts-ignore
+  const SingleValue = ({ children, ...props }) => (
+    // @ts-ignore
+    <components.SingleValue {...props}>
+      <div className="inline-block">
+        <img src={selectedIcon.icon} alt="s-logo" className="selected-logo" />
+        {children}
+      </div>
+    </components.SingleValue>
+  );
+
+  const handleChangeIcon = (value: any) => {
+    setSelectedIcon(value);
+    dispatch(updateIconAction(value.icon));
   };
 
   return (
@@ -171,6 +219,7 @@ function CountryForm({ countryData }: { countryData: any }) {
               description: values["description"],
               id: countryData.id,
               locationId: markerId,
+              icon: selectedIcon,
             };
             dispatch(crudAction(formData, values.id));
             setDisplayTabs(false);
@@ -347,6 +396,28 @@ function CountryForm({ countryData }: { countryData: any }) {
                                 extValue={markerData?.is_main}
                                 onChange={(event) => {
                                   setMainMarker(event.target.checked);
+                                }}
+                              />
+                            </div>
+                            <div className="mb-4 md:w-full">
+                              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                              <label className="control-label">
+                                Marker Icon
+                              </label>
+                              <Select
+                                value={selectedIcon}
+                                options={countries}
+                                onChange={handleChangeIcon}
+                                styles={{
+                                  singleValue: (base) => ({
+                                    ...base,
+                                    display: "float-left",
+                                    alignItems: "center",
+                                  }),
+                                }}
+                                components={{
+                                  Option,
+                                  SingleValue,
                                 }}
                               />
                             </div>

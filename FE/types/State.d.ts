@@ -9,6 +9,7 @@ declare namespace State {
     countries: Countries;
     user: User;
     images: Images;
+    icons: Icons;
     videos: Videos;
     articles: Articles;
     userRequests: UserRequests;
@@ -18,6 +19,7 @@ declare namespace State {
   type Layouts = Layouts.Root;
   type Profile = Profile.Root;
   type Images = Images.Root;
+  type Icons = Icons.Root;
   type Videos = Videos.Root;
   type Articles = Articles.Root;
   type User = User.Root;

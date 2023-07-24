@@ -145,6 +145,7 @@ class LocationController {
         const newImageIds = JSON.parse(req.body.data.newImages);
         const newVideoIds = JSON.parse(req.body.data.newVideos);
         const locationId = req.body.data.locationId;
+        const iconData = req.body.data.icon;
         const imageIds = [];
         if (parsedDataImages.length) {
             parsedDataImages.forEach(data => {
@@ -174,7 +175,8 @@ class LocationController {
             fillColor: dataCountry.data.fillColor,
             fillOpacity: dataCountry.data.fillOpacity,
             description: req.body.data.description,
-            title: req.body.data.title
+            title: req.body.data.title,
+            icon: req.body.data.icon
         }
         await locationModel.updateRecord(updatedData, dataCountry.countryData.id, locationId);
         const markersRes = await coordinatesModel.getCountryMarkers(dataCountry.countryData.id);

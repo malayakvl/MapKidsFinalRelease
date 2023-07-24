@@ -1,37 +1,36 @@
 import pool from '../models/connect.js';
-import imagesModel from '../models/Image.js';
+import iconModel from '../models/Icon.js';
 import multer from 'multer';
 import fs from "fs";
 
-class ImageController {
+class IconController {
     async fetchItems (req, res) {
         const { limit, offset, queryFilter, column, sort } = req.query;
         if (!req.user) {
             return res.status(401).json('Access deny');
         } else {
-            const data = await imagesModel.getAll(1, limit, offset, queryFilter, column, sort);
+            const data = await iconModel.getAll(1, limit, offset, queryFilter, column, sort);
             return res.status(200).json({ count: data.size, items: data.items});
         }
     }
 
     async fetchAllItems (req, res) {
         const client = await pool.connect();
+        // const { limit, offset, queryFilter, column, sort } = req.query;
         if (!req.user) {
             return res.status(401).json('Access deny');
         } else {
-            const data = await imagesModel.getAll(1, 1000000, 0, null, null, null);
+            const data = await iconModel.getAll(1, 1000000, 0, null, null, null);
             return res.status(200).json({ count: data.size, items: data.items});
         }
     }
 
     async updateTitle (req, res) {
         const { data } = req.params;
-        const client = await pool.connect();
-        // const { limit, offset, queryFilter, column, sort } = req.query;
         if (!req.user) {
             return res.status(401).json('Access deny');
         } else {
-            const data = await imagesModel.updateTitle(req.body.data);
+            const data = await iconModel.updateTitle(req.body.data);
             return res.status(200).json({ count: data.size, items: data.items});
         }
     }
@@ -65,7 +64,7 @@ class ImageController {
                     photos.push(file.filename);
                 });
             }
-            await imagesModel.addPhotos(photos);
+            await iconModel.addPhotos(photos);
 
 
             return res.status(200).json({ success: true });
@@ -75,14 +74,14 @@ class ImageController {
         if (!req.user) {
             return res.status(401).json('Access deny');
         }
-        await imageModel.deletePhoto(req.params.id, req.user.id, req.body.data);
+        await iconModel.deletePhoto(req.params.id, req.user.id, req.body.data);
         // delete photo
-        fs.unlink(`${process.env.DOWNLOAD_FOLDER}/${req.body.data.replace('/uploads', '')}`,function(err){
-            if(err) return console.log(err);
-        });
+        // fs.unlink(`${process.env.DOWNLOAD_FOLDER}/${req.body.data.replace('/uploads', '')}`,function(err){
+        //     if(err) return console.log(err);
+        // });
         // fs.unlinkSync(`public/${req.body.data}`);
         return res.status(200).json({ success: true });
     }
 }
 
-export default new ImageController();
+export default new IconController();

@@ -13,7 +13,7 @@ import Sidebar from "../Navbars/Sidebar";
 // import AdminNavbar from "../Navbars/TopNavbar";
 import { toast } from "react-toastify";
 import { deleteToastAction } from "../../redux/layouts";
-// import { ConfirmationModal } from "../_common";
+import { ConfirmationModal } from "../_common";
 
 export default function BackendLayout({ children }: { children: any }) {
   const showLoader = useSelector(isDataLoadingSelector);

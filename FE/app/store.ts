@@ -9,6 +9,7 @@ import settingsReducer from "../redux/settings/index";
 import layoutsReducer from "../redux/layouts/index";
 import profileReducer from "../redux/profile/index";
 import imagesReducer from "../redux/images/index";
+import iconsReducer from "../redux/icons/index";
 import articlesReducer from "../redux/articles/index";
 import videosReducer from "../redux/videos/index";
 import countriesReducer from "../redux/countries/index";
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   user: userReducer,
   settings: settingsReducer,
   images: imagesReducer,
+  icons: iconsReducer,
   articles: articlesReducer,
   videos: videosReducer,
   countries: countriesReducer,

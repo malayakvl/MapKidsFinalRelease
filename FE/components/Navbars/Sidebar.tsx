@@ -95,6 +95,27 @@ export default function Sidebar() {
             </Link>
           </div>
         </li>
+        <li
+          className={`${router.pathname === "/icons" ? "active" : ""}`}
+        >
+          <div
+            className={`item-menu cursor-pointer ${
+              router.pathname !== "/icons" ? "unactive-left-menu" : ""
+            }`}
+          >
+            <Link href={"/icons"} className="flex">
+              {/*<div className="icon-block gallery" />*/}
+              <div
+                className={`hidden xl:flex items-center w-full ml-3 font-medium ${
+                  router.pathname === "/icons" ? "text-slate-800" : ""
+                }`}
+              >
+                Icons
+                <span className="transition ease-in duration-100 ml-auto mr-5 hidden xl:block" />
+              </div>
+            </Link>
+          </div>
+        </li>
         <li className={`${router.pathname === "/articles" ? "active" : ""}`}>
           <div
             className={`item-menu cursor-pointer ${
@@ -146,7 +167,6 @@ export default function Sidebar() {
                   e.preventDefault();
                   window.localStorage.removeItem("user");
                   signOut();
-                  window.location.reload();
                 }}
               >
                 Logout
