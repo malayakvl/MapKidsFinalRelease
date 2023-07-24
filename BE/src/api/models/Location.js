@@ -55,7 +55,7 @@ class Location {
             // } else {
             //     offset = (Number(page) - 1) * Number(perPage);
             // }
-            const rowsQuery = `SELECT * FROM data.countries WHERE active=true;`;
+            const rowsQuery = `SELECT * FROM data.countries WHERE active=true ORDER BY name;`;
             const res = await client.query(rowsQuery);
             const items = res.rows.length > 0 ? res.rows : [];
             const error = null;
