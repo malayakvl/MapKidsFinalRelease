@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import Phone from "../PhoneMap";
 import { useDispatch, useSelector } from "react-redux";
+import { baseApiUrl } from "../../constants";
 import {
   fetchItemMarkerAction,
   fetchItemsMarkersAction,
@@ -107,12 +108,11 @@ const Map = () => {
         const el = document.createElement("div");
         el.className = marker.is_main ? "marker" : "marker-add";
         const flagImage = `../../images/flags/1x1/${marker.flag_name}`;
-        console.log(process.env.API_URL + marker.icon);
         el.innerHTML = marker.is_main
           ? `<span style="background-image: url(${flagImage})">&nbsp;</span>`
           : marker.icon
           ? `<span style="background-image: url(${
-              process.env.API_URL + marker.icon
+              baseApiUrl + marker.icon
             })">&nbsp;</span>`
           : "";
         el.style.width = `${marker.is_main ? 50 : 50}px`;

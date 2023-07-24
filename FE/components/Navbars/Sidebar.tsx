@@ -95,9 +95,7 @@ export default function Sidebar() {
             </Link>
           </div>
         </li>
-        <li
-          className={`${router.pathname === "/icons" ? "active" : ""}`}
-        >
+        <li className={`${router.pathname === "/icons" ? "active" : ""}`}>
           <div
             className={`item-menu cursor-pointer ${
               router.pathname !== "/icons" ? "unactive-left-menu" : ""
