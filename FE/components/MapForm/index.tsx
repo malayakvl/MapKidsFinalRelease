@@ -355,7 +355,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
   return (
     <div className="relative">
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-      <div onClick={() => dispatch(reloadMapAction(true))}>Remove Markers</div>
+      {/*<div onClick={() => dispatch(reloadMapAction(true))}>Remove Markers</div>*/}
       <div className="map-form-block relative">
         <div
           className="map-container-form"

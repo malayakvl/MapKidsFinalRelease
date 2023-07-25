@@ -204,9 +204,6 @@ function CountryForm({ countryData }: { countryData: any }) {
     dispatch(updateIconAction(value.icon));
   };
 
-  console.log("DISPLAY TABS", displayTabs);
-  console.log("MARKER DATA", markerData);
-
   return (
     <>
       {countrySelectorData && (

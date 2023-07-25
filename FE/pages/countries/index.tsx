@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CountryForm, ListItems } from "../../components/Countries";
 import { activeTabSelectorFactory } from "../../redux/layouts/selectors";
 import { setActivePageAction } from "../../redux/layouts";
+import { clearCountryItemAction } from "../../redux/countries";
 import BackendLayout from "../../components/Layout/BackendLayout";
 
 export default function Index({
@@ -60,6 +61,7 @@ export default function Index({
                   modifier: "list",
                 })
               );
+              dispatch(clearCountryItemAction(null));
               // dispatch(loadMapAction(false));
             }}
             className="cursor-pointer inline-block pl-[30px] text-[12px] mr-[10px] back-arrow"

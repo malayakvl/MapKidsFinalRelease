@@ -20,6 +20,7 @@ import {
   initRebuildMapAction,
   setMainMarkerAction,
   clearItemAaction,
+  clearCountryItemAction,
 } from "./actions";
 
 const initialState: {
@@ -111,6 +112,12 @@ const ACTION_HANDLERS: any = {
       ...state,
       loading: false,
       isFetched: true,
+    }),
+  },
+  [clearCountryItemAction]: {
+    next: (state: State.Countries, action: Action<any>): State.Countries => ({
+      ...state,
+      item: action.payload,
     }),
   },
   [loadMapAction]: {
@@ -271,6 +278,7 @@ export {
   initRebuildMapAction,
   setMainMarkerAction,
   clearItemAaction,
+  clearCountryItemAction,
 };
 
 // ------------------------------------

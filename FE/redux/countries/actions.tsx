@@ -252,7 +252,6 @@ export const addMarkerAction: any = createAction(
       const state = getState();
       const countryData = state.countries.item;
       dispatch(showLoaderAction(true));
-      console.log(state.user.user.email);
       return axios
         .get(
           `${baseUrl}/countries/add-pointer?lat=${coordinates.lat}&lng=${coordinates.lng}&countryId=${countryId}`,
@@ -385,3 +384,6 @@ export const setPaletteAction: any = createAction(
 );
 export const setOpacityAction: any = createAction("countries/SET_OPACITY");
 export const clearItemAaction: any = createAction("countries/CLEAR_ITEM");
+export const clearCountryItemAction: any = createAction(
+  "countries/CLEAR_SELECTED_ITEM"
+);
