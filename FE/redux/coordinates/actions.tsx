@@ -72,6 +72,29 @@ export const fetchItemMarkerAction: any = createAction(
       }
     }
 );
+export const fetchItemDataMarkerAction: any = createAction(
+  "markers/FETCH_BACKEND_ITEM",
+  async (id: number) =>
+    async (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<{ editedItem: any }> => {
+      const state = getState();
+      dispatch(showLoaderAction(true));
+      const res = await axios.get(`${baseUrl}/markers/fetch-item/${id}`, {
+        headers: {
+          ...authHeader(state.user.user.email),
+        },
+      });
+      if (res.status) {
+        dispatch(showLoaderAction(false));
+        dispatch(setMarkerIdAction(res.data.item.id));
+      }
+      return {
+        editedItem: res.data.item,
+      };
+    }
+);
 export const setMainMarkerAction: any = createAction(
   "markers/SET_MAIN_MARKER",
   async (id: number) =>
@@ -83,7 +106,7 @@ export const setMainMarkerAction: any = createAction(
       const countryData = state.countries.item;
       dispatch(showLoaderAction(true));
       const res = await axios.get(
-        `${baseUrl}/countries/set-main/${id}/${countryData.id}`,
+        `${baseUrl}/countries/set-main/${id}/${countryData?.id}`,
         {
           headers: {
             ...authHeader(state.user.user.email),
@@ -145,3 +168,6 @@ export const updateVideoIdsAction: any = createAction(
 );
 export const updateTitleAction: any = createAction("coordintate/UPDATE_TITLE");
 export const updateIconAction: any = createAction("coordintate/UPDATE_ICON");
+export const clearDataMarkerAction: any = createAction(
+  "coordintate/CLEAR_DATA_MARKER"
+);

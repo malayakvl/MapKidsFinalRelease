@@ -11,6 +11,7 @@ const baseUrl = `${baseApiUrl}/api`;
 import { paginationSelectorFactory } from "../layouts/selectors";
 import { PaginationType } from "../../constants";
 import queryString from "query-string";
+import {clearDataMarkerAction, fetchItemDataMarkerAction} from "../coordinates";
 
 export const fetchItemsAction: any = createAction(
   "countries/FETCH_ITEMS",
@@ -90,7 +91,7 @@ export const setMainMarkerAction: any = createAction(
       const countryData = state.countries.item;
       dispatch(showLoaderAction(true));
       const res = await axios.get(
-        `${baseUrl}/countries/set-main/${id}/${countryData.id}`,
+        `${baseUrl}/countries/set-main/${id}/${countryData?.id}`,
         {
           headers: {
             ...authHeader(state.user.user.email),
@@ -99,7 +100,7 @@ export const setMainMarkerAction: any = createAction(
       );
       if (res.status) {
         dispatch(showLoaderAction(false));
-        dispatch(fetchItemAction(countryData.id));
+        dispatch(fetchItemAction(countryData?.id));
       }
       return {
         item: res.data.item,
@@ -204,7 +205,8 @@ export const crudAction: any = createAction(
         .then(async (res) => {
           dispatch(showLoaderAction(false));
           dispatch(updateMarkerListAction(res.data.markersList));
-          // dispatch()
+          // dispatch(fetchItemDataMarkerAction(null));
+          dispatch(clearDataMarkerAction(null));
           dispatch(setSuccessToastAction("Item has been updated"));
           await dispatch(fetchItemsAction());
         });
@@ -225,8 +227,8 @@ export const updateColorAction: any = createAction(
           `${baseUrl}/countries/update-color?color=${color.replace(
             "#",
             ""
-          )}&countryId=${countrydata.id}`,
-          { color: color, countryId: countrydata.id },
+          )}&countryId=${countrydata?.id}`,
+          { color: color, countryId: countrydata?.id },
           {
             headers: {
               ...authHeader(state.user.user.email),
@@ -250,7 +252,7 @@ export const addMarkerAction: any = createAction(
       const state = getState();
       const countryData = state.countries.item;
       dispatch(showLoaderAction(true));
-      // console.log(countrydata);
+      console.log(state.user.user.email);
       return axios
         .get(
           `${baseUrl}/countries/add-pointer?lat=${coordinates.lat}&lng=${coordinates.lng}&countryId=${countryId}`,
@@ -282,7 +284,7 @@ export const updateOpacityAction: any = createAction(
       // console.log(countrydata);
       return axios
         .post(
-          `${baseUrl}/countries/update-opacity?opacity=${opacity}&countryId=${countrydata.id}`,
+          `${baseUrl}/countries/update-opacity?opacity=${opacity}&countryId=${countrydata?.id}`,
           { opacity: opacity, countryData: countrydata },
           {
             headers: {
@@ -382,3 +384,4 @@ export const setPaletteAction: any = createAction(
   "countries/SET_PALETTE_COLOR"
 );
 export const setOpacityAction: any = createAction("countries/SET_OPACITY");
+export const clearItemAaction: any = createAction("countries/CLEAR_ITEM");

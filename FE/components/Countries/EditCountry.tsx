@@ -17,6 +17,7 @@ import {
   setMainMarkerAction,
 } from "../../redux/countries";
 import ImageList from "./ImagesList";
+import VideoList from "./VideosList";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 export const baseApiUrl = publicRuntimeConfig.apiUrl;
@@ -33,9 +34,9 @@ import {
   checkedVideoIdsSelector,
 } from "../../redux/countries/selectors";
 import MapForm from "../MapForm";
-import VideoList from "./VideosList";
 import {
   fetchItemMarkerAction,
+  fetchItemDataMarkerAction,
   updateImageIdsAction,
   updateTitleAction,
   updateVideoIdsAction,
@@ -46,6 +47,7 @@ import {
   markersDataSelector,
   markersSelector,
   videoCheckedIdsSelector,
+  countryItemBackSelector,
 } from "../../redux/coordinates/selectors";
 import {
   updateColorAction,
@@ -54,6 +56,7 @@ import {
 } from "../../redux/countries/actions";
 import { dropdownIconItemsSelector } from "../../redux/icons/selectors";
 import { fetchDropdownItemsAction } from "../../redux/icons";
+// import { fetchItemDataMarkerAction } from "../../redux/coordinates/actions";
 
 function CountryForm({ countryData }: { countryData: any }) {
   const t = useTranslations();
@@ -65,7 +68,7 @@ function CountryForm({ countryData }: { countryData: any }) {
   const checkedVideoIds = useSelector(checkedVideoIdsSelector);
   const [opacityRange, setOpacityRange] = useState<any[]>([0, 100]);
   const [displayTabs, setDisplayTabs] = useState(false);
-  const markerData = useSelector(markersDataSelector);
+  const markerData = useSelector(countryItemBackSelector);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [mainMarker, setMainMarker] = useState(false);
@@ -106,7 +109,7 @@ function CountryForm({ countryData }: { countryData: any }) {
     dispatch(
       updateOpacityAction(
         _value ? 100 - _value : 100 / 100,
-        countrySelectorData.id
+        countrySelectorData?.id
       )
     );
   };
@@ -122,7 +125,6 @@ function CountryForm({ countryData }: { countryData: any }) {
   useEffect(() => {
     if (iconsData) {
       const iconsDropIcons: any[] = [];
-      console.log(iconsData);
       iconsData.forEach((icon: any) => {
         iconsDropIcons.push({
           value: icon.id,
@@ -145,6 +147,7 @@ function CountryForm({ countryData }: { countryData: any }) {
   useEffect(() => {
     if (markerData?.id) {
       setDisplayTabs(true);
+      // console.log("DISPLAY");
       dispatch(updateTitleAction(markerData.title));
       dispatch(updateImageIdsAction(markerData.images));
       dispatch(updateVideoIdsAction(markerData.videos));
@@ -162,14 +165,15 @@ function CountryForm({ countryData }: { countryData: any }) {
   };
 
   const editMarkerAction = (id: number) => {
-    dispatch(fetchItemMarkerAction(id));
+    dispatch(fetchItemDataMarkerAction(id));
+    // setDisplayTabs(true);
     // @ts-ignore
     setMarkerId(id);
   };
 
   const deleteMarkerAction = (id: number) => {
     dispatch(reloadMapAction(false));
-    dispatch(removeMarkerAction(id, countrySelectorData.id, countryMap));
+    dispatch(removeMarkerAction(id, countrySelectorData?.id, countryMap));
     dispatch(initMapAction(null));
     dispatch(reloadMapAction(false));
   };
@@ -199,6 +203,9 @@ function CountryForm({ countryData }: { countryData: any }) {
     setSelectedIcon(value);
     dispatch(updateIconAction(value.icon));
   };
+
+  console.log("DISPLAY TABS", displayTabs);
+  console.log("MARKER DATA", markerData);
 
   return (
     <>
@@ -334,142 +341,142 @@ function CountryForm({ countryData }: { countryData: any }) {
                     </table>
                     <div></div>
                     <div className="clearfix" />
-                    <div
-                      className={`w-full mt-10 ${
-                        displayTabs ? "show" : "hide"
-                      }`}
-                    >
-                      <nav aria-label="Tabs" className="mt-10">
-                        <ul className="flex border-b border-gray-200 text-center">
-                          <li className="flex-1">
-                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                            <a
-                              onClick={() => setActiveTab("description")}
-                              className={`tab ${
-                                activeTab == "description" ? "active" : ""
-                              }`}
-                              href="javascript:;"
-                            >
-                              Description
-                            </a>
-                          </li>
-                          <li className="flex-1">
-                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                            <a
-                              onClick={() => setActiveTab("images")}
-                              className={`tab ${
-                                activeTab == "images" ? "active" : ""
-                              }`}
-                              href="javascript:;"
-                            >
-                              <span className="absolute inset-x-0 -bottom-px h-px w-full bg-white"></span>
-                              Images
-                            </a>
-                          </li>
-                          <li className="flex-1">
-                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                            <a
-                              onClick={() => setActiveTab("videos")}
-                              className={`tab ${
-                                activeTab == "videos" ? "active" : ""
-                              }`}
-                              href="javascript:;"
-                            >
-                              Videos
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                      <div className="tab-content pt-[20px] mb-[20px] bg-white border-gray-200 border border-t-0 p-[20px]">
-                        {activeTab === "description" && (
-                          <>
-                            <div className="mb-4 md:w-full">
-                              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                              <label className="control-label">
-                                Main Marker
-                              </label>
-                              <InputSwitcher
-                                label={"Active"}
-                                name={"is_main"}
-                                style={null}
-                                props={props}
-                                extValue={markerData?.is_main}
-                                onChange={(event) => {
-                                  setMainMarker(event.target.checked);
-                                }}
-                              />
-                            </div>
-                            <div className="mb-4 md:w-full">
-                              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                              <label className="control-label">
-                                Marker Icon
-                              </label>
-                              <Select
-                                value={selectedIcon}
-                                options={countries}
-                                onChange={handleChangeIcon}
-                                styles={{
-                                  singleValue: (base) => ({
-                                    ...base,
-                                    display: "float-left",
-                                    alignItems: "center",
-                                  }),
-                                }}
-                                components={{
-                                  Option,
-                                  SingleValue,
-                                }}
-                              />
-                            </div>
-                            <InputText
-                              icon={null}
-                              label={"Title"}
-                              name={"title"}
-                              placeholder={"Title"}
-                              style={"mb-5"}
-                              props={props}
-                              extValue={markerData?.title}
-                              tips={null}
-                              onChange={(event) => {
-                                event.target.value =
-                                  event.target.value.trimStart();
-                                setTitle(event.target.value.trimStart());
-                                dispatch(
-                                  updateTitleAction(
-                                    event.target.value.trimStart()
-                                  )
-                                );
-                                props.handleChange(event);
-                              }}
-                            />
-                            <InputTextarea
-                              icon={null}
-                              style={""}
-                              label={""}
-                              name={`description`}
-                              placeholder={t("Add Description Here")}
-                              props={props}
-                              tips={t("Add Description Here")}
-                              maxLength={10000}
-                              extValue={markerData?.description}
-                            />
-                          </>
-                        )}
-                        {activeTab === "images" && (
-                          <ImageList markerData={markerData} />
-                        )}
-                        {activeTab === "videos" && (
-                          <VideoList markerData={markerData} />
-                        )}
-                      </div>
-                      <button
-                        type="submit"
-                        onClick={() => updateLocation()}
-                        className="btn bg-purple-800 inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer text-white shadow-md mr-[10px]"
-                      >
-                        {t("Update Location")}
-                      </button>
-                    </div>
+                    {markerData && (
+                      <>
+                        <div className={`w-full mt-10 `}>
+                          <nav aria-label="Tabs" className="mt-10">
+                            <ul className="flex border-b border-gray-200 text-center">
+                              <li className="flex-1">
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                <a
+                                  onClick={() => setActiveTab("description")}
+                                  className={`tab ${
+                                    activeTab == "description" ? "active" : ""
+                                  }`}
+                                  href="javascript:;"
+                                >
+                                  Description
+                                </a>
+                              </li>
+                              <li className="flex-1">
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                <a
+                                  onClick={() => setActiveTab("images")}
+                                  className={`tab ${
+                                    activeTab == "images" ? "active" : ""
+                                  }`}
+                                  href="javascript:;"
+                                >
+                                  <span className="absolute inset-x-0 -bottom-px h-px w-full bg-white"></span>
+                                  Images
+                                </a>
+                              </li>
+                              <li className="flex-1">
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                <a
+                                  onClick={() => setActiveTab("videos")}
+                                  className={`tab ${
+                                    activeTab == "videos" ? "active" : ""
+                                  }`}
+                                  href="javascript:;"
+                                >
+                                  Videos
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                          <div className="tab-content pt-[20px] mb-[20px] bg-white border-gray-200 border border-t-0 p-[20px]">
+                            {activeTab === "description" && (
+                              <>
+                                <div className="mb-4 md:w-full">
+                                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                                  <label className="control-label">
+                                    Main Marker
+                                  </label>
+                                  <InputSwitcher
+                                    label={"Active"}
+                                    name={"is_main"}
+                                    style={null}
+                                    props={props}
+                                    extValue={(markerData as any).is_main}
+                                    onChange={(event) => {
+                                      setMainMarker(event.target.checked);
+                                    }}
+                                  />
+                                </div>
+                                <div className="mb-4 md:w-full">
+                                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                                  <label className="control-label">
+                                    Marker Icon
+                                  </label>
+                                  <Select
+                                    value={selectedIcon}
+                                    options={countries}
+                                    onChange={handleChangeIcon}
+                                    styles={{
+                                      singleValue: (base) => ({
+                                        ...base,
+                                        display: "float-left",
+                                        alignItems: "center",
+                                      }),
+                                    }}
+                                    components={{
+                                      Option,
+                                      SingleValue,
+                                    }}
+                                  />
+                                </div>
+                                <InputText
+                                  icon={null}
+                                  label={"Title"}
+                                  name={"title"}
+                                  placeholder={"Title"}
+                                  style={"mb-5"}
+                                  props={props}
+                                  extValue={markerData?.title}
+                                  tips={null}
+                                  onChange={(event) => {
+                                    event.target.value =
+                                      event.target.value.trimStart();
+                                    setTitle(event.target.value.trimStart());
+                                    dispatch(
+                                      updateTitleAction(
+                                        event.target.value.trimStart()
+                                      )
+                                    );
+                                    props.handleChange(event);
+                                  }}
+                                />
+                                <InputTextarea
+                                  icon={null}
+                                  style={""}
+                                  label={""}
+                                  name={`description`}
+                                  placeholder={t("Add Description Here")}
+                                  props={props}
+                                  tips={t("Add Description Here")}
+                                  maxLength={10000}
+                                  extValue={markerData?.description}
+                                />
+                              </>
+                            )}
+                            {activeTab === "images" && (
+                              <ImageList markerData={markerData} />
+                            )}
+                            {activeTab === "videos" && (
+                              <VideoList markerData={markerData} />
+                            )}
+                          </div>
+                          <button
+                            type="submit"
+                            onClick={() => updateLocation()}
+                            className="btn bg-purple-800 inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer text-white shadow-md mr-[10px]"
+                          >
+                            {t("Update Location")}
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </form>
                 </div>
                 <div className="clear-both" />

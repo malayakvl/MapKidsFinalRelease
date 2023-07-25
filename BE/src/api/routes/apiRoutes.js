@@ -26,6 +26,8 @@ apiRoutes.get('/countries/fetch-active', LocationController.activeItems);
 // apiRoutes.get('/markers/fetch-item/:id', CoordinatesController.fetchItem);
 // apiRoutes.get('/markers/set-main/:id', CoordinatesController.setMainMarker);
 // apiRoutes.post('/countries/add-marker', LocationController.addMarker);
+// apiRoutes.get('/countries/add-marker', LocationController.addMarker);
+
 // apiRoutes.get('/countries/update-opacity', LocationController.updateOpacity);
 // apiRoutes.post('/countries/update-opacity', LocationController.updateOpacity);
 
@@ -56,14 +58,13 @@ apiRoutes.get('/countries/fetch-items', LocationController.fetchItems);
 apiRoutes.get('/countries/unactive-item', LocationController.unactiveItem);
 apiRoutes.get('/countries/fetch-item/:id', LocationController.fetchItem);
 apiRoutes.post('/countries/update-item', LocationController.updateItem);
-apiRoutes.get('/countries/add-pointer', LocationController.addMarker);
-apiRoutes.post('/countries/add-pointer', LocationController.addMarker);
 apiRoutes.get('/countries/update-opacity', LocationController.updateOpacity);
 apiRoutes.post('/countries/update-opacity', LocationController.updateOpacity);
 apiRoutes.get('/countries/update-color', LocationController.updateColor);
 apiRoutes.post('/countries/update-color', LocationController.updateColor);
 apiRoutes.post('/countries/remove-marker', LocationController.removeMarker);
 apiRoutes.get('/countries/set-main/:id/:countryId', CoordinatesController.setMainMarker);
+apiRoutes.get('/countries/add-pointer', LocationController.addMarker);
 
 
 /** ===================================================================== */

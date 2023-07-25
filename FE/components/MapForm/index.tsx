@@ -62,7 +62,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
           const oneMarker = marker.setLngLat(coordinates).addTo(map);
           currentMarkers.push(oneMarker);
           // store marker to db
-          dispatch(addMarkerAction(coordinates, countryData.id));
+          dispatch(addMarkerAction(coordinates, countryData?.id));
         });
       });
     }
@@ -216,7 +216,10 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
       // dispatch(initMapAction(map));
       map.on("style.load", () => {
         map.flyTo({
-          center: [countryData.countryCenter[0], countryData.countryCenter[1]],
+          center: [
+            countryData?.countryCenter[0],
+            countryData?.countryCenter[1],
+          ],
           speed: 0.5,
         });
         map.addLayer(
@@ -238,7 +241,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
         map.setFilter("country-current-layer", [
           "in",
           "iso_3166_1_alpha_3",
-          countryData.iso3,
+          countryData?.iso3,
         ]);
         dispatch(initRebuildMapAction(map));
       });
@@ -253,7 +256,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
         const oneMarker = marker.setLngLat(coordinates).addTo(map);
         currentMarkers.push(oneMarker);
         // store marker to db
-        dispatch(addMarkerAction(coordinates, countryData.id));
+        dispatch(addMarkerAction(coordinates, countryData?.id));
       });
 
       // const el = document.createElement("div");
@@ -262,7 +265,7 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
           // Create a DOM element for each marker.
           const el = document.createElement("div");
           el.className = "marker";
-          el.innerHTML = `<span>${countryData.flag}</span>`;
+          el.innerHTML = `<span>${countryData?.flag}</span>`;
           el.style.width = `50px`;
           el.style.height = `75px`;
           el.style.backgroundSize = "100%";

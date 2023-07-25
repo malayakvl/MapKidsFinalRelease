@@ -15,6 +15,8 @@ import {
   updateTitleAction,
   setMainMarkerAction,
   updateIconAction,
+  clearDataMarkerAction,
+  fetchItemDataMarkerAction,
 } from "./actions";
 
 const initialState: {
@@ -60,6 +62,31 @@ const ACTION_HANDLERS: any = {
       ...state,
       loading: false,
       isFetched: true,
+    }),
+  },
+  [fetchItemDataMarkerAction]: {
+    next: (
+      state: State.Coordinates,
+      action: Type.ReduxAction<Pick<State.Coordinates, "item">>
+    ): State.Coordinates => ({
+      ...state,
+      ...action.payload,
+      loading: false,
+      isFetched: true,
+    }),
+    throw: (state: State.Coordinates): State.Coordinates => ({
+      ...state,
+      loading: false,
+      isFetched: true,
+    }),
+  },
+  [clearDataMarkerAction]: {
+    next: (
+      state: State.Coordinates,
+      action: Action<boolean>
+    ): State.Coordinates => ({
+      ...state,
+      editedItem: action.payload,
     }),
   },
   [loadMapAction]: {
@@ -200,6 +227,8 @@ export {
   updateTitleAction,
   setMainMarkerAction,
   updateIconAction,
+  clearDataMarkerAction,
+  fetchItemDataMarkerAction,
 };
 
 // ------------------------------------

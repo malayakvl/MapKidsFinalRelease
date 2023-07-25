@@ -20,10 +20,8 @@ const __dirname = path.resolve();
 const whitelist = [
     'http://localhost:3000',
     'http://localhost:4000',
-    'http://31.131.26.133:3000',
-    'http://31.131.26.133:4000',
-    'http://5.78.51.103:3000',
-    'http://5.78.51.103:4000'
+    'http://165.227.66.167:3000',
+    'http://165.227.66.167:4000'
 ];
 const corsOptions = {
     origin: function (origin, callback) {

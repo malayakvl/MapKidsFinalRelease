@@ -25,7 +25,7 @@ export const isFetchSelector = createSelector(
 );
 export const countryItemSelector = createSelector(
   rootSelector,
-  (countries: State.Countries): Countries.ItemData => countries.item
+  (countries: State.Countries): Countries.ItemData | null => countries?.item
 );
 export const mapLoadedSelector = createSelector(
   rootSelector,
@@ -69,7 +69,6 @@ export const rebuildMapSelector = createSelector(
   rootSelector,
   (countries: State.Countries): any => countries.mapRebuilded
 );
-
 // export const coordinatesSelector = createSelector(
 //   rootSelector,
 //   (coordinates: State.Coordinates): any => Coordinates.coordinates

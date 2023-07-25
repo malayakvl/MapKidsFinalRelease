@@ -6,7 +6,8 @@ declare namespace Countries {
     checkedIds: number[];
     count: number;
     items: any[];
-    item: Item;
+    item: Item | null;
+    editedItem: Item | null;
     mapLoaded: boolean;
     checkedImageIds: CheckedIds[];
     checkedVideoIds: CheckedIds[];

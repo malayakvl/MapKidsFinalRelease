@@ -16,6 +16,11 @@ export const markersDataSelector = createSelector(
   rootSelector,
   (coordinates: State.Coordinates): any => coordinates.item
 );
+export const countryItemBackSelector = createSelector(
+  rootSelector,
+  (countries: State.Countries): Countries.ItemData | null =>
+    countries?.editedItem
+);
 export const imageCheckedIdsSelector = createSelector(
   rootSelector,
   (coordinates: State.Coordinates): any[] => coordinates.imagesSelectedIds

@@ -172,8 +172,8 @@ class Location {
             //     description=$$${data.description}$$
             //     WHERE id='${markerId}'`;
             const rowsQuery = `UPDATE data.coordinates SET 
-                images='${JSON.stringify(data.newImageIds)}',
-                videos='${JSON.stringify(data.newVideoIds)}',
+                images=${data.newImageIds.length > 0 ? JSON.stringify(data.newImageIds) : null},
+                videos=${data.newVideoIds.length > 0 ? JSON.stringify(data.newVideoIds) : null},
                 icon='${data.icon ? data.icon.icon.replace(process.env.API_URL, '') : ''}'
                 WHERE id='${markerId}'`;
             await client.query(rowsQuery);

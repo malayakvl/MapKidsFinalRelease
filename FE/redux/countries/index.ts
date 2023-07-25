@@ -19,6 +19,7 @@ import {
   mapRebuildedAction,
   initRebuildMapAction,
   setMainMarkerAction,
+  clearItemAaction,
 } from "./actions";
 
 const initialState: {
@@ -28,6 +29,8 @@ const initialState: {
   count: number;
   loading: boolean;
   items: any[];
+  item: any;
+  editedItem: any;
   images: any[];
   videos: any[];
   uploadDone: any;
@@ -45,6 +48,8 @@ const initialState: {
   markersUpdated: any;
 } = {
   items: [],
+  item: null,
+  editedItem: null,
   loading: false,
   mapLoaded: false,
   isFetched: false,
@@ -115,6 +120,15 @@ const ACTION_HANDLERS: any = {
     ): State.Countries => ({
       ...state,
       mapLoaded: action.payload,
+    }),
+  },
+  [clearItemAaction]: {
+    next: (
+      state: State.Countries,
+      action: Action<boolean>
+    ): State.Countries => ({
+      ...state,
+      editedItem: null,
     }),
   },
   [initImageIdsAction]: (
@@ -256,6 +270,7 @@ export {
   mapRebuildedAction,
   initRebuildMapAction,
   setMainMarkerAction,
+  clearItemAaction,
 };
 
 // ------------------------------------
