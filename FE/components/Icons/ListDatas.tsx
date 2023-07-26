@@ -112,7 +112,7 @@ const ListDatas: React.FC<any> = () => {
                           : `${baseApiUrl}/uploads/photos/${item.name}`
                       }
                       alt=""
-                      className="block rounded-lg object-contain object-center pt-[70px]"
+                      className="block rounded-lg object-contain object-center pt-[70px] max-w-[75px]"
                     />
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                   </div>

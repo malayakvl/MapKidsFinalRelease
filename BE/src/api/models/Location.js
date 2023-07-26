@@ -172,10 +172,11 @@ class Location {
             //     description=$$${data.description}$$
             //     WHERE id='${markerId}'`;
             const rowsQuery = `UPDATE data.coordinates SET 
-                images=${data.newImageIds.length > 0 ? JSON.stringify(data.newImageIds) : null},
-                videos=${data.newVideoIds.length > 0 ? JSON.stringify(data.newVideoIds) : null},
+                images=${data.newImageIds.length > 0 ? "'"+JSON.stringify(data.newImageIds)+"'" : null},
+                videos=${data.newVideoIds.length > 0 ? "'"+JSON.stringify(data.newVideoIds)+"'" : null},
                 icon='${data.icon ? data.icon.icon.replace(process.env.API_URL, '') : ''}'
                 WHERE id='${markerId}'`;
+            console.log(rowsQuery);
             await client.query(rowsQuery);
             if (data.title) {
                 const rowsQueryTitle = `UPDATE data.coordinates SET
