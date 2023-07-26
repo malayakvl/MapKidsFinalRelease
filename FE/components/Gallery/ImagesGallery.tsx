@@ -165,6 +165,10 @@ function ImagesGallery() {
               {/*<div className="new-frame-bg" />*/}
 
               <img src={bigImg} alt="" className="gray-border-frame" />
+              <div className="clearfix" />
+              <div className="image-title mx-auto w-full">
+                <em>{markerData.imageGallery[imgIndex].title}</em>
+              </div>
             </div>
             <div className="top-frame hidden" />
           </div>
@@ -246,9 +250,6 @@ function ImagesGallery() {
                       backgroundImage: `url(${baseApiUrl}/uploads/photos/${item.name})`,
                     }}
                   ></div>
-                </div>
-                <div className="image-title">
-                  <em>{item.title}</em>
                 </div>
                 {/*<img*/}
                 {/*  src={`${baseApiUrl}/uploads/photos/${item.name}`}*/}
