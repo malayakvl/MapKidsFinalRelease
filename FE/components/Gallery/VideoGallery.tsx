@@ -13,8 +13,6 @@ function VideoGallery() {
   const dispatch = useDispatch();
   const videoIndex = useSelector(videoIndexSelector);
 
-  console.log("VIDEO INDEX", videoIndex);
-
   useEffect(() => {
     if (markerData.id) {
       setBigVideo(markerData.videosGallery[videoIndex]);

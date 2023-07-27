@@ -5,7 +5,9 @@ import { baseApiUrl } from "../../constants";
 import {
   initFrameTypeAction,
   setFrameTypeAction,
+  setImgIndexAction,
   setMarkerIdAction,
+  setVideoIndexAction,
   showImageGalleryAction,
   showPhoneAction,
   showVideoGalleryAction,
@@ -64,6 +66,7 @@ function Phone() {
             <div
               className="photo-frame cursor-pointer"
               onClick={() => {
+                dispatch(setImgIndexAction(0));
                 dispatch(showImageGalleryAction(true));
               }}
             >
@@ -85,8 +88,11 @@ function Phone() {
               <div className="clearfix" />
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
               <span
-                className="view-gallery cursor-pointer"
-                onClick={() => showImageGalleryAction(true)}
+                className={`view-gallery cursor-pointer`}
+                onClick={() => {
+                  dispatch(setVideoIndexAction(0));
+                  showImageGalleryAction(true);
+                }}
               >
                 View Gallery
               </span>
@@ -103,7 +109,9 @@ function Phone() {
           <div className="clearfix" />
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
           <div
-            className="play-video cursor-pointer"
+            className={`play-video cursor-pointer ${
+              coordinatesInfo.videos.length > 0 ? "" : "hide"
+            }`}
             onClick={() => dispatch(showVideoGalleryAction(true))}
           ></div>
           <div className="video-frame hidden">

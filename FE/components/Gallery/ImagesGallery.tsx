@@ -165,10 +165,14 @@ function ImagesGallery() {
               {/*<div className="new-frame-bg" />*/}
 
               <img src={bigImg} alt="" className="gray-border-frame" />
-              <div className="clearfix" />
-              <div className="image-title mx-auto w-full">
-                <em>{markerData.imageGallery[imgIndex].title}</em>
-              </div>
+              {markerData.imageGallery[imgIndex].title && (
+                <>
+                  <div className="clearfix" />
+                  <div className="image-title mx-auto w-full">
+                    <em>{markerData.imageGallery[imgIndex].title}</em>
+                  </div>
+                </>
+              )}
             </div>
             <div className="top-frame hidden" />
           </div>
