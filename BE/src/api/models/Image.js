@@ -156,7 +156,8 @@ class Image {
         const client = await pool.connect();
         try {
             const title = data.title
-            const rowsQuery = `UPDATE data.images SET title='${title}' WHERE id='${data.imageId}';`;
+            const rowsQuery = `UPDATE data.images SET title = $$${title}$$ WHERE id='${data.imageId}';`;
+            console.log(rowsQuery);
             await client.query(rowsQuery);
             return { success: true,  };
         } catch (e) {

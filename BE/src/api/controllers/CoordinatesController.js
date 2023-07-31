@@ -33,6 +33,7 @@ class CoordinatesController {
 
     async fetchItem (req, res) {
         const data = await coordinatesModel.fetchOne(req.params.id);
+        console.log(data.item);
         if (data.item?.videos) {
             // selecting random video
             const videoData = await videoModel.findById(data.item.videos[0]);
@@ -51,10 +52,12 @@ class CoordinatesController {
                 const { height, width } = sizeOf(`${process.env.FS_UPLOAD_FOLDER}/photos/${image.name}`);
                 imagesGallery[key].imgWidth = width;
                 imagesGallery[key].imgHeight = height;
-                if (data.item.main_image_id === image.id) {
-                    data.item.mainImage = image.name
+                if (parseInt(data.item.main_image_id) === image.id) {
+                    console.log("here we are");
+                    data.item.mainImage = image.name;
                 }
             })
+            console.log(data.item.mainImage);
             if (!data.item.mainImage) {
                 data.item.mainImage = imagesGallery[0].name
             }
