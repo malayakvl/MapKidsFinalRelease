@@ -207,7 +207,6 @@ class Icon {
 
     async deletePhoto (photoId, userId, photo) {
         const SQL = `SELECT * FROM data.icons WHERE id=${photoId}`;
-        console.log(SQL);
         const client = await pool.connect();
         try {
             const res = await client.query(SQL);

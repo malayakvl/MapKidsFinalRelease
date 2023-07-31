@@ -45,6 +45,7 @@ declare namespace Countries {
     fill_opacity: any;
     countryCenter: any;
     markers: any;
+    default_marker: any;
   }
 
   interface ItemData {
@@ -64,6 +65,8 @@ declare namespace Countries {
     fill_color: any;
     fill_opacity: any;
     markers: any;
+    main_id: number | null;
+    default_marker: number | null;
   }
 
   interface CheckedIds {

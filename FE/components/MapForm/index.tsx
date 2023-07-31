@@ -20,11 +20,18 @@ import {
   mapRebuildedAction,
   initRebuildMapAction,
 } from "../../redux/countries";
+import { dragMarkerAction } from "../../redux/coordinates/actions";
 // import { markersSelector } from "../../redux/coordinates/selectors";
 // import coordinates from "../../redux/coordinates";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFsYXlha3ZsIiwiYSI6ImNsY3Jxb3FhdzBiY3Qzd3BjMDRzYjVvZmEifQ.asLancy_a5ZTUNZHVRCSaA";
+
+function onDragEnd() {
+  // const lngLat = marker.getLngLat();
+  // coordinates.style.display = 'block';
+  // coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+}
 const MapForm = ({ isLoad }: { isLoad: boolean }) => {
   const mapContainer = useRef<any>(null);
   const isFetched = useSelector(isFetchSelector);
@@ -67,50 +74,6 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
       });
     }
   }, [isFetched, mapContainer.current]);
-
-  // useEffect(() => {
-  //   if (reloadMap) {
-  //     console.log("COORDINATES UPDATED", updatedMarkers.length);
-  //     if (document.getElementById("map-container-form")) {
-  //       // @ts-ignore
-  //       document.getElementById("map-container-form").innerHTML = "";
-  //     }
-  //     dispatch(loadMapAction(true));
-  //     const map = new mapboxgl.Map({
-  //       container: "map-container-form",
-  //       style: "mapbox://styles/mapbox/streets-v11",
-  //       center: [110.20101884845053, 36.001941656383096],
-  //       zoom: 2,
-  //     });
-  //     dispatch(initMapAction(map));
-  //     // dispatch(fetchItemsMarkersAction());
-  //     map.on("style.load", () => {
-  //       map.on("click", function (e) {
-  //         const coordinates = e.lngLat;
-  //         const marker = new mapboxgl.Marker();
-  //         const oneMarker = marker.setLngLat(coordinates).addTo(map);
-  //         currentMarkers.push(oneMarker);
-  //         // store marker to db
-  //         dispatch(addMarkerAction(coordinates, countryData.id));
-  //       });
-  //       if (updatedMarkers.length > 0) {
-  //         for (const marker of updatedMarkers) {
-  //           // Create a DOM element for each marker.
-  //           console.log("parsing markers", marker);
-  //           const el = document.createElement("div");
-  //           el.className = "marker";
-  //           el.innerHTML = `<span>${countryData.flag}</span>`;
-  //           el.style.width = `50px`;
-  //           el.style.height = `75px`;
-  //           el.style.backgroundSize = "100%";
-  //           const geometry: [number, number] = [marker.lng, marker.lat];
-  //           // @ts-ignore
-  //           new mapboxgl.Marker().setLngLat(geometry).addTo(mapCountry);
-  //         }
-  //       }
-  //     });
-  //   }
-  // }, [reloadMap]);
 
   useEffect(() => {
     if (layerColor && mapCountry) {
@@ -193,9 +156,17 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
             el.style.backgroundSize = "100%";
             const geometry: [number, number] = [marker.lng, marker.lat];
             // @ts-ignore
-            const oneMarker = new mapboxgl.Marker()
+            const oneMarker = new mapboxgl.Marker({
+              draggable: true,
+            })
               .setLngLat(geometry)
               .addTo(mapCountry);
+            // oneMarker.on("dr")
+            oneMarker.on("dragend", () => {
+              console.log("Marker ID", marker.id);
+              console.log("Marker Coord", oneMarker.getLngLat());
+              dispatch(dragMarkerAction(marker.id, oneMarker.getLngLat()));
+            });
             currentMarkers.push(oneMarker);
           }
         }
@@ -271,9 +242,13 @@ const MapForm = ({ isLoad }: { isLoad: boolean }) => {
           el.style.backgroundSize = "100%";
           const geometry: [number, number] = [marker.lng, marker.lat];
           // @ts-ignore
-          const oneMarker = new mapboxgl.Marker()
+          const oneMarker = new mapboxgl.Marker({
+            draggable: true,
+          })
             .setLngLat(geometry)
             .addTo(map);
+
+          marker.on("dragend", onDragEnd);
           // currentMarkers.push(oneMarker);
         }
       }

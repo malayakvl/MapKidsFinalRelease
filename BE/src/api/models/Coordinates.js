@@ -115,10 +115,6 @@ class Coordinates {
             const rowsQueryMarkers = `SELECT * FROM data.coordinates WHERE country=${countryId};`;
             const items = await client.query(rowsQueryMarkers);
             return { markers: items.rows };
-            // return {
-            //     item,
-            //     error
-            // };
         } catch (e) {
             if (process.env.NODE_ENV === 'development') {
                 logger.log(
@@ -141,5 +137,40 @@ class Coordinates {
             client.release();
         }
     }
+
+
+    async updateMarkerCoordinates(id, lat, lng) {
+        const client = await pool.connect();
+        try {
+            const rowsQuery = `UPDATE data.coordinates SET lat='${lat}', lng='${lng}' WHERE id='${id}';`;
+            await client.query(rowsQuery);
+            // const resQueryUpd = `UPDATE data.coordinates SET is_main=true WHERE id='${id}'`;
+            // await client.query(resQueryUpd);
+            // const rowsQueryMarkers = `SELECT * FROM data.coordinates WHERE country=${countryId};`;
+            // const items = await client.query(rowsQueryMarkers);
+            return { success: true };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Article getAll):',
+                    { message: e.message }
+                );
+            }
+            const items = null;
+            const error = {
+                code: 500,
+                message: 'Error get list of articles',
+                error: e.message
+            };
+            return {
+                items,
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+
 }
 export default new Coordinates();

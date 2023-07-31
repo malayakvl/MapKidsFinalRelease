@@ -17,6 +17,7 @@ import {
   updateIconAction,
   clearDataMarkerAction,
   fetchItemDataMarkerAction,
+  titleImageIdAction,
 } from "./actions";
 
 const initialState: {
@@ -26,6 +27,7 @@ const initialState: {
   checkedVideoIds: number[];
   title: string;
   description: string;
+  titleImageId: number | null;
 } = {
   items: [],
   item: null,
@@ -33,6 +35,7 @@ const initialState: {
   checkedVideoIds: [],
   title: "",
   description: "",
+  titleImageId: null,
 };
 
 const ACTION_HANDLERS: any = {
@@ -196,6 +199,15 @@ const ACTION_HANDLERS: any = {
       icon: action.payload,
     }),
   },
+  [titleImageIdAction]: {
+    next: (
+      state: State.Coordinates,
+      action: Action<number | null>
+    ): State.Countries => ({
+      ...state,
+      titleImageId: action.payload,
+    }),
+  },
 
   // [fetchMarkersAction]: {
   //   next: (
@@ -229,6 +241,7 @@ export {
   updateIconAction,
   clearDataMarkerAction,
   fetchItemDataMarkerAction,
+  titleImageIdAction,
 };
 
 // ------------------------------------

@@ -11,10 +11,16 @@
     font-family: 'Inter', serif;
     top: 20px;
     right:100px;
+    //opacity: 0;
+    //transition: all 2s;
     //border: 6.96965px solid #009EE6;
     //border-radius: 56px;
     position: absolute;
+    //display: none;
     //right: 20px;
+}
+.phone-map-block-showed {
+  opacity: 1
 }
 
 .video-frame {
@@ -33,7 +39,8 @@
   position: absolute;
   //top:-15px;
   //right: 5px;
-  top: 109px;
+  //top: 109px;
+  top: 110px;
   right: 45px;
 }
 
@@ -48,7 +55,7 @@
 }
 
 .phone-descr {
-  margin-top: 315px;
+  margin-top: 340px;
   width: 393px;
   margin-left: 27px;
   height: 375px;
@@ -77,7 +84,7 @@
   }
 }
 .photo-content {
-  width: 350px;
+  width: 342px;
 }
 
 .phone-head-green {
@@ -86,9 +93,11 @@
   width: 558px;
   height: 163px;
   position: absolute;
-  top: 17px;
+  //top: 17px;
+  top: 7px;
   left: -51px;
   z-index: 52;
+  //display: none;
 
   span {
     color: #FFFF;
@@ -105,7 +114,15 @@
   width: 350px;
   background: #fff;
   margin: 55px;
+  transition: opacity 2s;
+  opacity: 0;
+
+  //transition: all 8s;
+  //opacity: 0;
   //border: solid 1px red;
+}
+.phone-content-displayed {
+  opacity: 1
 }
 
 .title-head {
@@ -135,6 +152,111 @@
   top: -12px;
 }
 
+.phone-frame {
+  top: -8px;
+  left: -3px;
+}
+
+.new-gotic {
+  position: relative;
+  height: 245px;
+  border:solid 1px transparent;
+
+  //=================================================
+  //================IMAGE FRAME STYLES
+  //=================================================
+  .gotic-frame-gallery-top {
+    background: url(../../public/images/gallery/Top.svg);
+    position: absolute;
+    //top: 0px;
+    //left:0px;
+    top: -6px;
+    left: -6px;
+    height: 11px;
+    width: 342px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .gotic-frame-gallery-bottom {
+    background: url(../../public/images/gallery/Buttom.svg);
+    position: absolute;
+    //top: 0px;
+    //left:0px;
+    bottom: -3px;
+    left: -6px;
+    //width: 193px;
+    height: 11px;
+    width: 342px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .gotic-frame-gallery-left {
+    background: url(../../public/images/gallery/small/Left_small.svg);
+    //background-size: contain;
+    position: absolute;
+    top: -1px;
+    left: -6px;
+    width: 10px;
+    //height: 119px;
+    height: 239px;
+  }
+  .gotic-frame-gallery-right {
+    background: url(../../public/images/gallery/Right.svg);
+    //background-size: contain;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    width: 10px;
+    height: 239px;
+  }
+
+  .img-content {
+    width: 330px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:239px;
+  }
+
+}
+
+.main-phone-image {
+  //width: 346px;
+  //height: 224px;
+  width: 337px;
+  height: 228px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.div-img {
+  height: 200px;
+  background: green;
+
+}
+
+.div-img:after {
+  content: '';
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  border-top: 30px solid transparent;
+  border-right: 30px solid green;
+}
+
+.div-img:before {
+  content: '';
+
+  position: absolute;
+  right: 0;
+  top: 170px;
+
+  border-bottom: 30px solid white;
+  border-left: 30px solid green;
+}
+
+
 .play-video {
   width: 156px;
   height: 58px;
@@ -142,4 +264,36 @@
   background-repeat: no-repeat;
   margin-left: 115px;
   margin-top: 25px;
+}
+
+
+#octagon {
+  width: 100px;
+  height: 100px;
+  background: red;
+  position: relative;
+}
+
+#octagon:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom: 29px solid red;
+  border-left: 29px solid #eee;
+  border-right: 29px solid #eee;
+  width: 42px;
+  height: 0;
+}
+
+#octagon:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: 29px solid red;
+  border-left: 29px solid #eee;
+  border-right: 29px solid #eee;
+  width: 42px;
+  height: 0;
 }

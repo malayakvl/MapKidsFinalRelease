@@ -22,6 +22,7 @@ declare namespace Countries {
     videosSelectedIds: any[];
     title: any;
     description: any;
+    titleImageId: number | null;
   }
 
   interface Item {
@@ -29,9 +30,12 @@ declare namespace Countries {
     lat: any;
     lng: any;
     description: any;
+    main_id: number | null;
     title: any;
     images: any;
     videos: any;
+    mainImage: any;
+    main_image_id: any;
   }
 
   interface ItemData {

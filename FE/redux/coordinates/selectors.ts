@@ -18,8 +18,7 @@ export const markersDataSelector = createSelector(
 );
 export const countryItemBackSelector = createSelector(
   rootSelector,
-  (countries: State.Countries): Countries.ItemData | null =>
-    countries?.editedItem
+  (countries: State.Countries): any => countries?.editedItem
 );
 export const imageCheckedIdsSelector = createSelector(
   rootSelector,
@@ -33,7 +32,7 @@ export const markerTitleSelector = createSelector(
   rootSelector,
   (coordinates: State.Coordinates): any[] => coordinates.title
 );
-export const checkedVideoIdsSelector = createSelector(
+export const mainTitleIdSelector = createSelector(
   rootSelector,
-  (coordinates: State.Coordinates): any[] => coordinates.item.videos
+  (coordinates: State.Coordinates): number | null => coordinates.titleImageId
 );

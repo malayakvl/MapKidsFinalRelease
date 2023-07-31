@@ -415,7 +415,6 @@ class User {
             // const paymentIntentResult = await stripe.paymentIntents.retrieve(
             //     paymentIntent
             // );
-            console.log('TYPE', type);
 
             // console.log('[User.checkPayment] STRIPE PAYMENT INTENT', paymentIntentResult);
             if (paymentIntentResult.client_secret === paymentIntentSecret) {
@@ -1069,14 +1068,12 @@ class User {
      * @returns {{salt: string, hash: string}}
      */
     setPassword(password) {
-        console.log('getting salt');
         try {
             const salt = crypto.randomBytes(16).toString('hex');
         } catch (e) {
             console.log(e)
         }
         const salt = crypto.randomBytes(16).toString('hex');
-        console.log(salt);
         const hash = crypto.pbkdf2Sync(password, salt, 10000, 256, 'sha256').toString('hex');
         return {
             salt,

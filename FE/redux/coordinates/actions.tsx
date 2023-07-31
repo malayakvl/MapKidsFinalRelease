@@ -110,7 +110,34 @@ export const setMainMarkerAction: any = createAction(
         {
           headers: {
             ...authHeader(state.user.user.email),
-        },
+          },
+        }
+      );
+      if (res.status) {
+        dispatch(showLoaderAction(false));
+      }
+      return {
+        item: res.data.item,
+      };
+    }
+);
+export const dragMarkerAction: any = createAction(
+  "markers/DRAG_MARKER",
+  async (id: number, coordinates: any) =>
+    async (
+      dispatch: Type.Dispatch,
+      getState: () => State.Root
+    ): Promise<{ item: any }> => {
+      const state = getState();
+      const countryData = state.countries.item;
+      dispatch(showLoaderAction(true));
+      const res = await axios.post(
+        `${baseUrl}/marker/update-coordinates`,
+        { lat: coordinates.lat, lng: coordinates.lng, markerId: id },
+        {
+          headers: {
+            ...authHeader(state.user.user.email),
+          },
         }
       );
       if (res.status) {
@@ -168,6 +195,9 @@ export const updateVideoIdsAction: any = createAction(
 );
 export const updateTitleAction: any = createAction("coordintate/UPDATE_TITLE");
 export const updateIconAction: any = createAction("coordintate/UPDATE_ICON");
+export const titleImageIdAction: any = createAction(
+  "coordintate/SET_TITLE_IMAGE"
+);
 export const clearDataMarkerAction: any = createAction(
   "coordintate/CLEAR_DATA_MARKER"
 );

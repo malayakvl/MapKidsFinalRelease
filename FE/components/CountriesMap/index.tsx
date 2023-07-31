@@ -2,8 +2,12 @@ import React, { useEffect } from "react";
 // import { markersDataSelector } from "../../redux/coordinates/selectors";
 import { useSelector, useDispatch } from "react-redux";
 // import { baseApiUrl } from "../../constants";
-import { setFrontSelectedCountryAction } from "../../redux/layouts";
+import {
+  setFrontSelectedCountryAction,
+  showPhoneAction,
+} from "../../redux/layouts";
 import { activeCountriesSelector } from "../../redux/countries/selectors";
+import { fetchItemMarkerAction } from "../../redux/coordinates";
 // import {fetchItemsMarkersAction} from "../../redux/coordinates";
 
 function CountriesMap() {
@@ -29,6 +33,7 @@ function CountriesMap() {
   //     </>
   //   );
   // };
+  console.log(countries);
 
   return (
     <div className="country-list-map">
@@ -43,7 +48,15 @@ function CountriesMap() {
                 <li
                   key={idx}
                   className="text-black cursor-pointer"
-                  onClick={() => dispatch(setFrontSelectedCountryAction(value))}
+                  onClick={() => {
+                    dispatch(setFrontSelectedCountryAction(value));
+                    // dispatch(fetchItemMarkerAction(value.default_marker))
+                    setTimeout(
+                      () =>
+                        dispatch(fetchItemMarkerAction(value.default_marker)),
+                      2500
+                    );
+                  }}
                 >
                   {value.name}
                 </li>

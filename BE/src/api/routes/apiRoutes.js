@@ -103,6 +103,7 @@ apiRoutes.get('/videos/fetch-all-items', VideoController.fetchAllItems);
 apiRoutes.post('/countries/add-marker', LocationController.addMarker);
 apiRoutes.get('/countries/add-marker', LocationController.addMarker);
 apiRoutes.get('/markers/set-main/:id', CoordinatesController.setMainMarker);
+apiRoutes.post('/marker/update-coordinates', CoordinatesController.updateMarker);
 apiRoutes.post('/countries/add-marker', LocationController.addMarker);
 
 apiRoutes.route('/profile')

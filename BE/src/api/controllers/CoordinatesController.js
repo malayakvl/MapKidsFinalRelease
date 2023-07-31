@@ -51,10 +51,16 @@ class CoordinatesController {
                 const { height, width } = sizeOf(`${process.env.FS_UPLOAD_FOLDER}/photos/${image.name}`);
                 imagesGallery[key].imgWidth = width;
                 imagesGallery[key].imgHeight = height;
+                if (data.item.main_image_id === image.id) {
+                    data.item.mainImage = image.name
+                }
             })
+            if (!data.item.mainImage) {
+                data.item.mainImage = imagesGallery[0].name
+            }
             data.item.imageGallery = imagesGallery;
-            const videosGallery = await videoModel.getGallery(data.item.videos);
-            data.item.videosGallery = videosGallery;
+            // const videosGallery = await videoModel.getGallery(data.item.videos);
+            data.item.videosGallery = await videoModel.getGallery(data.item.videos);;
         }
         // getting gallery info
         if (!data.item.images) {
@@ -74,6 +80,16 @@ class CoordinatesController {
             const { id, countryId } = req.params;
             const data = await coordinatesModel.setMain(id, countryId);
             return res.status(200).json({ success: true, markers: data.markers });
+        }
+    }
+
+
+    async updateMarker(req, res) {
+        if (!req.user) {
+            return res.status(401).json('Access deny');
+        } else {
+            await coordinatesModel.updateMarkerCoordinates(req.body.markerId, req.body.lat, req.body.lng);
+            return res.status(200).json({ success: true });
         }
     }
 

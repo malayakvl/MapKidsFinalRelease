@@ -146,6 +146,7 @@ class LocationController {
         const newVideoIds = JSON.parse(req.body.data.newVideos);
         const locationId = req.body.data.locationId;
         const iconData = req.body.data.icon;
+        const titleImageId = req.body.data.titleImageId;
         const imageIds = [];
         if (parsedDataImages.length) {
             parsedDataImages.forEach(data => {
@@ -162,7 +163,7 @@ class LocationController {
                 }
             })
         }
-        // console.log("SELECTED IMAGES", newImageIds);
+        // console.log("TITLE IMAGE ID", titleImageId);
         // console.log("SELECTED VIDEOS", newVideoIds);
         // console.log("TITLE VALUE", req.body.data.title);
         // console.log("DESCRIPTION VALUE", req.body.data.description);
@@ -180,6 +181,9 @@ class LocationController {
         }
         await locationModel.updateRecord(updatedData, dataCountry.countryData.id, locationId);
         const markersRes = await coordinatesModel.getCountryMarkers(dataCountry.countryData.id);
+        if (titleImageId) {
+            await locationModel.updateMain(dataCountry.countryData.id, locationId, titleImageId);
+        }
 
         if (!req.user) {
             return res.status(401).json('Access deny');
@@ -188,6 +192,8 @@ class LocationController {
             return res.status(200).json({ markersList: markersRes.markers, success: true});
         }
     }
+
+
 }
 
 export default new LocationController();

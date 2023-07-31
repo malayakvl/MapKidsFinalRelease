@@ -68,7 +68,7 @@ const Map = () => {
           selectedCountry.countryCenter[0],
           selectedCountry.countryCenter[1],
         ],
-        speed: 0.5,
+        speed: 0.3,
         zoom: 5,
       });
     }
@@ -154,7 +154,10 @@ const Map = () => {
     <main className="main-layout">
       <div className="big-logo" />
       <div className="map-container" id="map-container" ref={mapContainer} />
-      {showPhone && <Phone />}
+      {/*<div className="phone-container">*/}
+      {/*  {showPhone && <Phone showBlock={showPhone} />}*/}
+      {/*</div>*/}
+      {<Phone showBlock={showPhone} />}
     </main>
   );
 };

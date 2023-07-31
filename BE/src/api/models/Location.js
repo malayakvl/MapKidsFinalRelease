@@ -55,7 +55,12 @@ class Location {
             // } else {
             //     offset = (Number(page) - 1) * Number(perPage);
             // }
-            const rowsQuery = `SELECT * FROM data.countries WHERE active=true ORDER BY name;`;
+            // const rowsQuery = `SELECT * FROM data.countries WHERE active=true ORDER BY name;`;
+            const rowsQuery = `SELECT data.countries.*, data.coordinates.id as default_marker
+                            FROM data.countries
+                            LEFT JOIN data.coordinates ON data.coordinates.country = data.countries.id 
+                                    AND data.coordinates.is_main = true
+                            WHERE active=true ORDER BY name;`;
             const res = await client.query(rowsQuery);
             const items = res.rows.length > 0 ? res.rows : [];
             const error = null;
@@ -176,7 +181,7 @@ class Location {
                 videos=${data.newVideoIds.length > 0 ? "'"+JSON.stringify(data.newVideoIds)+"'" : null},
                 icon='${data.icon ? data.icon.icon.replace(process.env.API_URL, '') : ''}'
                 WHERE id='${markerId}'`;
-            console.log(rowsQuery);
+            // console.log(rowsQuery);
             await client.query(rowsQuery);
             if (data.title) {
                 const rowsQueryTitle = `UPDATE data.coordinates SET
@@ -220,6 +225,42 @@ class Location {
             client.release();
         }
     }
+
+    async updateMain (countryId, locationId, imageId) {
+        const client = await pool.connect();
+        try {
+            // console.log(`UPDATE data.coordinates SET main_image_id='NULL' WHERE country=${countryId}`);
+            // console.log(`UPDATE data.coordinates SET main_id=${imageId} WHERE id=${locationId}`);
+            await client.query(`UPDATE data.coordinates SET main_image_id='' WHERE country=${countryId}`);
+            await client.query(`UPDATE data.coordinates SET main_image_id=${imageId} WHERE id=${locationId}`);
+
+            const error = null;
+            return {
+                error
+            };
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                logger.log(
+                    'error',
+                    'Model error (Update Main Image For Marker):',
+                    { message: e.message }
+                );
+            }
+            const error = {
+                code: 500,
+                message: 'Error main image marker',
+                error: e.message
+            };
+            return {
+                error
+            };
+        } finally {
+            client.release();
+        }
+    }
+
+
+
     async removeMarker(id, countryId) {
         const client = await pool.connect();
         try {
