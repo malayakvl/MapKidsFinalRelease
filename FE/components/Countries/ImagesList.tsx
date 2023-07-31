@@ -18,7 +18,9 @@ const ImageList: React.FC<any> = ({ markerData }: { markerData: any }) => {
   const [checkedIds, setCheckedIds] = useState(
     markerData.images ? markerData.images : []
   );
-  const [titleImageId, setTitleImageId] = useState(markerData.titleImageId);
+  const [titleImageId, setTitleImageId] = useState(
+    parseInt(markerData.main_image_id)
+  );
   const countrySelectorData = useSelector(countryItemSelector);
 
   useEffect(() => {
@@ -121,7 +123,7 @@ const ImageList: React.FC<any> = ({ markerData }: { markerData: any }) => {
                         name="main_image"
                         id={`main_${item.id}`}
                         value={item.id}
-                        checked={item.id === parseInt(markerData.main_image_id)}
+                        checked={item.id === titleImageId}
                         onClick={(e) => {
                           dispatch(checkImageIdsAction(item.id));
                           setTitleImageId(item.id);

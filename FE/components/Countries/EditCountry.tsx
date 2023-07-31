@@ -44,7 +44,6 @@ import {
 } from "../../redux/coordinates";
 import {
   imageCheckedIdsSelector,
-  markersDataSelector,
   markersSelector,
   videoCheckedIdsSelector,
   countryItemBackSelector,
@@ -57,7 +56,6 @@ import {
 } from "../../redux/countries/actions";
 import { dropdownIconItemsSelector } from "../../redux/icons/selectors";
 import { fetchDropdownItemsAction } from "../../redux/icons";
-// import { fetchItemDataMarkerAction } from "../../redux/coordinates/actions";
 
 function CountryForm({ countryData }: { countryData: any }) {
   const t = useTranslations();
